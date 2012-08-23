@@ -1,0 +1,46 @@
+package com.qaitdevlabs.qualityassessor.security.customsecurityfilter;
+
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+
+/**
+ * 
+ * @author anujchhabra
+ * 
+ */
+public class FilterInvocationSecurityMetadataSourcePostProcessor implements
+		BeanPostProcessor {
+	private FilterInvocationSecurityMetadataSource securityMetadataSource;
+
+	/**
+	 * @see org.springframework.beans.factory.config.BeanPostProcessor#
+	 *      postProcessAfterInitialization(java.lang.Object, java.lang.String)
+	 */
+	public Object postProcessAfterInitialization(Object bean, String name) {
+		if (bean instanceof FilterSecurityInterceptor) {
+			((FilterSecurityInterceptor) bean)
+					.setSecurityMetadataSource(securityMetadataSource);
+		}
+		return bean;
+	}
+
+	/**
+	 * @see org.springframework.beans.factory.config.BeanPostProcessor#
+	 *      postProcessBeforeInitialization(java.lang.Object, java.lang.String)
+	 */
+	public Object postProcessBeforeInitialization(Object bean, String name) {
+		return bean;
+	}
+
+	/**
+	 * Setter method for injecting dependency of securityMetadataSource
+	 * 
+	 * @param securityMetadataSource
+	 */
+	public void setSecurityMetadataSource(
+			FilterInvocationSecurityMetadataSource securityMetadataSource) {
+		this.securityMetadataSource = securityMetadataSource;
+	}
+
+}

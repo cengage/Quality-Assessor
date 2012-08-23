@@ -1,0 +1,275 @@
+function getURLParameter(name) {
+	return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [
+			, null ])[1]);
+}
+
+var key;
+var parentKey;
+var remainingWeightageForNewDomain;
+$(function() {
+	key = getURLParameter("key");
+	if (key == "null") {
+		$('#editWeightageDiv').hide();
+		$('#backButtonId').hide();
+		$('#newWeightageDiv').hide();
+		showAddDomainView();
+		parentKey = "null";
+	} else {
+		parentKey = getURLParameter("parentKey");
+		var title = getURLParameter("title");
+		var weightage;
+		$('#editTitleId').val(title);
+		if (parentKey == 'null') {
+			$('#editWeightageDiv').hide();
+		} else {
+			weightage = getURLParameter("weightage");
+			$('#editWeightageId').val(weightage);
+		}
+		$('#selectedDomainInfo').html(
+				"<strong>Selected Domain : " + title + "</strong>");
+	}
+});
+
+function getRemainingWeightage() {
+	var url = 'remainingWeightage?domainKey=' + key;
+	$.ajax({
+		type : 'GET',
+		url : url,
+		success : function(data) {
+			$('#remainingWeightageId').text(
+					"(Remaining Weightage : " + data + ")");
+			remainingWeightageForNewDomain = data;
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			// showErrorMessage(jqXHR.responseText, "450", "300");
+		},
+		dataType : 'text'
+	});
+
+}
+
+function showDomainSettings() {
+	$('#main').show();
+	$('#addDomain').hide();
+	$('#editDomain').hide();
+}
+
+function showAddDomainView() {
+	if ((key != "null") || (parentKey != null)) {
+		getRemainingWeightage();
+	}
+	$('#addDomain').show();
+	$('#main').hide();
+	$('#editDomain').hide();
+	$('.wikiLinkUpdate').attr("href", "");
+	$('.wikiLinkUpdate').html("");
+}
+
+function showUpdateDomainView() {
+	$('#editDomain').show();
+	$('#main').hide();
+	$('#addDomain').hide();
+	var title = $('#editTitleId').val();
+	title = title.trim();
+	title = title.replace(" ", "_");
+	var wikiLink = "http://en.wikipedia.org/wiki/" + title;
+	$('.wikiLinkUpdate').attr("href", wikiLink);
+	$('.wikiLinkUpdate').html(wikiLink);
+}
+
+function validateTitleField(title) {
+	var res = {
+		success : true,
+		errorMsg : ""
+	};
+	if (title == "") {
+		res.errorMsg = "Article name can't be blank";
+		res.success = false;
+	}
+	return res;
+}
+
+function validateWeightageField(weightage, weightageLimit) {
+	var res = {
+		success : true,
+		errorMsg : ""
+	};
+	if (weightage == "") {
+		res.errorMsg = "Weightage can't be blank";
+		res.success = false;
+	} else {
+		var value = weightage.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		var intRegex = /^\d+$/;
+		if (!intRegex.test(value)) {
+			res.errorMsg = "Weightage must be numeric";
+			res.success = false;
+			return res;
+		}
+	}
+	if (parseInt(weightage) > parseInt(weightageLimit)) {
+		res.errorMsg = "Weightage can't be more than remaining weightage";
+		res.success = false;
+	}
+	return res;
+}
+
+function showErrorMessage(errorId, errorMsg) {
+	$('#' + errorId).html("<font color='red'>" + errorMsg + "</font>");
+}
+
+function showSuccessMessage(elmId, msg) {
+	$('#' + elmId).html("<font color='green'>" + msg + "</font>");
+}
+
+function hideMessage(errorId) {
+	$('#' + errorId).html("");
+}
+
+function deleteDomain() {
+	var flag = confirm("Do you want to delete Domain");
+	if (flag == true) {
+		var data = {
+			key : key,
+			parentKey : parentKey,
+		};
+		var url = 'deleteDomain';
+		$.ajax({
+			type : 'POST',
+			url : url,
+			data : data,
+			success : function(data) {
+				if (data == 'true') {
+					parent.deleteNode();
+					parent.$.fn.colorbox.close();
+				}
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				// showErrorMessage(jqXHR.responseText, "450", "300");
+			},
+			dataType : 'text'
+		});
+	}
+}
+
+function updateDomain() {
+	hideMessage("editMsg");
+	hideMessage("editTitleErrorId");
+	hideMessage("editWeightageErrorId");
+
+	var success = true;
+
+	var title = $('#editTitleId').val();
+	var weightage = "null";
+	res = validateTitleField(title);
+
+	if (res.success == false) {
+		showErrorMessage("editTitleErrorId", res.errorMsg)
+	}
+
+	success = res.success;
+	if (parentKey != 'null') {
+		var weightage = $('#editWeightageId').val();
+		res = validateWeightageField(weightage, 100);
+
+		if (res.success == false) {
+			showErrorMessage("editWeightageErrorId", res.errorMsg)
+		}
+		if (success == true) {
+			success = res.success;
+		}
+	}
+
+	if (success == true) {
+		var data = {
+			key : key,
+			parentKey : parentKey,
+			title : title,
+			weightage : weightage
+		};
+		var url = 'updateDomain';
+		$.ajax({
+			type : 'POST',
+			url : url,
+			data : data,
+			success : function(data) {
+				if (data == "true") {
+					parent.updateNode(title, weightage);
+					hideMessage("editTitleErrorId");
+					hideMessage("editWeightageErrorId");
+					// showSuccessMessage("editMsg", "Updated Successfully");
+					showDomainSettings();
+				}
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+			},
+			dataType : 'text'
+		});
+	}
+}
+
+function saveDomain() {
+	hideMessage("addMsg");
+	hideMessage("newTitleErrorId");
+	hideMessage("newWeightageErrorId");
+	var weightage = "null";
+	var success = true;
+	var title = $('#newTitleId').val();
+
+	res = validateTitleField(title);
+
+	if (res.success == false) {
+		showErrorMessage("newTitleErrorId", res.errorMsg)
+	}
+
+	success = res.success;
+	if (key != 'null') {
+		var weightage = $('#newWeightageId').val();
+		var weightage = $('#newWeightageId').val();
+		res = validateWeightageField(weightage, remainingWeightageForNewDomain);
+
+		if (res.success == false) {
+			showErrorMessage("newWeightageErrorId", res.errorMsg)
+		}
+		if (success == true) {
+			success = res.success;
+		}
+	}
+
+	if (success == true) {
+
+		var data = {
+			parentKey : key,
+			title : title,
+			weightage : weightage
+		};
+		var url = 'saveDomain';
+		$.ajax({
+			type : 'POST',
+			url : url,
+			data : data,
+			success : function(data) {
+				if (data != null) {
+					if (key != 'null') {
+						parent.addNode(data);
+					} else {
+						parent.addRootNode(data);
+						parent.$.fn.colorbox.close();
+					}
+					hideMessage("newTitleErrorId");
+					hideMessage("newWeightageErrorId");
+					// showSuccessMessage("addMsg",
+					// "Domain Created Successfully");
+					$('#newTitleId').val("");
+					$('#newWeightageId').val("");
+					// $('#backButtonId').show();
+					showDomainSettings();
+				}
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				// showErrorMessage(jqXHR.responseText, "450", "300");
+			},
+			dataType : 'json'
+		});
+
+	}
+}

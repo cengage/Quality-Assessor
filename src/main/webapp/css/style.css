@@ -1,0 +1,37 @@
+.homeClass {
+	background: url(../images/QA.png) no-repeat;;
+	height: 637px;
+	min-width: 338px;
+	width: 20px;
+}
+
+.button-default {
+	display: block;
+	height: 21px;
+	padding: 5px 11px 0 15px;
+	margin-right: 3px;
+	background: url(../images/button-sprite-l.gif) no-repeat;
+	text-decoration: none;
+	color: white;
+}
+
+.button-domain-default {
+	display: block;
+	height: 21px;
+	padding: 5px 11px 0 15px;
+	margin-right: 3px;
+	background: url(../images/button-sprite-l.gif) no-repeat;
+	text-decoration: none;
+	color: white;
+	border-radius: 15px;
+}
+
+.button-back {
+	background: url(../images/back-button.png);
+	height: 21px;
+}
+
+.domainlink {
+	text-decoration: none;
+	color: black;
+}
