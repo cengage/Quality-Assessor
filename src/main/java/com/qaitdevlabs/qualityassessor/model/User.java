@@ -1,12 +1,7 @@
 package com.qaitdevlabs.qualityassessor.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
@@ -33,7 +28,6 @@ public class User implements UserDetails, Serializable {
 	private Boolean accountNonExpired;
 	private Boolean accountNonLocked;
 	private Boolean credentialsNonExpired;
-	private Collection<GrantedAuthority> authorities;
 	private Set<Group> groups = new HashSet<Group>(0);
 
 	public Long getUserId() {
@@ -44,9 +38,16 @@ public class User implements UserDetails, Serializable {
 		this.userId = userId;
 	}
 
-	public Collection<GrantedAuthority> getAuthorities() {
-		return authorities;
-	}
+    public Collection<GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new LinkedHashSet<GrantedAuthority>();
+        Iterator groupItr = groups.iterator();
+        while(groupItr.hasNext()){
+            Group group = (Group)groupItr.next();
+            Set<Role> roles = group.getRoles();
+            authorities.addAll(roles);
+        }
+        return authorities;
+    }
 
 	public String getPassword() {
 		return this.password;
@@ -96,24 +97,12 @@ public class User implements UserDetails, Serializable {
 		this.enabled = enabled;
 	}
 
-	public void setCustomerAuthorities(List<String> roles) {
-		List<GrantedAuthority> listOfAuthorities = new ArrayList<GrantedAuthority>();
-		for (String role : roles) {
-			listOfAuthorities.add(new GrantedAuthorityImpl(role));
-		}
-		authorities = listOfAuthorities;
-	}
-
 	public void setGroups(Set<Group> groups) {
 		this.groups = groups;
 	}
 
 	public Set<Group> getGroups() {
 		return groups;
-	}
-
-	public void setAuthorities(Collection<GrantedAuthority> authorities) {
-		this.authorities = authorities;
 	}
 
 	public Date getCreationDate() {

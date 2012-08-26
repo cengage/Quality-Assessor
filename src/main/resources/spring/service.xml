@@ -5,12 +5,7 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 	
-	<beans:bean id="customUserDetailsService"
-		class="com.qaitdevlabs.qualityassessor.service.CustomUserDetailsService">
-		<beans:property name="userDao" ref="userDao" />
-		<beans:property name="roleDao" ref="roleDao" />
-<!-- 		<beans:property name="passwordEncoder" ref="passwordEncoder" />  -->
-	</beans:bean>
+
 
 	<beans:bean
 		class="com.qaitdevlabs.qualityassessor.security.customsecurityfilter.FilterInvocationSecurityMetadataSourcePostProcessor">

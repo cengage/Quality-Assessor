@@ -1,11 +1,13 @@
 package com.qaitdevlabs.qualityassessor.model;
 
 
+import org.springframework.security.core.GrantedAuthority;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Role implements Serializable {
+public class Role implements Serializable,GrantedAuthority {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -53,4 +55,9 @@ public class Role implements Serializable {
 	public Set<UrlRule> getRules() {
 		return rules;
 	}
+
+    @Override
+    public String getAuthority() {
+        return getRoleName();  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

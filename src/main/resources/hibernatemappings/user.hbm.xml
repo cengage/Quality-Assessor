@@ -42,7 +42,7 @@
 			<column name="credentials_non_expired" />
 		</property>
 
-		<set name="groups" table="user_group" inverse="false" lazy="true"
+		<set name="groups" table="user_group" inverse="false" lazy="false"
 			fetch="select" cascade="all">
 			<key>
 				<column name="user_id" not-null="true" />

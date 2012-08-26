@@ -15,7 +15,7 @@
 			<column name="group_description" length="40" not-null="true" />
 		</property>
 
-		<set name="roles" table="role_group" inverse="false" lazy="true"
+		<set name="roles" table="role_group" inverse="false" lazy="false"
 			fetch="select" cascade="all">
 			<key>
 				<column name="group_id" not-null="true" />

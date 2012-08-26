@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.SpringSecurityMessageSource;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.qaitdevlabs.qualityassessor.dao.UserDao;
@@ -20,7 +21,7 @@ import com.qaitdevlabs.qualityassessor.model.User;
  * @author anujchhabra
  * 
  */
-public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao {
+public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao ,UserDetailsService {
 
 	protected MessageSourceAccessor messages;
 
@@ -30,11 +31,10 @@ public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao {
 
 	}
 
-	/**
-	 * @see com.UserDao.net.security.domain.dao.CustomUserDAO#getCustomUserByUserName(java.lang.String)
-	 */
+
+    @Override
 	@SuppressWarnings("deprecation")
-	public User getCustomUserByUserName(String userName)
+	public User loadUserByUsername(String userName)
 			throws UsernameNotFoundException, DataAccessException {
 		System.out.println(userName);
 		@SuppressWarnings("unchecked")

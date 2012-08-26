@@ -12,18 +12,8 @@ import com.qaitdevlabs.qualityassessor.model.User;
  */
 public interface UserDao extends GenericDao<User, Long> {
 
-	/**
-	 * This method return user object that corresponds to username of user
-	 * 
-	 * @param userName
-	 *            login username of user
-	 * @return user object
-	 * @throws UsernameNotFoundException
-	 *             if username not found it throws UsernameNotFoundException
-	 * @throws DataAccessException
-	 */
-	public User getCustomUserByUserName(String userName)
-			throws UsernameNotFoundException, DataAccessException;
+
+
 
 	public User saveUser(User user);
 	

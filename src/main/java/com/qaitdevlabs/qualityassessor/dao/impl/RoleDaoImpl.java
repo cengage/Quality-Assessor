@@ -8,9 +8,7 @@ import com.qaitdevlabs.qualityassessor.model.Role;
 
 public class RoleDaoImpl extends GenericDaoImpl<Role, Long> implements RoleDao {
 
-	/**
-	 * @see com.UserDao.net.security.domain.dao.CustomUserDAO#getRolesByUserName(java.lang.String)
-	 */
+
 	@SuppressWarnings("unchecked")
 	public List<String> getRolesByUserName(String userName) {
 		return getHibernateTemplate()
