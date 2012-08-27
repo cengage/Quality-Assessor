@@ -31,8 +31,8 @@ $(function() {
 									+ '&weightage=' + weightage,
 							open : true,
 							iframe : true,
-							width : "400px",
-							height : "280px",
+							width : "600px",
+							height : "380px",
 							opacity : 0.9,
 
 						});
@@ -70,8 +70,8 @@ function showAddRootDomainView() {
 		href : 'domainSettings',
 		open : true,
 		iframe : true,
-		width : "400px",
-		height : "280px",
+		width : "600px",
+		height : "380px",
 		opacity : 0.9,
 	});
 }

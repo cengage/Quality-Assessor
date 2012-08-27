@@ -1,7 +1,8 @@
 package com.qaitdevlabs.qualityassessor.web;
 
 import java.util.Date;
-
+import java.util.List;
+import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -125,4 +126,9 @@ public class DomainSettingsController {
 		return String.valueOf(success);
 	}
 
+    @RequestMapping(value = "/getSubDomains", method = RequestMethod.GET)
+    public @ResponseBody List<DomainDTO>getSubDomains(ModelMap model, @RequestParam String key) {
+        List<DomainDTO> subDomains = domainService.getSubDomains(key);
+        return subDomains;
+    }
 }

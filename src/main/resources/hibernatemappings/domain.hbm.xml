@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.qaitdevlabs.qualityassessor.model.Domain" table="domain">
+	<class name="com.qaitdevlabs.qualityassessor.model.Domain" table="domain" >
 		<id name="domainId" type="java.lang.Long">
 			<column name="domain_id" />
 			<generator class="native" />

@@ -1,7 +1,9 @@
 package com.qaitdevlabs.qualityassessor.domain.service;
 
 import java.util.List;
+import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
+
 
 /**
  * This service interface is used to handle request from controller for saving,
@@ -57,4 +59,10 @@ public interface DomainService {
 	 * @return remaining weightage
 	 */
 	public int getRemainingWeightageInDomain(String domainKey);
+
+    /**
+     * This method is used to get subdomains
+     * @return list of subdomains
+     */
+    public List<DomainDTO> getSubDomains(String key);
 }

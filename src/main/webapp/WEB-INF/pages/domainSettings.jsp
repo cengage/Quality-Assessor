@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <link type='text/css' rel='stylesheet' href='css/colorbox.css' />
+<link rel="stylesheet" href="css/domainSettingsStyle.css">
 <link rel="stylesheet" href="css/jquery.ui.all.css">
 <script src='js/jquery/jquery.min.js'></script>
 <script src="js/jquery/jquery.ui.core.min.js"></script>
@@ -64,6 +65,9 @@
 		<div>
 			<input class="autoCompleteWiki" id="newTitleId" type="text">
 		</div>
+		<div>
+        			<a target="_blank" class="wikiLinkUpdate" href=""></a>
+        		</div>
 		<div id="newTitleErrorId"></div>
 		<p></p>
 		<div id="newWeightageDiv">
@@ -81,14 +85,14 @@
 		</div>
 		<p></p>
 		<p></p>
-		<div>
+		<div style="float:left">
 			<a style="width: 47px" class='button-default'
 				href="javascript:saveDomain()">Add</a>
 		</div>
+        <div style="float:left;float: left;position: absolute;right: 0;margin:0 18px" id="subDomainWeightageDiv">
+        <a id="subDomainWeightageLink" href="javascript:showSubDomainsWeightage()">Show Sub-Domain Weightage</a>
+        </div>
 
-		<div>
-			<a target="_blank" class="wikiLinkUpdate" href=""></a>
-		</div>
 
 		<div id="backButtonId" align="right"
 			style="bottom: 0; position: fixed; right: 0">
@@ -131,9 +135,7 @@
 				href="javascript:updateDomain()">Update</a>
 		</div>
 
-		<div>
-			<a target="_blank" class="wikiLinkUpdate" href=""></a>
-		</div>
+
 
 		<div align="right" style="bottom: 0; position: fixed; right: 0">
 			<a href="javascript:showDomainSettings()"><img width="35px"

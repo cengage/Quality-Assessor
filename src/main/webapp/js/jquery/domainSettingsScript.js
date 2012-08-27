@@ -273,3 +273,37 @@ function saveDomain() {
 
 	}
 }
+var showSubDomain=false;
+function showSubDomainsWeightage(){
+        if(showSubDomain==true)   {
+               // alert('ag');
+                showSubDomain=false;
+                 $('#subDomainWeightageId').remove();
+                 $('#subDomainWeightageLink').html("Show Sub-Domain Weightage");
+                return;
+        }
+         showSubDomain=true;
+    var url = 'getSubDomains?key='+key;
+    		$.ajax({
+    			type : 'GET',
+    			url : url,
+
+    			success : function(data) {
+    			var div=$("<div id='subDomainWeightageId'>");
+    			          var table = $("<table class='imagetable'>")  ;
+    			          var tr = $("<tr><th>Domain Name</th><th>Weightage</th></tr>");
+    			          table.append(tr);
+                          for(i=0;i<data.length;i++){
+                            var tr =$("<tr><td>"+data[i].name+"</td><td>"+data[i].weightage+"</td></tr>");
+                            table.append(tr);
+                            }
+                          div.prepend(table);
+                          $('#subDomainWeightageDiv').append(div);
+                          $('#subDomainWeightageLink').html("Hide Sub-Domain Weightage");
+
+    			},
+    			error : function(jqXHR, textStatus, errorThrown) {
+    			},
+    			dataType : 'json'
+    		});
+}

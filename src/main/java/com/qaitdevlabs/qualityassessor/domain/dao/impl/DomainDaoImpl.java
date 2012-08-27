@@ -57,7 +57,7 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 			String SQL_QUERY = "from DomainMapping domainMapping where domainMapping.domain.id=:id";
 			Query query = session.createQuery(SQL_QUERY);
 			query.setParameter("id", id);
-			domainmappings = query.list();
+            domainmappings = query.list();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {

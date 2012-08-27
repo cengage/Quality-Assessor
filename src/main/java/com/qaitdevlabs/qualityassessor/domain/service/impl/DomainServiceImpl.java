@@ -1,9 +1,9 @@
 package com.qaitdevlabs.qualityassessor.domain.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
+import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
+import com.qaitdevlabs.qualityassessor.util.CustomDomainComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.qaitdevlabs.qualityassessor.domain.dao.DomainDao;
@@ -36,6 +36,7 @@ public class DomainServiceImpl implements DomainService {
 		} else {
 			nodeList = getTreeNodeDTO(domainDao.getSubDomainList(id));
 		}
+        Collections.sort(nodeList, new CustomDomainComparator());
 		return nodeList;
 	}
 
@@ -216,9 +217,27 @@ public class DomainServiceImpl implements DomainService {
 		return remainingWeightage;
 	}
 
-	/*
-	 * @Override public Domain get(Long id) { return domainDao.get(id); }
-	 */
+    @Override
+    public List<DomainDTO> getSubDomains(String key) {
+        Long id = Long.valueOf(key);
+        List<DomainDTO> list = new ArrayList<DomainDTO>();
+        List<DomainMapping> domainMappings = domainDao.getSubDomainList(id);
+        Iterator<DomainMapping> it = domainMappings.iterator();
+        while(it.hasNext()){
+            DomainDTO dto = new DomainDTO();
+            DomainMapping domainMapping = (DomainMapping)it.next();
+            String domainName = domainMapping.getSubDomain().getDomainName();
+            String weightage = String.valueOf(domainMapping.getWeightage());
+            dto.setName(domainName);
+            dto.setWeightage(weightage);
+            list.add(dto);
+        }
+        return list;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    /*
+      * @Override public Domain get(Long id) { return domainDao.get(id); }
+      */
 	/*
 	 * private List<TreeNodeDTO> getTreeNodeDTO( List<DomainMapping>
 	 * domainsMapping) { Iterator<DomainMapping> it = domainsMapping.iterator();
