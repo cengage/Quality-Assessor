@@ -12,15 +12,19 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Repository;
 
 import com.qaitdevlabs.qualityassessor.dao.UserDao;
+import com.qaitdevlabs.qualityassessor.model.SocialNetwork;
 import com.qaitdevlabs.qualityassessor.model.User;
+import com.qaitdevlabs.qualityassessor.model.WorkExperience;
 
 /**
  * 
  * @author anujchhabra
  * 
  */
+//@Repository
 public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao ,UserDetailsService {
 
 	protected MessageSourceAccessor messages;
@@ -55,9 +59,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao ,
 
 	@Override
 	public User saveUser(User user) {
-		if (log.isDebugEnabled()) {
-			log.debug("user's id: " + user.getUserId());
-		}
+		
 		Session session = null;
 		Transaction transaction = null;
 		try {
@@ -129,6 +131,46 @@ public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao ,
 			session.close();
 		}
 		return savedUser;				
+	}
+
+
+	@Override
+	public SocialNetwork saveSocialNetwork(SocialNetwork socialNetwork) {
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			 session = getSessionFactory().openSession();
+			 transaction = session.beginTransaction();
+			 session.saveOrUpdate(socialNetwork);
+			 transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return socialNetwork;
+	}
+
+
+	@Override
+	public WorkExperience saveWorkExperience(WorkExperience workExperience) {
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			 session = getSessionFactory().openSession();
+			 transaction = session.beginTransaction();
+			 session.saveOrUpdate(workExperience);
+			 transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return workExperience;
 	}
 	
 }
