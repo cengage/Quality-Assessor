@@ -15,6 +15,7 @@
 
 <body class="homeClass">
 	<div style="position: fixed; right: 16px">
+		<a href="profile">Profile</a>
 		<a href="<c:url value="j_spring_security_logout" />">Logout</a>
 	</div>
 	<div>

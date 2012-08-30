@@ -16,7 +16,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+				 <prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 
@@ -29,7 +29,8 @@
 				<value>/hibernatemappings/componentRule.hbm.xml</value>
 				<value>/hibernatemappings/domain.hbm.xml</value>
 				<value>/hibernatemappings/domainMapping.hbm.xml</value>
-			
+                <value>/hibernatemappings/socialNetwork.hbm.xml</value>
+                <value>/hibernatemappings/workExperience.hbm.xml</value>
 			</list>
 		</property>
 

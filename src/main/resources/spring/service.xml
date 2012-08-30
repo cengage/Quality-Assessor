@@ -4,7 +4,7 @@
 	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
-	
+
 
 
 	<beans:bean
@@ -17,9 +17,10 @@
 		class="com.qaitdevlabs.qualityassessor.security.customsecurityfilter.CustomFilterSecurityMetadataSource">
 		<beans:property name="urlRuleDao" ref="urlRuleDao"></beans:property>
 	</beans:bean>
-		
-<!-- 	<beans:bean id="userService" class="com.qaitdevlabs.qualityassessor.service.UserServiceImpl"> -->
-<!-- 		<beans:property name="userDao" ref="userDao"></beans:property> -->
-<!-- 		<beans:property name="groupDao" ref="groupDao"></beans:property> -->
-<!-- 	</beans:bean>	 -->
+
+	
+	<!-- <beans:bean id="userService" class="com.qaitdevlabs.qualityassessor.service.UserServiceImpl"> -->
+	<!-- <beans:property name="userDao" ref="userDao"></beans:property> -->
+	<!-- <beans:property name="groupDao" ref="groupDao"></beans:property> -->
+	<!-- </beans:bean> -->
 </beans:beans>

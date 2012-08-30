@@ -12,5 +12,5 @@ public interface GroupDao extends GenericDao<Group, Long>{
 	 *          
 	 * @return list of groupss corresponds to given groupName
 	 */
-	public List<Group> getGroupsByGroupName(String groupName);
+	public Group getGroupByGroupName(String groupName);
 }

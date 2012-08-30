@@ -22,6 +22,16 @@ public class User implements UserDetails, Serializable {
 	private Long userId;
 	private String username;
 	private String password;
+	private String firstName;
+	private String middleName;
+	private String suffix;
+	private String lastName;
+	private String city;
+	private String state;
+	private String zipCode;
+	private String address;
+
+	private String education;
 	private String referralName;
 	private Date creationDate;
 	private Boolean enabled;
@@ -29,6 +39,96 @@ public class User implements UserDetails, Serializable {
 	private Boolean accountNonLocked;
 	private Boolean credentialsNonExpired;
 	private Set<Group> groups = new HashSet<Group>(0);
+	private Set<SocialNetwork> socialNetworks = new HashSet<SocialNetwork>(0);
+	private Set<WorkExperience> workExperiences = new HashSet<WorkExperience>(0);
+
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getSuffix() {
+		return suffix;
+	}
+
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
+	}
+
+	public Set<SocialNetwork> getSocialNetworks() {
+		return socialNetworks;
+	}
+
+	public void setSocialNetworks(Set<SocialNetwork> socialNetworks) {
+		this.socialNetworks = socialNetworks;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public Set<WorkExperience> getWorkExperiences() {
+		return workExperiences;
+	}
+
+	public void setWorkExperiences(Set<WorkExperience> workExperiences) {
+		this.workExperiences = workExperiences;
+	}
 
 	public Long getUserId() {
 		return userId;
@@ -38,16 +138,16 @@ public class User implements UserDetails, Serializable {
 		this.userId = userId;
 	}
 
-    public Collection<GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new LinkedHashSet<GrantedAuthority>();
-        Iterator groupItr = groups.iterator();
-        while(groupItr.hasNext()){
-            Group group = (Group)groupItr.next();
-            Set<Role> roles = group.getRoles();
-            authorities.addAll(roles);
-        }
-        return authorities;
-    }
+	public Collection<GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> authorities = new LinkedHashSet<GrantedAuthority>();
+		Iterator groupItr = groups.iterator();
+		while (groupItr.hasNext()) {
+			Group group = (Group) groupItr.next();
+			Set<Role> roles = group.getRoles();
+			authorities.addAll(roles);
+		}
+		return authorities;
+	}
 
 	public String getPassword() {
 		return this.password;
@@ -66,7 +166,7 @@ public class User implements UserDetails, Serializable {
 	}
 
 	public boolean isAccountNonExpired() {
-		return accountNonExpired;
+		return true;
 	}
 
 	public void setAccountNonExpired(Boolean accountNonExpired) {
@@ -74,7 +174,7 @@ public class User implements UserDetails, Serializable {
 	}
 
 	public boolean isAccountNonLocked() {
-		return accountNonLocked;
+		return true;
 	}
 
 	public void setAccountNonLocked(Boolean accountNonLocked) {
@@ -82,7 +182,7 @@ public class User implements UserDetails, Serializable {
 	}
 
 	public boolean isCredentialsNonExpired() {
-		return credentialsNonExpired;
+		return true;
 	}
 
 	public void setCredentialsNonExpired(Boolean credentialsNonExpired) {
@@ -90,7 +190,7 @@ public class User implements UserDetails, Serializable {
 	}
 
 	public boolean isEnabled() {
-		return enabled;
+		return true;
 	}
 
 	public void setEnabled(Boolean enabled) {
@@ -114,7 +214,7 @@ public class User implements UserDetails, Serializable {
 	}
 
 	public String getReferralName() {
-		return referralName;
+		return "";
 	}
 
 	public void setReferralName(String referralName) {

@@ -324,7 +324,7 @@ INSERT INTO `url_rule` (`url_rule_id`, `url`, `method`) VALUES
 
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(30) NOT NULL,
+  `user_name` varchar(30) NOT NULL UNIQUE,
   `password` varchar(50) NOT NULL,
   `referral_name` varchar(30) NOT NULL,
   `enabled` bit(1) NOT NULL DEFAULT b'1',

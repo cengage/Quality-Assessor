@@ -14,15 +14,50 @@
 		</property>
 
 		<property name="password" type="string">
-			<column name="password" length="64" not-null="true" unique="true" />
+			<column name="password" length="64" not-null="true" />
 		</property>
 
-		<property name="referralName" type="string">
-			<column name="referral_name" length="64" not-null="true"
-				unique="true" />
+        <property name="referralName" type="string">
+            <column name="referral_name" length="64"  />
+        </property>
+
+        <property name="firstName" type="string">
+            <column name="first_name" length="40" not-null="true" />
+        </property>
+
+        <property name="middleName" type="string">
+            <column name="middle_name" length="40"  />
+        </property>
+
+		<property name="lastName" type="string">
+			<column name="last_name" length="40" />
 		</property>
 
-		<property name="creationDate" type="java.util.Date">
+        <property name="suffix" type="string">
+            <column name="suffix" length="40"  />
+        </property>
+
+        <property name="address" type="string">
+            <column name="address" length="70"  />
+        </property>
+
+        <property name="education" type="string">
+            <column name="education" length="70"  />
+        </property>
+
+        <property name="city" type="string">
+            <column name="city" length="40" />
+        </property>
+
+        <property name="state" type="string">
+            <column name="state" length="40" />
+        </property>
+
+        <property name="zipCode" type="string">
+            <column name="zip_code" length="15" />
+        </property>
+
+        <property name="creationDate" type="java.util.Date">
 			<column name="creation_date" />
 		</property>
 
@@ -51,5 +86,17 @@
 				<column name="group_id" not-null="true" />
 			</many-to-many>
 		</set>
+        <set name="socialNetworks" table="user_social_network" fetch="select" inverse="true">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.qaitdevlabs.qualityassessor.model.SocialNetwork" />
+        </set>
+        <set name="workExperiences" table="user_work_experience" fetch="select" inverse="true">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.qaitdevlabs.qualityassessor.model.WorkExperience" />
+        </set>
 	</class>
 </hibernate-mapping>
