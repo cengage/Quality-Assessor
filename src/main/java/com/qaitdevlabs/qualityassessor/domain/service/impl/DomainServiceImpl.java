@@ -15,7 +15,7 @@ import com.qaitdevlabs.qualityassessor.model.DomainMapping;
 /**
  * 
  * @author anujchhabra
- *
+ * 
  */
 @Service
 public class DomainServiceImpl implements DomainService {
@@ -36,7 +36,7 @@ public class DomainServiceImpl implements DomainService {
 		} else {
 			nodeList = getTreeNodeDTO(domainDao.getSubDomainList(id));
 		}
-        Collections.sort(nodeList, new CustomDomainComparator());
+		Collections.sort(nodeList, new CustomDomainComparator());
 		return nodeList;
 	}
 
@@ -217,27 +217,44 @@ public class DomainServiceImpl implements DomainService {
 		return remainingWeightage;
 	}
 
-    @Override
-    public List<DomainDTO> getSubDomains(String key) {
-        Long id = Long.valueOf(key);
-        List<DomainDTO> list = new ArrayList<DomainDTO>();
-        List<DomainMapping> domainMappings = domainDao.getSubDomainList(id);
-        Iterator<DomainMapping> it = domainMappings.iterator();
-        while(it.hasNext()){
-            DomainDTO dto = new DomainDTO();
-            DomainMapping domainMapping = (DomainMapping)it.next();
-            String domainName = domainMapping.getSubDomain().getDomainName();
-            String weightage = String.valueOf(domainMapping.getWeightage());
-            dto.setName(domainName);
-            dto.setWeightage(weightage);
-            list.add(dto);
-        }
-        return list;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+	@Override
+	public List<DomainDTO> getSubDomains(String key) {
+		Long id = Long.valueOf(key);
+		List<DomainDTO> list = new ArrayList<DomainDTO>();
+		List<DomainMapping> domainMappings = domainDao.getSubDomainList(id);
+		Iterator<DomainMapping> it = domainMappings.iterator();
+		while (it.hasNext()) {
+			DomainDTO dto = new DomainDTO();
+			DomainMapping domainMapping = (DomainMapping) it.next();
+			String domainName = domainMapping.getSubDomain().getDomainName();
+			String weightage = String.valueOf(domainMapping.getWeightage());
+			dto.setName(domainName);
+			dto.setWeightage(weightage);
+			list.add(dto);
+		}
+		return list; // To change body of implemented methods use File |
+						// Settings | File Templates.
+	}
 
-    /*
-      * @Override public Domain get(Long id) { return domainDao.get(id); }
-      */
+	@Override
+	public List<String> getListOfRootDomains() {
+		List<String> listOfRootDomains = null;
+		List<Domain> domains = domainDao.getDomainList();
+		if (domains.size() > 0) {
+			listOfRootDomains = new ArrayList<String>();
+			Iterator<Domain> domainList = domains.iterator();
+			while (domainList.hasNext()) {
+				Domain domain = (Domain) domainList.next();
+				listOfRootDomains.add(domain.getDomainName());
+			}
+
+		}
+		return listOfRootDomains;
+	}
+
+	/*
+	 * @Override public Domain get(Long id) { return domainDao.get(id); }
+	 */
 	/*
 	 * private List<TreeNodeDTO> getTreeNodeDTO( List<DomainMapping>
 	 * domainsMapping) { Iterator<DomainMapping> it = domainsMapping.iterator();

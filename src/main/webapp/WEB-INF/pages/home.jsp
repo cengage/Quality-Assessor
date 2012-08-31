@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<link href="css/common.css" rel="Stylesheet" type="text/css" />
 <!-- Include the required JavaScript libraries: -->
 <script src='js/jquery/jquery.min.js' type="text/javascript"></script>
 <script src='js/jquery/jquery-ui.custom.min.js' type="text/javascript"></script>
@@ -14,16 +15,15 @@
 </head>
 
 <body class="homeClass">
-	<div style="position: fixed; right: 16px">
-		<a href="profile">Profile</a>
-		<a href="<c:url value="j_spring_security_logout" />">Logout</a>
-	</div>
-	<div>
-		<a style="width: 120px" class='button-default'
+<%@include file="/header.jsp"%>
+	<div class="background container">
+	<div style="background:white">
+		<a style="margin:0px 0px;width: 120px" class='button-default'
 			href="javascript:showAddRootDomainView()">Add New Domain</a>
 	</div>
 	<p></p>
 	<!-- Add a <div> element where the tree should appear: -->
 	<div id="tree"></div>
+	</div>
 </body>
 </html>

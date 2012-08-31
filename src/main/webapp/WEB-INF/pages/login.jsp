@@ -1,53 +1,38 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE HTML>
 <html>
 <head>
-<title>Login Page</title>
-<style>
-.errorblock {
-	color: #ff0000;
-	background-color: #ffEEEE;
-	border: 3px solid #ff0000;
-	padding: 8px;
-	margin: 16px;
-}
-</style>
+<title>Login Form</title>
+<link href="css/common.css" rel="Stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="css/logincss/reset.css">
+<link rel="stylesheet" type="text/css" href="css/logincss/structure.css">
 </head>
-<body onload='document.f.j_username.focus();'>
-	<h3>Login with Username and Password (Custom Page)</h3>
 
-	<c:if test="${not empty error}">
-		<div class="errorblock">
-			Your login attempt was not successful, try again.<br /> Caused :
-			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+<body>
+	
+		<%@include file="/headerlogin.jsp"%>
+		
+		<div class="background container" style="background: white;width:927px;margin:auto;">
+			<form class="box login" name='f'
+				action="<c:url value='j_spring_security_check' />" method='POST'>
+				<fieldset class="boxBody">
+					<label>Username</label> <input type="text" name='j_username'
+						tabindex="1" required> <label><a href="#"
+						class="rLink" tabindex="5">Forget your password?</a>Password</label> <input
+						name='j_password' type="password" tabindex="2" required>
+				</fieldset>
+				<footer>
+
+					<input type="submit" class="btnLogin" value="Login">
+				</footer>
+			</form>
+<!-- 			<footer id="main"> -->
+<!-- 				<a href="http://wwww.cssjunction.com">Simple Login Form -->
+<!-- 					(HTML5/CSS3 Coded) by CSS Junction</a> | <a -->
+<!-- 					href="http://www.premiumpixels.com">PSD by Premium Pixels</a> -->
+<!-- 			</footer> -->
 		</div>
-	</c:if>
-
-	<form name='f' action="<c:url value='j_spring_security_check' />"
-		method='POST'>
-
-		<table>
-			<tr>
-				<td>User:</td>
-				<td><input type='text' name='j_username' value=''>
-				</td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td><input type='password' name='j_password' />
-				</td>
-			</tr>
-			<tr>
-				<td colspan='2'><input name="submit" type="submit"
-					value="submit" />
-				</td>
-			</tr>
-			<tr>
-				<td colspan='2'><input name="reset" type="reset" />
-				</td>
-			</tr>
-		</table>
-
-	</form>
-	<a href="signUp">SignUp</a>
+		
+	
 </body>
 </html>
