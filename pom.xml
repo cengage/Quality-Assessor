@@ -76,6 +76,12 @@
 			<version>${spring.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.0.2.GA</version>
+		</dependency>
+
 		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -284,19 +290,20 @@
 				</configuration>
 			</plugin>
 			<plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.3.v20120416</version>
-                <configuration>
-                    <webApp>
-                        <contextPath>/</contextPath>
-                    </webApp>
-                </configuration>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.3.v20120416</version>
+				<configuration>
+				 <scanIntervalSeconds>5</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/</contextPath>
+					</webApp>
+				</configuration>
 			</plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>tomcat-maven-plugin</artifactId>
-            </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 </project>

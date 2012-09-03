@@ -22,12 +22,12 @@
 			
 			<form action="profile" method="POST">
 
-				<p></p>
+				
 				<table class="zebra-striped"
 					style="width: 650px; margin: 30px 30px 10px 120px; border: 1px solid #CCCCCC;">
 					<thead>
-						<tr style="background-color: #F9F9F9;">
-							<td style="text-align: center; border-bottom: 1px solid #CCCCCC;"
+						<tr>
+							<td   style="text-align: center; border-bottom: 1px solid #CCCCCC;"
 								colspan="4"><strong class="headerStrong">Personal
 									Details</strong></td>
 						</tr>
@@ -55,7 +55,7 @@
 				<table  class="zebra-striped"
 					style="width: 650px; margin: 30px 30px 10px 120px; border: 1px solid #CCCCCC;">
 					<thead>
-						<tr style="background-color: #F9F9F9;">
+						<tr>
 							<td style="text-align: center; border-bottom: 1px solid #CCCCCC;"
 								colspan="4"><strong class="headerStrong">Address
 									Details</strong></td>
@@ -88,7 +88,7 @@
 					style="width: 650px; margin: 30px 30px 10px 120px; border: 1px solid #CCCCCC;">
 
 					<thead>
-						<tr style="background-color: #F9F9F9;">
+						<tr >
 							<td style="text-align: center; border-bottom: 1px solid #CCCCCC;"
 								colspan="5"><strong class="headerStrong">Work
 									Experience</strong></td>
@@ -129,8 +129,7 @@
 					style="width: 650px; margin: 30px 30px 10px 120px; border: 1px solid #CCCCCC;">
 
 					<thead>
-						<tr style="background-color: #F9F9F9;"
-							style="background-color: #F9F9F9;">
+						<tr>
 							<td style="text-align: center; border-bottom: 1px solid #CCCCCC;"
 								colspan="5"><strong class="headerStrong">Social
 									Network</strong></td>
