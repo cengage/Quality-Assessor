@@ -29,7 +29,24 @@ public class User implements UserDetails, Serializable {
 	private String city;
 	private String state;
 	private String zipCode;
-	private String address;
+	public String getAddressLine1() {
+		return addressLine1;
+	}
+
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
+
+	public String getAddressLine2() {
+		return addressLine2;
+	}
+
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
+
+	private String addressLine1;
+	private String addressLine2;
 
 	private String education;
 	private String referralName;
@@ -50,13 +67,13 @@ public class User implements UserDetails, Serializable {
 		this.education = education;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
+//	public String getAddress() {
+//		return address;
+//	}
+//
+//	public void setAddress(String address) {
+//		this.address = address;
+//	}
 
 	public String getMiddleName() {
 		return middleName;

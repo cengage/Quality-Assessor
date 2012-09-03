@@ -14,6 +14,9 @@
         <property name="areaOfExpertise" type="string">
             <column name="area_of_expertise" length="64" />
         </property>
+         <property name="roleDescription" type="string">
+            <column name="roleDescription" length="100" />
+        </property>
         <property name="fromDate" type="java.util.Date" >
             <column name="from_date" />
         </property>

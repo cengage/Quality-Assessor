@@ -1,5 +1,7 @@
 package com.qaitdevlabs.qualityassessor.service.impl;
 
+import java.util.List;
+
 import com.qaitdevlabs.qualityassessor.dao.UserDao;
 import com.qaitdevlabs.qualityassessor.model.SocialNetwork;
 import com.qaitdevlabs.qualityassessor.model.User;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
 	private UserDao userDao;
 	private PasswordEncoder passwordEncoder;
 
@@ -38,9 +41,26 @@ public class UserServiceImpl implements UserService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
+	@Override
+	public List<SocialNetwork> getSocialNetworks(User user) {
+		List<SocialNetwork> socialNetworks = userDao.getSocialNetworks(user);
+		return socialNetworks;
+	}
+
+	@Override
+	public List<WorkExperience> getWorkExperiences(User user) {
+		List<WorkExperience> workExperiences = userDao.getWorkExperiences(user);
+		return workExperiences;
+	}
+
 	public User saveUser(User user) {
 		user.setPassword(passwordEncoder.encodePassword(user.getPassword(),
 				user.getUsername()));
+		userDao.saveUser(user);
+		return user;
+	}
+
+	public User updateUser(User user) {
 		userDao.saveUser(user);
 		return user;
 	}
@@ -53,6 +73,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public WorkExperience saveWorkExperience(WorkExperience workExperience) {
 		return userDao.saveWorkExperience(workExperience);
+	}
+
+	@Override
+	public User getUser(Long userId) {
+		User user = userDao.getUser(userId);
+		return user;
 	}
 
 }

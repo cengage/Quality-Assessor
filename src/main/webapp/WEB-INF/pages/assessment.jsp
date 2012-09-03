@@ -23,12 +23,12 @@
 				</tr>
 			</thead>
 
-			<c:forEach items="${listOfRootDomains}" var="domainName"
+			<c:forEach items="${listOfRootDomains}" var="domain"
 				varStatus="status">
 				<tr>
-					<td>${domainName}</td>
+					<td>${domain.name}</td>
 					<td><input class="btn primary" type="button"
-						value="Self Assessment"></td>
+						value="Self Assessment" onclick="window.open('domain')"></td>
 					<td><input class="btn primary" type="button"
 						value="Invite Friends to Assess"></td>
 					<td><input class="btn primary" type="button"

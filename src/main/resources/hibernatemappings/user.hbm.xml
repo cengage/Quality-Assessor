@@ -13,7 +13,7 @@
 			<column name="user_name" length="64" not-null="true" unique="true" />
 		</property>
 
-		<property name="password" type="string">
+		<property name="password" type="string" >
 			<column name="password" length="64" not-null="true" />
 		</property>
 
@@ -37,8 +37,12 @@
             <column name="suffix" length="40"  />
         </property>
 
-        <property name="address" type="string">
-            <column name="address" length="70"  />
+        <property name="addressLine1" type="string">
+            <column name="address_line_1" length="70"  />
+        </property>
+        
+        <property name="addressLine2" type="string">
+            <column name="address_line_2" length="70"  />
         </property>
 
         <property name="education" type="string">
@@ -57,7 +61,7 @@
             <column name="zip_code" length="15" />
         </property>
 
-        <property name="creationDate" type="java.util.Date">
+        <property name="creationDate" type="java.util.Date" update="false">
 			<column name="creation_date" />
 		</property>
 

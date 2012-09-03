@@ -10,6 +10,7 @@ import org.springframework.scheduling.quartz.SimpleTriggerBean;
  * To change this template use File | Settings | File Templates.
  */
 public class DomainDTO {
+	private	String id;
     private String name;
     private String weightage;
     public String getName(){
@@ -24,4 +25,10 @@ public class DomainDTO {
     public void setWeightage(String weightage){
         this.weightage = weightage;
     }
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 }

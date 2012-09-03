@@ -2,11 +2,13 @@ package com.qaitdevlabs.qualityassessor.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.SpringSecurityMessageSource;
@@ -15,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import com.qaitdevlabs.qualityassessor.dao.UserDao;
+import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.SocialNetwork;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.model.WorkExperience;
@@ -26,6 +29,8 @@ import com.qaitdevlabs.qualityassessor.model.WorkExperience;
  */
 //@Repository
 public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao ,UserDetailsService {
+
+
 
 	protected MessageSourceAccessor messages;
 
@@ -116,15 +121,15 @@ public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao ,
 	}
 
 	@Override
-	public User getUser(Long userId , boolean lazyLoad) {
+	public User getUser(Long userId) {
 		Session session = null;
 		User savedUser = null;
 		try {
  			 session = getSessionFactory().openSession();
  			 savedUser = (User)session.get(User.class, userId);
- 			 if(!lazyLoad) {
+// 			 if(!lazyLoad) {
 // 				Hibernate.initialize(savedUser.getAddress());
- 			 }
+// 			 }
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {
@@ -173,4 +178,41 @@ public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao ,
 		return workExperience;
 	}
 	
+	@Override
+	public List<SocialNetwork> getSocialNetworks(User user) {
+		Session session = null;
+		List<SocialNetwork> socialNetworks = null;
+
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(SocialNetwork.class);
+			criteria.add(Restrictions.eq("user", user));
+			socialNetworks = criteria.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return socialNetworks;				
+	}
+	
+	
+	@Override
+	public List<WorkExperience> getWorkExperiences(User user) {
+		Session session = null;
+		List<WorkExperience> workExperiences = null;
+
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(WorkExperience.class);
+			criteria.add(Restrictions.eq("user", user));
+			workExperiences = criteria.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		System.out.println(workExperiences.get(0).getTitle());
+		return workExperiences;					
+	}
 }

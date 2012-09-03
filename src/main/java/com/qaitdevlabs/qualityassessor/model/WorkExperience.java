@@ -16,7 +16,8 @@ public class WorkExperience {
     private String areaOfExpertise;
     private Date fromDate;
     private Date toDate;
-
+    private String roleDescription;
+    
     public Long getWorkExperienceId() {
         return workExperienceId;
     }
@@ -64,4 +65,12 @@ public class WorkExperience {
     public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
+
+	public String getRoleDescription() {
+		return roleDescription;
+	}
+
+	public void setRoleDescription(String roleDescription) {
+		this.roleDescription = roleDescription;
+	}
 }

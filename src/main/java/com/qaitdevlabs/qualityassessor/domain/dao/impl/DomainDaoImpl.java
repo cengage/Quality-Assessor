@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import com.qaitdevlabs.qualityassessor.dao.impl.GenericDaoImpl;
 import com.qaitdevlabs.qualityassessor.domain.dao.DomainDao;
+import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.DomainMapping;
 
@@ -154,7 +155,7 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 
 	}
 
-	
+	                                                               
 
 }
 

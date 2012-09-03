@@ -66,5 +66,5 @@ public interface DomainService {
      */
     public List<DomainDTO> getSubDomains(String key);
 
-	public List<String> getListOfRootDomains();
+	public List<DomainDTO> getListOfRootDomains();
 }

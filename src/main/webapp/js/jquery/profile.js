@@ -5,9 +5,23 @@ $(document)
 							.click(
 									function() {
 										var num = $('.cloneWorkExpTexts').length; // how
-										// many
-
+										
+										var title = $('#workExpTexts'+ num+ " td input.title").attr('name');
+										var areaOfExperience = $('#workExpTexts'+ num+ " td input.areaOfExperience").attr('name');
+										var roleDescription = $('#workExpTexts'+ num+ " td input.roleDescription").attr('name');
+										var fromDatepicker = $('#workExpTexts'+ num+ " td input.fromDatepicker").attr('name');
+										var toDatepicker = $('#workExpTexts'+ num+ " td input.toDatepicker").attr('name');
+										
+										
+										
 										var newNum = new Number(num + 1); // the
+										
+										 title= title.replace(/\[.*?\]/g, '['+(newNum-1)+']');
+										 //alert(title);
+										 areaOfExperience= areaOfExperience.replace(/\[.*?\]/g, '['+(newNum-1)+']');
+										 roleDescription= roleDescription.replace(/\[.*?\]/g, '['+(newNum-1)+']');
+										 fromDatepicker= fromDatepicker.replace(/\[.*?\]/g, '['+(newNum-1)+']');
+										 toDatepicker= toDatepicker.replace(/\[.*?\]/g, '['+(newNum-1)+']');
 
 										var newWorkExpTable = $(
 												'#workExpTexts' + num)
@@ -18,16 +32,15 @@ $(document)
 										$('#workExpTexts' + num).after(
 												newWorkExpTable);
 
-										$(
-												'#workExpTexts'
-														+ newNum
-														+ " td input.fromDatepicker")
-												.val("");
-										$(
-												'#workExpTexts'
-														+ newNum
-														+ " td input.fromDatepicker")
-												.attr('id', 'fromDatePicker'+newNum);
+										$('#workExpTexts'+ newNum+ " td input.title").attr('name',title);
+										$('#workExpTexts'+ newNum+ " td input.areaOfExperience").attr('name',areaOfExperience);
+										$('#workExpTexts'+ newNum+ " td input.roleDescription").attr('name',roleDescription);
+										$('#workExpTexts'+ newNum+ " td input.fromDatepicker").attr('name',fromDatepicker);
+										$('#workExpTexts'+ newNum+ " td input.toDatepicker").attr('name',toDatepicker);
+										
+										$('#workExpTexts'+ newNum+ " td input.fromDatepicker").val("");
+										$('#workExpTexts'+ newNum+ " td input.fromDatepicker").attr('id','fromDatePicker'+ newNum);
+										
 										$(
 												'#workExpTexts'
 														+ newNum
@@ -47,7 +60,8 @@ $(document)
 												'#workExpTexts'
 														+ newNum
 														+ " td input.toDatepicker")
-												.attr('id', "toDatePicker"+newNum);
+												.attr('id',
+														"toDatePicker" + newNum);
 										$(
 												'#workExpTexts'
 														+ newNum

@@ -2,6 +2,9 @@ package com.qaitdevlabs.qualityassessor.dto;
 import java.util.Date;
 import java.util.List;
 
+import com.qaitdevlabs.qualityassessor.model.SocialNetwork;
+import com.qaitdevlabs.qualityassessor.model.WorkExperience;
+
 /**
  * Created with IntelliJ IDEA.
  * User: anujchhabra
@@ -16,11 +19,29 @@ public class UserProfileDTO {
     private String middleName;
     private String suffix;
     private String lastName;
+    private String country;
     private String city;
     private String state;
     private String zipCode;
+    private String addressLine1;
+    private String addressLine2;
+    public String getAddressLine1() {
+		return addressLine1;
+	}
 
-    private String address;
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
+
+	public String getAddressLine2() {
+		return addressLine2;
+	}
+
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
+
+	private String address;
    
     private String education;
     private List<String> title;
@@ -29,6 +50,8 @@ public class UserProfileDTO {
     private List<Date> toDate;
     private List<String> socialSiteName;
     private List<String> socialSiteId;
+    private List<SocialNetwork> socialNetworks;
+    private List<WorkExperience> workExperiences;
 
     public String getUsername() {
         return username;
@@ -82,7 +105,7 @@ public class UserProfileDTO {
         return city;
     }
 
-    public void setSity(String city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
@@ -165,4 +188,28 @@ public class UserProfileDTO {
     public void setSocialSiteId(List<String> socialSiteId) {
         this.socialSiteId = socialSiteId;
     }
+
+	public List<SocialNetwork> getSocialNetworks() {
+		return socialNetworks;
+	}
+
+	public void setSocialNetworks(List<SocialNetwork> socialNetworks) {
+		this.socialNetworks = socialNetworks;
+	}
+
+	public List<WorkExperience> getWorkExperiences() {
+		return workExperiences;
+	}
+
+	public void setWorkExperiences(List<WorkExperience> workExperiences) {
+		this.workExperiences = workExperiences;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
 }

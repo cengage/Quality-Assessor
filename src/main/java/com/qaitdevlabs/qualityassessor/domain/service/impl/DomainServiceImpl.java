@@ -237,20 +237,47 @@ public class DomainServiceImpl implements DomainService {
 	}
 
 	@Override
-	public List<String> getListOfRootDomains() {
-		List<String> listOfRootDomains = null;
+	public List<DomainDTO> getListOfRootDomains() {
+		List<DomainDTO> listOfRootDomains = null;
 		List<Domain> domains = domainDao.getDomainList();
 		if (domains.size() > 0) {
-			listOfRootDomains = new ArrayList<String>();
+			listOfRootDomains = new ArrayList<DomainDTO>();
 			Iterator<Domain> domainList = domains.iterator();
 			while (domainList.hasNext()) {
 				Domain domain = (Domain) domainList.next();
-				listOfRootDomains.add(domain.getDomainName());
+				DomainDTO dto = new DomainDTO();
+				dto.setId(String.valueOf(domain.getDomainId()));
+				dto.setName(domain.getDomainName());
+				listOfRootDomains.add(dto);
 			}
 
 		}
 		return listOfRootDomains;
 	}
+
+//	public TreeNodeDTO getDomainHierarchy(Long id) {
+//		Domain domain = (Domain) domainDao.get(id);
+//		TreeNodeDTO node = getTreeNodeDTO(domain);
+//		node.setChildren(getChildNodes(node, id));
+//		return node;
+//
+//	}
+
+//	public List<TreeNodeDTO> getChildNodes(TreeNodeDTO node, Long id) {
+//
+//		List<DomainMapping> subDomainMappingList = domainDao
+//				.getSubDomainList(id);
+//		Iterator<DomainMapping> it = subDomainMappingList.iterator();
+//		while (it.hasNext()) {
+//			List children = new ArrayList();
+//			DomainMapping domainMapping = (DomainMapping) it.next();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+//			TreeNodeDTO child = getTreeNodeDTO(domainMapping.getDomain());
+//			node.setChildren(getChildNodes(child, domainMapping.getDomain()
+//					.getDomainId()));
+//		}
+//
+//		return chidNodes;
+//	}
 
 	/*
 	 * @Override public Domain get(Long id) { return domainDao.get(id); }

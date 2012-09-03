@@ -1,8 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
 <link href="css/profile.css" rel="Stylesheet" type="text/css" />
 <link href="css/common.css" rel="Stylesheet" type="text/css" />
+<link href="css/button.css" type="text/css" rel="stylesheet">
 <script src='js/jquery/jquery.min.js' type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery/profile.js"></script>
 <!-- <link href="css/jquery.ui.all.css" rel="stylesheet"/> -->
@@ -17,17 +19,17 @@
 <body>
 	<%@include file="/header.jsp"%>
 
-	<div class="background container">
+	<div class="background container" style="height:auto">
 		<div style="margin: 0px">
-			
-			<form action="profile" method="POST">
 
-				
+			<form:form action="profile" method="POST" commandName="userProfileDTO">
+
+
 				<table class="zebra-striped"
 					style="width: 650px; margin: 30px 30px 10px 120px; border: 1px solid #CCCCCC;">
 					<thead>
 						<tr>
-							<td   style="text-align: center; border-bottom: 1px solid #CCCCCC;"
+							<td style="text-align: center; border-bottom: 1px solid #CCCCCC;"
 								colspan="4"><strong class="headerStrong">Personal
 									Details</strong></td>
 						</tr>
@@ -39,20 +41,20 @@
 						<!-- 							<option>Ms.</option> -->
 						<!-- 							<option>Mrs.</option></select></td> -->
 						<td><strong>Name*</strong></td>
-						<td class="span3"><input id="firstName" name="firstName"
-							type="text"></td>
-						<td class="span3"><input id="middleName" name="middleName"
-							type="text"></td>
-						<td class="span3"><input id="lastName" name="lastName"
-							type="text"></td>
+						<td class="span3"><form:input id="firstName" path="firstName"
+								type="text" /></td>
+						<td class="span3"><form:input id="middleName"
+								path="middleName" type="text" /></td>
+						<td class="span3"><form:input id="lastName" path="lastName"
+								type="text" /></td>
 					</tr>
 					<tr style="background-color: white;">
 						<td class="span3"><strong>Email*</strong></td>
-						<td class="span3"><input name="username" type="text"></td>
+						<td class="span3"><form:input path="username" type="text" /></td>
 					</tr>
 				</table>
 
-				<table  class="zebra-striped"
+				<table class="zebra-striped"
 					style="width: 650px; margin: 30px 30px 10px 120px; border: 1px solid #CCCCCC;">
 					<thead>
 						<tr>
@@ -64,21 +66,21 @@
 
 					<tr>
 						<td class="span3"><strong>Address Line1</strong></td>
-						<td class="span3"><input name="addressLine1" type="text"></td>
+						<td class="span3"><form:input path="addressLine1" type="text" /></td>
 						<td class="span3"><strong>Address Line2</strong></td>
-						<td class="span3"><input name="addressLine2" type="text"></td>
+						<td class="span3"><form:input path="addressLine2" type="text" /></td>
 					</tr>
 					<tr>
 						<td class="span3"><strong>City</strong></td>
-						<td class="span3"><input name="city" type="text"></td>
+						<td class="span3"><form:input path="city" type="text" /></td>
 						<td class="span3"><strong>State</strong></td>
-						<td class="span3"><input name="state" type="text"></td>
+						<td class="span3"><form:input path="state" type="text" /></td>
 					</tr>
 					<tr>
 						<td class="span3"><strong>Country</strong></td>
-						<td class="span3"><input name="country" type="text"></td>
+						<td class="span3"><form:input path="country" type="text" /></td>
 						<td class="span3"><strong>Zip</strong></td>
-						<td class="span3"><input name="zip" type="text"></td>
+						<td class="span3"><form:input path="zipCode" type="text" /></td>
 					</tr>
 
 				</table>
@@ -88,7 +90,7 @@
 					style="width: 650px; margin: 30px 30px 10px 120px; border: 1px solid #CCCCCC;">
 
 					<thead>
-						<tr >
+						<tr>
 							<td style="text-align: center; border-bottom: 1px solid #CCCCCC;"
 								colspan="5"><strong class="headerStrong">Work
 									Experience</strong></td>
@@ -104,18 +106,27 @@
 						<td><strong>To Date</strong></td>
 
 					</tr>
-					<tr id="workExpTexts1" class="cloneWorkExpTexts">
-						<td><input name="title" type="text"></td>
-						<td><input name="areaOfExpertise" type="text"></td>
-						<td><input name="roleDescription" type="text"></td>
-						<td style="width: 44%"><input style="width: 100%"
-							class="fromDatepicker" name="fromDate" type="text"></td>
-						<td style="width: 44%"><input style="width: 100%"
-							class="toDatepicker" name="toDate" type="text"></td>
-
-					</tr>
+					<c:forEach items="${userProfileDTO.workExperiences}" varStatus="stat">
+						<tr id="workExpTexts1" class="cloneWorkExpTexts">
+							<td><form:input path="workExperiences[${stat.index}].title"
+									class="title" type="text" /></td>
+							<td><form:input
+									path="workExperiences[${stat.index}].areaOfExpertise"
+									class="areaOfExperience" type="text" /></td>
+							<td><form:input
+									path="workExperiences[${stat.index}].roleDescription"
+									class="roleDescription" type="text" /></td>
+							<td style="width: 44%"><form:input style="width: 100%"
+									class="fromDatepicker"
+									path="workExperiences[${stat.index}].fromDate" type="text" /></td>
+							<td style="width: 44%"><form:input style="width: 100%"
+									class="toDatepicker"
+									path="workExperiences[${stat.index}].toDate" type="text" /></td>
+						</tr>
+					</c:forEach>
+					
 					<tr>
-						<td colspan="2" style="border-top: none"><input
+						<td colspan="2" style="border-top: none"><input class="btn primary"
 							id="addMoreWorkExpbtn" type="button"
 							value="Add More Work Experience"></td>
 					</tr>
@@ -156,13 +167,13 @@
 						<td class="span3"><input name="socialNetworkName" type="text"></td>
 					</tr>
 					<tr id="socialButtonRow">
-						<td style="border-top: none"><input id="addMoreSocialbtn"
+						<td style="border-top: none"><input id="addMoreSocialbtn" class="btn primary"
 							type="button" value="Add More Social Network"></td>
 					</tr>
 				</table>
-				<input style="margin: 30px 30px 10px 120px;" type="submit"
-					value="update">
-			</form>
+				<input style="margin: 30px 30px 10px 120px;" type="submit" class="btn primary"
+					value="Save">
+			</form:form>
 		</div>
 	</div>
 </body>
