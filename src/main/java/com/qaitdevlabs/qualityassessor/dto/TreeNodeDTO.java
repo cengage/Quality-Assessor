@@ -3,9 +3,9 @@ package com.qaitdevlabs.qualityassessor.dto;
 import java.util.Date;
 import java.util.List;
 
-
 /**
- * This class is used as data transfer object 
+ * This class is used as data transfer object
+ * 
  * @author anujchhabra
  * 
  */
@@ -19,6 +19,8 @@ public class TreeNodeDTO {
 	private String isLazy; // default false, Call onLazyRead(), when the node is
 	// expanded for the first time to allow for delayed
 	// creation of children.
+	private int score;
+	private long assessmentId;
 	private String tooltip; // default null, Show this popup text.
 	private String href; // default null,Added to the generated <a> tag.
 	private String icon; // default null, Use a custom image (filename relative
@@ -30,7 +32,7 @@ public class TreeNodeDTO {
 	// this node
 	private String activate; // default false, Initial active status.
 	private String focus; // default false, Initial focused status.
-	private String expand; // default false, Initial expanded status.
+	private boolean expand; // default false, Initial expanded status.
 	private String select; // default false, Initial selected status.
 	private String hideCheckbox; // Suppress checkbox display for this node.
 	private String unselectable; // Prevent selection.
@@ -118,11 +120,11 @@ public class TreeNodeDTO {
 		this.focus = focus;
 	}
 
-	public String getExpand() {
+	public boolean getExpand() {
 		return expand;
 	}
 
-	public void setExpand(String expand) {
+	public void setExpand(boolean expand) {
 		this.expand = expand;
 	}
 
@@ -228,6 +230,22 @@ public class TreeNodeDTO {
 
 	public void setWeightage(String weightage) {
 		this.weightage = weightage;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public long getAssessmentId() {
+		return assessmentId;
+	}
+
+	public void setAssessmentId(long assessmentId) {
+		this.assessmentId = assessmentId;
 	}
 
 }

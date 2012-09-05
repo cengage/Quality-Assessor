@@ -8,9 +8,8 @@
 <script src='js/jquery/jquery.cookie.js' type="text/javascript"></script>
 <script src='js/jquery/jquery.dynatree.js' type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery/jquery.colorbox-min.js"></script>
-<script type="text/javascript" src="js/jquery/homePageScript.js"></script>
+<script type="text/javascript" src="js/jquery/domainPageScript.js"></script>
 <link type='text/css' rel='stylesheet' href='css/colorbox.css' />
-<link type='text/css' rel='stylesheet' href='css/button.css' />
 <link type='text/css' rel='stylesheet' href='css/style.css' />
 <link rel='stylesheet' type='text/css' href='css/skin/ui.dynatree.css'>
 </head>
@@ -19,12 +18,7 @@
 <%@include file="/header.jsp"%>
 	<div class="background container">
 	
-	<div style="background:white;padding:10px">
 	
-		<a style="margin:0px 2px 0px;width: 130px" class='button-default'
-			href="javascript:showAddRootDomainView()">Add New Domain</a>
-	</div>
-	<p></p>
 	<!-- Add a <div> element where the tree should appear: -->
 	<div id="tree"></div>
 	</div>

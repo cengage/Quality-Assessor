@@ -32,8 +32,7 @@ public class UserProfileController {
 
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
-		List<SocialNetwork> socialNetworks = userService
-				.getSocialNetworks(user);
+
 		List<WorkExperience> workExperiences = userService
 				.getWorkExperiences(user);
 		UserProfileDTO userProfileDTO = new UserProfileDTO();
@@ -41,20 +40,44 @@ public class UserProfileController {
 		userProfileDTO.setUsername(user.getUsername());
 		userProfileDTO.setFirstName(user.getFirstName());
 		userProfileDTO.setLastName(user.getLastName());
+		userProfileDTO.setCountry(user.getCountry());
 		userProfileDTO.setCity(user.getCity());
 		userProfileDTO.setState(user.getState());
 		userProfileDTO.setZipCode(user.getZipCode());
-		// userProfileDTO.setAddress(user.getAddress());
 		userProfileDTO.setAddressLine1(user.getAddressLine1());
 		userProfileDTO.setAddressLine2(user.getAddressLine2());
-		userProfileDTO.setSocialNetworks(socialNetworks);
 		userProfileDTO.setWorkExperiences(workExperiences);
 
+		String facebookId = "";
+		String twitterId = "";
+		String googleplusId = "";
+		String linkedInId = "";
+		Long socialNetworkId = null;
+		List<SocialNetwork> socialNetworks = userService
+				.getSocialNetworks(user);
+		if (socialNetworks.size() > 0) {
+			SocialNetwork socialNetwork = socialNetworks.get(0);
+			facebookId = socialNetwork.getFacebookId();
+			twitterId = socialNetwork.getTwitterId();
+			googleplusId = socialNetwork.getGoogleplusId();
+			linkedInId = socialNetwork.getLinkedInId();
+			socialNetworkId = socialNetwork.getSocialNetworkId();
+			System.out.println(socialNetworkId);
+		}
+
+	
+
+		userProfileDTO.setFacebookId(facebookId);
+		userProfileDTO.setTwitterId(twitterId);
+		userProfileDTO.setLinkedInId(linkedInId);
+		userProfileDTO.setGoogleplusId(googleplusId);
+		userProfileDTO.setSocialNetworkId(socialNetworkId);
 		map.addAttribute("userProfileDTO", userProfileDTO);
 
 		return "profile";
 	}
 
+	
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public String updateUserProfile(@Valid UserProfileDTO userProfileDTO,
 			BindingResult result, ModelMap map, HttpServletRequest request) {
@@ -63,6 +86,7 @@ public class UserProfileController {
 		user.setUsername(userProfileDTO.getUsername());
 		user.setFirstName(userProfileDTO.getFirstName());
 		user.setLastName(userProfileDTO.getLastName());
+		user.setCountry(userProfileDTO.getCountry());
 		user.setCity(userProfileDTO.getCity());
 		user.setState(userProfileDTO.getState());
 		user.setZipCode(userProfileDTO.getZipCode());
@@ -81,33 +105,17 @@ public class UserProfileController {
 			}
 		}
 
-		// List<String> areaOfExpertise = userProfile.getAreaOfExpertise();
-		// List<String> title = userProfile.getTitle();
-		// List<Date> fromDate = userProfile.getFromDate();
-		// List<Date> toDate = userProfile.getToDate();
-		// int size = userProfileForm.getAreaOfExpertise().size();
-		// for (int i = 0; i < size; i++) {
-		// WorkExperience workExperience = new WorkExperience();
-		// workExperience.setAreaOfExpertise(areaOfExpertise.get(i));
-		// workExperience.setTitle(title.get(i));
-		// workExperience.setFromDate(fromDate.get(i));
-		// workExperience.setToDate(toDate.get(i));
-		// workExperience.setUser(user);
-		// userService.saveWorkExperience(workExperience);
-		// }
+		SocialNetwork socialNetwork = new SocialNetwork();
+		socialNetwork.setSocialNetworkId(userProfileDTO.getSocialNetworkId());
+		System.out.println("sosocialNetwork"+userProfileDTO.getSocialNetworkId());
+		socialNetwork.setUser(user);
+		socialNetwork.setFacebookId(userProfileDTO.getFacebookId());
+		socialNetwork.setTwitterId(userProfileDTO.getTwitterId());
+		socialNetwork.setLinkedInId(userProfileDTO.getLinkedInId());
+		socialNetwork.setGoogleplusId(userProfileDTO.getGoogleplusId());
+		userService.saveSocialNetwork(socialNetwork);
+		
 
-		// List<String> socialSiteName = userProfileForm.getSocialSiteName();
-		// List<String> socialSiteId = userProfileForm.getSocialSiteId();
-		// size = socialSiteName.size();
-		//
-		// for (int i = 0; i < size; i++) {
-		// SocialNetwork socialNetwork = new SocialNetwork();
-		// socialNetwork.setSocialSiteName(socialSiteName.get(i));
-		// socialNetwork.setSocialSiteId(socialSiteId.get(i));
-		// socialNetwork.setUser(user);
-		// userService.saveSocialNetwork(socialNetwork);
-		// }
-
-		return "profile";
+		return "redirect:/profile";
 	}
 }

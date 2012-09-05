@@ -1,21 +1,17 @@
 package com.qaitdevlabs.qualityassessor.model;
 
-import java.util.Date;
-
 /**
- * Created with IntelliJ IDEA.
  * User: anujchhabra
  * Date: 28/8/12
  * Time: 12:31 PM
- * To change this template use File | Settings | File Templates.
  */
 public class WorkExperience {
     private Long workExperienceId;
     private User user;
     private String title;
     private String areaOfExpertise;
-    private Date fromDate;
-    private Date toDate;
+    private String fromDate;
+    private String toDate;
     private String roleDescription;
     
     public Long getWorkExperienceId() {
@@ -50,19 +46,19 @@ public class WorkExperience {
         this.areaOfExpertise = areaOfExpertise;
     }
 
-    public Date getFromDate() {
+    public String getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Date fromDate) {
+    public void setFromDate(String fromDate) {
         this.fromDate = fromDate;
     }
 
-    public Date getToDate() {
+    public String getToDate() {
         return toDate;
     }
 
-    public void setToDate(Date toDate) {
+    public void setToDate(String toDate) {
         this.toDate = toDate;
     }
 

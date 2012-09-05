@@ -26,6 +26,7 @@ public class User implements UserDetails, Serializable {
 	private String middleName;
 	private String suffix;
 	private String lastName;
+	private String country;
 	private String city;
 	private String state;
 	private String zipCode;
@@ -236,6 +237,14 @@ public class User implements UserDetails, Serializable {
 
 	public void setReferralName(String referralName) {
 		this.referralName = referralName;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 }

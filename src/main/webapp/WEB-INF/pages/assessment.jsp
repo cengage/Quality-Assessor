@@ -9,7 +9,11 @@
 <link href="css/table.css" type="text/css" rel="stylesheet">
 <link href="css/button.css" type="text/css" rel="stylesheet">
 <link href="css/common.css" type="text/css" rel="stylesheet">
+<link type='text/css' rel='stylesheet' href='css/style.css' />
 </head>
+<script>
+
+</script>
 <body>
 	<%@include file="/header.jsp"%>
 	<div class="background container">
@@ -27,12 +31,12 @@
 				varStatus="status">
 				<tr>
 					<td>${domain.name}</td>
-					<td><input class="btn primary" type="button"
-						value="Self Assessment" onclick="window.open('domain')"></td>
-					<td><input class="btn primary" type="button"
-						value="Invite Friends to Assess"></td>
-					<td><input class="btn primary" type="button"
-						value="View Assessment"></td>
+					<td><a class='button-default' style="margin:0px 2px 0px;width: 130px;padding:4px 13px;text-align:center" 
+						 href='domain?key=${domain.id}'>Self Assessment</a></td>
+					<td><a class='button-default' style="margin:0px 2px 0px;width: 138px;padding:4px 13px;text-align:center" 
+						 href='Invite Friends to Assess'>Invite Friends to Assess</a></td>
+					<td><a class='button-default' style="margin:0px 2px 0px;width: 130px;padding:4px 13px;text-align:center" 
+						 href='Invite Friends to Assess'>View Assessment</a></td>
 				</tr>
 			</c:forEach>
 		</table>

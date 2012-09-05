@@ -2,6 +2,9 @@ package com.qaitdevlabs.qualityassessor.web;
 
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
+import com.qaitdevlabs.qualityassessor.model.User;
+import com.qaitdevlabs.qualityassessor.service.UserService;
 
 /**
  * This controller class is used to create,update,delete domains
@@ -22,6 +27,13 @@ import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
  */
 @Controller
 public class DomainSettingsController {
+
+	private UserService userService;
+
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	private DomainService domainService;
 
@@ -89,11 +101,12 @@ public class DomainSettingsController {
 	@RequestMapping(value = "/saveDomain", method = RequestMethod.POST)
 	public @ResponseBody
 	TreeNodeDTO saveDomain(ModelMap model, @RequestParam String parentKey,
-			@RequestParam String title, @RequestParam String weightage) {
+			@RequestParam String title, @RequestParam String weightage,HttpServletRequest request) {
 
 		System.out.println("Contoller" + parentKey + " " + title + " "
 				+ weightage);
-
+		Long userId = (Long) request.getSession().getAttribute("USER_ID");
+		User user = userService.getUser(userId);
 		Date creationDate = new Date();
 		TreeNodeDTO dto = new TreeNodeDTO();
 		dto.setParentKey(parentKey);
@@ -101,7 +114,7 @@ public class DomainSettingsController {
 		dto.setWeightage(weightage);
 		dto.setCreationDate(creationDate);
 
-		dto = domainService.saveDomain(dto);
+		dto = domainService.saveDomain(dto,user);
 		System.out.println(dto);
 		return dto;
 	}

@@ -17,10 +17,10 @@
          <property name="roleDescription" type="string">
             <column name="roleDescription" length="100" />
         </property>
-        <property name="fromDate" type="java.util.Date" >
+        <property name="fromDate" type="string" >
             <column name="from_date" />
         </property>
-        <property name="toDate" type="java.util.Date" >
+        <property name="toDate" type="string" >
             <column name="to_date" />
         </property>
         <many-to-one name="user" class="com.qaitdevlabs.qualityassessor.model.User">

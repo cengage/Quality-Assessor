@@ -37,7 +37,7 @@ function getRemainingWeightage() {
 		url : url,
 		success : function(data) {
 			$('#remainingWeightageId').text(
-					"(Remaining Weightage : " + data + ")");
+					"(Remaining Weighing : " + data + ")");
 			remainingWeightageForNewDomain = data;
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
@@ -83,7 +83,7 @@ function validateTitleField(title) {
 		errorMsg : ""
 	};
 	if (title == "") {
-		res.errorMsg = "Article name can't be blank";
+		res.errorMsg = "Domain name can't be blank";
 		res.success = false;
 	}
 	return res;
@@ -95,19 +95,19 @@ function validateWeightageField(weightage, weightageLimit) {
 		errorMsg : ""
 	};
 	if (weightage == "") {
-		res.errorMsg = "Weightage can't be blank";
+		res.errorMsg = "Weighing can't be blank";
 		res.success = false;
 	} else {
 		var value = weightage.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 		var intRegex = /^\d+$/;
 		if (!intRegex.test(value)) {
-			res.errorMsg = "Weightage must be numeric";
+			res.errorMsg = "Weighing must be numeric";
 			res.success = false;
 			return res;
 		}
 	}
 	if (parseInt(weightage) > parseInt(weightageLimit)) {
-		res.errorMsg = "Weightage can't be more than remaining weightage";
+		res.errorMsg = "Weighing can't be more than remaining weighing";
 		res.success = false;
 	}
 	return res;

@@ -23,8 +23,13 @@ public class UserProfileDTO {
     private String city;
     private String state;
     private String zipCode;
-    private String addressLine1;
+   	private String addressLine1;
     private String addressLine2;
+    private String facebookId;
+    private String linkedInId;
+    private String twitterId;
+    private String googleplusId;
+    private Long socialNetworkId;
     public String getAddressLine1() {
 		return addressLine1;
 	}
@@ -212,4 +217,44 @@ public class UserProfileDTO {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+	 public String getFacebookId() {
+	    	return facebookId;
+	    }
+	    
+	    public void setFacebookId(String facebookId) {
+	    	this.facebookId = facebookId;
+	    }
+	    
+	    public String getLinkedInId() {
+	    	return linkedInId;
+	    }
+	    
+	    public void setLinkedInId(String linkedInId) {
+	    	this.linkedInId = linkedInId;
+	    }
+	    
+	    public String getTwitterId() {
+	    	return twitterId;
+	    }
+	    
+	    public void setTwitterId(String twitterId) {
+	    	this.twitterId = twitterId;
+	    }
+	    
+	    public String getGoogleplusId() {
+	    	return googleplusId;
+	    }
+	    
+	    public void setGoogleplusId(String googleplusId) {
+	    	this.googleplusId = googleplusId;
+	    }
+
+		public Long getSocialNetworkId() {
+			return socialNetworkId;
+		}
+
+		public void setSocialNetworkId(Long socialNetworkId) {
+			this.socialNetworkId = socialNetworkId;
+		}
+
 }

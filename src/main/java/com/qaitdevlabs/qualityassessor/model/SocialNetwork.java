@@ -1,47 +1,66 @@
 package com.qaitdevlabs.qualityassessor.model;
 
 /**
- * Created with IntelliJ IDEA.
- * User: anujchhabra
- * Date: 28/8/12
- * Time: 12:45 PM
- * To change this template use File | Settings | File Templates.
+ * Created with IntelliJ IDEA. User: anujchhabra Date: 28/8/12 Time: 12:45 PM To
+ * change this template use File | Settings | File Templates.
  */
 public class SocialNetwork {
-    private Long socialNetworkId;
-    private String socialSiteName;
-    private String socialSiteId;
-    private User user;
+	private Long socialNetworkId;
+	private String facebookId;
+	private String twitterId;
+	private String googleplusId;
+	private String linkedInId;
+	private User user;
 
-    public Long getSocialNetworkId() {
-        return socialNetworkId;
-    }
+	public String getFacebookId() {
+		return facebookId;
+	}
 
-    public void setSocialNetworkId(Long socialNetworkId) {
-        this.socialNetworkId = socialNetworkId;
-    }
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
 
-    public String getSocialSiteName() {
-        return socialSiteName;
-    }
+	public String getTwitterId() {
+		return twitterId;
+	}
 
-    public void setSocialSiteName(String socialSiteName) {
-        this.socialSiteName = socialSiteName;
-    }
+	public void setTwitterId(String twitterId) {
+		this.twitterId = twitterId;
+	}
 
-    public String getSocialSiteId() {
-        return socialSiteId;
-    }
+	public String getGoogleplusId() {
+		return googleplusId;
+	}
 
-    public void setSocialSiteId(String socialSiteId) {
-        this.socialSiteId = socialSiteId;
-    }
+	public void setGoogleplusId(String googleplusId) {
+		this.googleplusId = googleplusId;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public Long getSocialNetworkId() {
+		return socialNetworkId;
+	}
+
+	public void setSocialNetworkId(Long socialNetworkId) {
+		this.socialNetworkId = socialNetworkId;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getLinkedInId() {
+		return linkedInId;
+	}
+
+	public void setLinkedInId(String linkedInId) {
+		this.linkedInId = linkedInId;
+	}
+
+	
 }

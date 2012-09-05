@@ -72,8 +72,8 @@
 		<p></p>
 		<div id="newWeightageDiv">
 			<div>
-				<label for="Weightage"> <strong>Please give
-						weightage to Domain</strong>
+				<label for="Weighting"> <strong>Please give
+						weighing to Domain</strong>
 				</label>
 			</div>
 			<div>
@@ -90,7 +90,7 @@
 				href="javascript:saveDomain()">Add</a>
 		</div>
         <div style="float:left;float: left;position: absolute;right: 0;margin:0 18px" id="subDomainWeightageDiv">
-        <a id="subDomainWeightageLink" href="javascript:showSubDomainsWeightage()">Show Sub-Domain Weightage</a>
+        <a id="subDomainWeightageLink" href="javascript:showSubDomainsWeightage()">Show Sub-Domain Weighing</a>
         </div>
 
 
@@ -119,7 +119,7 @@
 		<div id="editWeightageDiv">
 			<div>
 				<label for="Weightage"> <strong>Please give
-						weightage to Domain</strong>
+						weighing to Domain</strong>
 				</label>
 			</div>
 			<div>

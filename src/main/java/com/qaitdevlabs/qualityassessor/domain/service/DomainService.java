@@ -3,6 +3,8 @@ package com.qaitdevlabs.qualityassessor.domain.service;
 import java.util.List;
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
+import com.qaitdevlabs.qualityassessor.model.User;
+import com.qaitdevlabs.qualityassessor.model.Domain;
 
 
 /**
@@ -38,7 +40,7 @@ public interface DomainService {
 	 *            data transfer object of domain
 	 * @return data transfer object of saved domain
 	 */
-	public TreeNodeDTO saveDomain(TreeNodeDTO dto);
+	public TreeNodeDTO saveDomain(TreeNodeDTO dto,User user);
 
 	/**
 	 * This method is used to delete domain
@@ -67,4 +69,8 @@ public interface DomainService {
     public List<DomainDTO> getSubDomains(String key);
 
 	public List<DomainDTO> getListOfRootDomains();
+	
+	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user);
+
+	public Domain getDomain(String key);
 }

@@ -70,6 +70,7 @@ body{
 	margin-right:10px;
 }
 .box input[type=text],
+.box input[type=email],
 .box input[type=password],
 .txtField,
 .cjComboBox

@@ -212,7 +212,7 @@ public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao ,
 		} finally {
 			session.close();
 		}
-		System.out.println(workExperiences.get(0).getTitle());
+		//System.out.println(workExperiences.get(0).getTitle());
 		return workExperiences;					
 	}
 }

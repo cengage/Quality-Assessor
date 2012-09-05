@@ -78,7 +78,7 @@ public class SignUpController {
 		// socialNetwork.setUser(user);
 
 		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-				user.getUsername(), user.getPassword(), user.getAuthorities());
+				user, user.getPassword(), user.getAuthorities());
 		auth.setDetails(user);
 		SecurityContextHolder.getContext().setAuthentication(auth);
 

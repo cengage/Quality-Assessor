@@ -5,73 +5,86 @@ $(document)
 							.click(
 									function() {
 										var num = $('.cloneWorkExpTexts').length; // how
+										var id=num-1;
+//										alert(id);
 										
-										var title = $('#workExpTexts'+ num+ " td input.title").attr('name');
-										var areaOfExperience = $('#workExpTexts'+ num+ " td input.areaOfExperience").attr('name');
-										var roleDescription = $('#workExpTexts'+ num+ " td input.roleDescription").attr('name');
-										var fromDatepicker = $('#workExpTexts'+ num+ " td input.fromDatepicker").attr('name');
-										var toDatepicker = $('#workExpTexts'+ num+ " td input.toDatepicker").attr('name');
+//										var title = $('#workExpTexts'+ id+ " td input.title").attr('name');
+//										alert(title);
+//										var areaOfExperience = $('#workExpTexts'+ id+ " td input.areaOfExperience").attr('name');
+//										var roleDescription = $('#workExpTexts'+ id+ " td input.roleDescription").attr('name');
+//										var fromDatepicker = $('#workExpTexts'+ id+ " td input.fromDatepicker").attr('name');
+//										var toDatepicker = $('#workExpTexts'+ id+ " td input.toDatepicker").attr('name');
 										
 										
 										
-										var newNum = new Number(num + 1); // the
+										var newNum = new Number(num ); // the
 										
-										 title= title.replace(/\[.*?\]/g, '['+(newNum-1)+']');
-										 //alert(title);
-										 areaOfExperience= areaOfExperience.replace(/\[.*?\]/g, '['+(newNum-1)+']');
-										 roleDescription= roleDescription.replace(/\[.*?\]/g, '['+(newNum-1)+']');
-										 fromDatepicker= fromDatepicker.replace(/\[.*?\]/g, '['+(newNum-1)+']');
-										 toDatepicker= toDatepicker.replace(/\[.*?\]/g, '['+(newNum-1)+']');
+//										 title= title.replace(/\[.*?\]/g, '['+(newNum-1)+']');
+//										 //alert(title);
+//										 areaOfExperience= areaOfExperience.replace(/\[.*?\]/g, '['+(newNum-1)+']');
+//										 roleDescription= roleDescription.replace(/\[.*?\]/g, '['+(newNum-1)+']');
+//										 fromDatepicker= fromDatepicker.replace(/\[.*?\]/g, '['+(newNum-1)+']');
+//										 toDatepicker= toDatepicker.replace(/\[.*?\]/g, '['+(newNum-1)+']');
 
-										var newWorkExpTable = $(
-												'#workExpTexts' + num)
-												.clone()
-												.attr('id',
-														'workExpTexts' + newNum);
-
-										$('#workExpTexts' + num).after(
-												newWorkExpTable);
-
-										$('#workExpTexts'+ newNum+ " td input.title").attr('name',title);
-										$('#workExpTexts'+ newNum+ " td input.areaOfExperience").attr('name',areaOfExperience);
-										$('#workExpTexts'+ newNum+ " td input.roleDescription").attr('name',roleDescription);
-										$('#workExpTexts'+ newNum+ " td input.fromDatepicker").attr('name',fromDatepicker);
-										$('#workExpTexts'+ newNum+ " td input.toDatepicker").attr('name',toDatepicker);
+										var newrow=$("<tr class='cloneWorkExpTexts' id='workExpTexts"+num+"'>" +
+												"<td><input type='text' value='' class='title' name='workExperiences["+num+"].title' id='workExperiences["+num+"].title'></td>" +
+												"<td><input type='text' value='' class='areaOfExperience' name='workExperiences["+num+"].areaOfExpertise' ></td>" +
+												"<td><input type='text' value='' class='roleDescription' name='workExperiences["+num+"].roleDescription'></td>" +
+											    "<td style='width: 44%'><input type='text' value='' class='fromDatepicker' style='width: 100%' name='workExperiences["+num+"].fromDate' ></td> " +
+											    "<td style='width: 44%'><input type='text' value='' class='toDatepicker' style='width: 100%' name='workExperiences["+num+"].toDate' ></td>" +
+											    "</tr>") ;
 										
-										$('#workExpTexts'+ newNum+ " td input.fromDatepicker").val("");
-										$('#workExpTexts'+ newNum+ " td input.fromDatepicker").attr('id','fromDatePicker'+ newNum);
+//										var newWorkExpTable = $(
+//												'#workExpTexts' + id)
+//												.clone()
+//												.attr('id',
+//														'workExpTexts' + num);
+
+//										$('#workExpTexts' + id).after(
+//												newrow);
+
+										$('#workExpBtnTr').before(newrow);
 										
+//										$('#workExpTexts'+ newNum+ " td input.title").attr('name',title);
+//										$('#workExpTexts'+ newNum+ " td input.areaOfExperience").attr('name',areaOfExperience);
+//										$('#workExpTexts'+ newNum+ " td input.roleDescription").attr('name',roleDescription);
+//										$('#workExpTexts'+ newNum+ " td input.fromDatepicker").attr('name',fromDatepicker);
+//										$('#workExpTexts'+ newNum+ " td input.toDatepicker").attr('name',toDatepicker);
+//										
+//										$('#workExpTexts'+ newNum+ " td input.fromDatepicker").val("");
+//										$('#workExpTexts'+ newNum+ " td input.fromDatepicker").attr('id','fromDatePicker'+ newNum);
+										
+//										$(
+//												'#workExpTexts'
+//														+ newNum
+//														+ " td input.fromDatepicker")
+//												.removeClass('hasDatepicker');
 										$(
 												'#workExpTexts'
-														+ newNum
+														+ num
 														+ " td input.fromDatepicker")
-												.removeClass('hasDatepicker');
-										$(
-												'#workExpTexts'
-														+ newNum
-														+ " td input.fromDatepicker")
-												.datepicker();
-										$(
-												'#workExpTexts'
-														+ newNum
-														+ " td input.toDatepicker")
-												.val("");
-										$(
-												'#workExpTexts'
-														+ newNum
-														+ " td input.toDatepicker")
-												.attr('id',
-														"toDatePicker" + newNum);
-										$(
-												'#workExpTexts'
-														+ newNum
-														+ " td input.toDatepicker")
-												.removeClass('hasDatepicker');
+												.datepicker({ dateFormat: 'dd-mm-yy' });
+//										$(
+//												'#workExpTexts'
+//														+ num
+//														+ " td input.toDatepicker")
+//												.val("");
+//										$(
+//												'#workExpTexts'
+//														+ newNum
+//														+ " td input.toDatepicker")
+//												.attr('id',
+//														"toDatePicker" + newNum);
+//										$(
+//												'#workExpTexts'
+//														+ newNum
+//														+ " td input.toDatepicker")
+//												.removeClass('hasDatepicker');
 										$(
 												'#workExpTexts'
 														+ newNum
 														+ " td input.toDatepicker")
-												.datepicker();
+												.datepicker({ dateFormat: 'dd-mm-yy' });
 
 									});
 
@@ -103,8 +116,8 @@ $(document)
 				});
 
 $(function() {
-	$(".fromDatepicker").datepicker();
-	$(".toDatepicker").datepicker();
+	$(".fromDatepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+	$(".toDatepicker").datepicker({ dateFormat: 'dd-mm-yy' });
 	$("#firstName").watermark("First Name");
 	$("#middleName").watermark("Middle Name");
 	$("#lastName").watermark("Last Name");

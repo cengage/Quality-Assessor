@@ -1,16 +1,24 @@
 package com.qaitdevlabs.qualityassessor.domain.service.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
-import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
-import com.qaitdevlabs.qualityassessor.util.CustomDomainComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.qaitdevlabs.qualityassessor.assessment.dao.AssessmentDao;
 import com.qaitdevlabs.qualityassessor.domain.dao.DomainDao;
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
+import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
+import com.qaitdevlabs.qualityassessor.model.Assessment;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.DomainMapping;
+import com.qaitdevlabs.qualityassessor.model.User;
+import com.qaitdevlabs.qualityassessor.util.CustomDomainComparator;
 
 /**
  * 
@@ -25,6 +33,13 @@ public class DomainServiceImpl implements DomainService {
 	@Autowired
 	public void setDomainDao(DomainDao domainDao) {
 		this.domainDao = domainDao;
+	}
+
+	private AssessmentDao assessmentDao;
+
+	@Autowired
+	public void setAssessmentDao(AssessmentDao assessmentDao) {
+		this.assessmentDao = assessmentDao;
 	}
 
 	@Override
@@ -148,7 +163,7 @@ public class DomainServiceImpl implements DomainService {
 	}
 
 	@Override
-	public TreeNodeDTO saveDomain(TreeNodeDTO dto) {
+	public TreeNodeDTO saveDomain(TreeNodeDTO dto, User user) {
 
 		String parentKey = dto.getParentKey();
 		Domain subDomain = new Domain();
@@ -156,7 +171,7 @@ public class DomainServiceImpl implements DomainService {
 		subDomain.setCreationDate(dto.getCreationDate());
 		subDomain.setModificationDate(dto.getCreationDate());
 		// domain.setWikipediaLink(wikipediaLink);
-		// domain.setCreationUser(creationUser);
+		subDomain.setCreationUser(user);
 		// domain.setModificationUser(modificationUser);
 		subDomain.setIsActive(true);
 		if (parentKey.equals("null")) {
@@ -255,29 +270,55 @@ public class DomainServiceImpl implements DomainService {
 		return listOfRootDomains;
 	}
 
-//	public TreeNodeDTO getDomainHierarchy(Long id) {
-//		Domain domain = (Domain) domainDao.get(id);
-//		TreeNodeDTO node = getTreeNodeDTO(domain);
-//		node.setChildren(getChildNodes(node, id));
-//		return node;
-//
-//	}
+	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user) {
+		Domain domain = (Domain) domainDao.get(id);
+		TreeNodeDTO node = getTreeNodeDTO(domain);
+		Assessment assessment = assessmentDao.getAssessment(assessor, user,
+				domain);
+		if (assessment != null) {
+			node.setScore(assessment.getScore());
+			node.setAssessmentId(assessment.getAssessmentId());
+		}
+		node.setExpand(true);
+		List<DomainMapping> subDomainMappingList = domainDao
+				.getSubDomainList(id);
+		Iterator<DomainMapping> it = subDomainMappingList.iterator();
+		List<TreeNodeDTO> childList = new ArrayList<TreeNodeDTO>();
+		while (it.hasNext()) {
+			DomainMapping domainMapping = (DomainMapping) it.next();
+			TreeNodeDTO dto = getDomainHierarchy(domainMapping.getSubDomain()
+					.getDomainId(), assessor, user);
+			dto.setWeightage(domainMapping.getWeightage().toString());
+			childList.add(dto);
+		}
+		if (childList.size() > 0) {
+			Collections.sort(childList, new CustomDomainComparator());
+			node.setChildren(childList);
+		}
+		return node;
+	}
 
-//	public List<TreeNodeDTO> getChildNodes(TreeNodeDTO node, Long id) {
-//
-//		List<DomainMapping> subDomainMappingList = domainDao
-//				.getSubDomainList(id);
-//		Iterator<DomainMapping> it = subDomainMappingList.iterator();
-//		while (it.hasNext()) {
-//			List children = new ArrayList();
-//			DomainMapping domainMapping = (DomainMapping) it.next();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-//			TreeNodeDTO child = getTreeNodeDTO(domainMapping.getDomain());
-//			node.setChildren(getChildNodes(child, domainMapping.getDomain()
-//					.getDomainId()));
-//		}
-//
-//		return chidNodes;
-//	}
+	@Override
+	public Domain getDomain(String key) {
+		Long id = Long.valueOf(key);
+		return domainDao.get(id);
+	}
+
+	// public List<TreeNodeDTO> getChildNodes(TreeNodeDTO node, Long id) {
+	//
+	// List<DomainMapping> subDomainMappingList = domainDao
+	// .getSubDomainList(id);
+	// Iterator<DomainMapping> it = subDomainMappingList.iterator();
+	// while (it.hasNext()) {
+	// List children = new ArrayList();
+	// DomainMapping domainMapping = (DomainMapping) it.next();
+	// TreeNodeDTO child = getTreeNodeDTO(domainMapping.getDomain());
+	// node.setChildren(getChildNodes(child, domainMapping.getDomain()
+	// .getDomainId()));
+	// }
+	//
+	// return chidNodes;
+	// }
 
 	/*
 	 * @Override public Domain get(Long id) { return domainDao.get(id); }

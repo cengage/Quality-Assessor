@@ -19,10 +19,11 @@
 <body>
 	<%@include file="/header.jsp"%>
 
-	<div class="background container" style="height:auto">
+	<div class="background container" style="height: auto">
 		<div style="margin: 0px">
 
-			<form:form action="profile" method="POST" commandName="userProfileDTO">
+			<form:form action="profile" method="POST"
+				commandName="userProfileDTO">
 
 
 				<table class="zebra-striped"
@@ -106,9 +107,12 @@
 						<td><strong>To Date</strong></td>
 
 					</tr>
-					<c:forEach items="${userProfileDTO.workExperiences}" varStatus="stat">
-						<tr id="workExpTexts1" class="cloneWorkExpTexts">
-							<td><form:input path="workExperiences[${stat.index}].title"
+					<c:forEach items="${userProfileDTO.workExperiences}"
+						varStatus="stat">
+						<tr id="workExpTexts${stat.index}" class="cloneWorkExpTexts">
+							<td><form:input type="hidden"
+									path="workExperiences[${stat.index}].workExperienceId" />
+								<form:input path="workExperiences[${stat.index}].title"
 									class="title" type="text" /></td>
 							<td><form:input
 									path="workExperiences[${stat.index}].areaOfExpertise"
@@ -124,10 +128,10 @@
 									path="workExperiences[${stat.index}].toDate" type="text" /></td>
 						</tr>
 					</c:forEach>
-					
-					<tr>
-						<td colspan="2" style="border-top: none"><input class="btn primary"
-							id="addMoreWorkExpbtn" type="button"
+
+					<tr id="workExpBtnTr">
+						<td colspan="2" style="border-top: none"><input
+							class="btn primary" id="addMoreWorkExpbtn" type="button"
 							value="Add More Work Experience"></td>
 					</tr>
 
@@ -148,31 +152,37 @@
 					</thead>
 
 					<tr style="background-color: #F9F9F9;">
+						<form:input type="hidden" path="socialNetworkId" />
 						<td class="span3"><strong>SocialNetwork</strong></td>
 						<td class="span3"><strong>SocialNetwork-Id</strong></td>
 					</tr>
 					<tr>
 						<td class="span3"><input name="socialSiteName" type="hidden"
 							value="LinkedIn" /><strong>LinkedIn</strong></td>
-						<td class="span3"><input name="socialNetworkName" type="text"></td>
+						<td class="span3"><form:input path="linkedInId" /></td>
 					</tr>
 					<tr>
 						<td class="span3"><input name="socialSiteName" type="hidden"
 							value="Facebook" /><strong>Facebook</strong></td>
-						<td class="span3"><input name="socialNetworkName" type="text"></td>
+						<td class="span3"><form:input path="facebookId" /></td>
 					</tr>
 					<tr>
 						<td class="span3"><input name="socialSiteName" type="hidden"
 							value="Twitter" /><strong>Twitter</strong></td>
-						<td class="span3"><input name="socialNetworkName" type="text"></td>
+						<td class="span3"><form:input path="twitterId" /></td>
 					</tr>
-					<tr id="socialButtonRow">
-						<td style="border-top: none"><input id="addMoreSocialbtn" class="btn primary"
-							type="button" value="Add More Social Network"></td>
+					<tr>
+						<td class="span3"><input name="socialSiteName" type="hidden"
+							value="Googleplus" /><strong>Googleplus</strong></td>
+						<td class="span3"><form:input path="googleplusId" /></td>
 					</tr>
+					<!-- 					<tr id="socialButtonRow"> -->
+					<!-- 						<td style="border-top: none"><input id="addMoreSocialbtn" class="btn primary" -->
+					<!-- 							type="button" value="Add More Social Network"></td> -->
+					<!-- 					</tr> -->
 				</table>
-				<input style="margin: 30px 30px 10px 120px;" type="submit" class="btn primary"
-					value="Save">
+				<input style="margin: 30px 30px 10px 120px;" type="submit"
+					class="btn primary" value="Save">
 			</form:form>
 		</div>
 	</div>

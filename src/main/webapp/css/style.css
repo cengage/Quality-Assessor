@@ -10,7 +10,7 @@
 	height: 21px;
 	padding: 5px 11px 0 15px;
 	margin-right: 3px;
-	background: url(../images/button-sprite-l.gif) no-repeat;
+	background: -moz-linear-gradient(center top , #3E698C 0%, #30576E 100%) repeat scroll 0 0 transparent;
 	text-decoration: none;
 	color: white;
 }
