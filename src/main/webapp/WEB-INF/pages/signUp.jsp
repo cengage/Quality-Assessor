@@ -6,6 +6,34 @@
 <link href="css/common.css" rel="Stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="css/logincss/reset.css">
 <link rel="stylesheet" type="text/css" href="css/logincss/structure.css">
+<link rel="stylesheet" type="text/css" href="css/error.css">
+<script src="js/jquery/jquery.min.js"></script>
+<script src="js/jquery/jquery.validate.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#signUpForm").validate();
+  });
+  
+  jQuery.validator.addMethod("confirmPassword", function(value, element) { 
+	  var password=$('#password').val();
+	  var confirmPassword =$('#confirmPassword').val();
+	  if(password!=confirmPassword){
+		  return false;
+	  }
+	   return true; 
+	}, "Password doesn\'t match with confirm password");
+  
+  function checkCustomValidation(){
+	  var password=$('#password').val();
+	  var confirmPassword =$('#confirmPassword').val();
+	  if(password!=confirmPassword){
+		  alert('password doesn\'t match with confirm password');
+		  return false;
+	  }
+	   return true;
+  }
+  
+  </script>
 </head>
 
 <body>
@@ -23,31 +51,30 @@
 
 		<!-- 		<H2>Sign In</H2> -->
 
-		<form class="box login" style="top: 36%; height: 480px"
-			action="signUp" method="post">
-			<fieldset class="boxBody">
+		<form id="signUpForm" class="box login"
+			style="top: 36%; min-height: 480px" action="signUp" method="post"
+			onsubmit="return checkCustomValidation()">
+			<fieldset class="boxBody" style="height: 85%">
 
 				<label class="userform-box-name">First Name</label> <input
-					name="firstName" type="text" class="form-login" title="FirstName"
-					value="" size="30" maxlength="2048" required /> <label
+					name="firstName" type="text" value="" class="required" /> <label
 					class="userform-box-name">Last Name</label> <input name="lastName"
-					type="text" class="form-login" title="LastName" value="" size="30"
-					maxlength="2048" required /> <label class="userform-box-name">Email</label>
-				<input name="username" type="text" class="form-login"
-					title="Username" value="" size="30" maxlength="2048" required /> <label
-					class="userform-box-name">Password</label> <input name="password"
-					type="password" class="form-login" title="Password" value=""
-					size="30" maxlength="2048" required /> <label
+					type="text" value="" class="required" /> <label
+					class="userform-box-name">Email</label> <input name="username"
+					type="text" value="" size="30" maxlength="2048"
+					class="required email" /> <label class="userform-box-name">Password</label>
+				<input id="password" name="password" type="password" value=""
+					size="30" maxlength="2048" class="required" minlength="6" /> <label
 					class="userform-box-name">Confirm Password</label> <input
-					name="confirmPassword" type="password" class="form-login"
-					title="Confirm Password" value="" size="30" maxlength="2048"
-					required />
+					id="confirmPassword" name="confirmPassword" type="password"
+					value="" size="30" maxlength="2048"
+					class="required confirmPassword" minlength="6" />
 
 
 
 
 			</fieldset>
-			<footer>
+			<footer style="height: 15%">
 				<input type="submit" class="btnLogin" value="Sign Up">
 			</footer>
 

@@ -13,7 +13,15 @@
 <script src="js/jquery/jquery.ui.widget.min.js"></script>
 <script src="js/jquery/jquery.ui.datepicker.js"></script>
 <script src="js/jquery/jquery.watermark.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/error.css">
+<script src="js/jquery/jquery.min.js"></script>
+<script src="js/jquery/jquery.validate.min.js"></script>
 <link href="css/datepick.css" rel="stylesheet" />
+<script>
+  $(document).ready(function(){
+    $("#profileForm").validate();
+  });
+  </script>
 </head>
 
 <body>
@@ -22,7 +30,7 @@
 	<div class="background container" style="height: auto">
 		<div style="margin: 0px">
 
-			<form:form action="profile" method="POST"
+			<form:form id="profileForm" action="profile" method="POST"
 				commandName="userProfileDTO">
 
 
@@ -43,7 +51,7 @@
 						<!-- 							<option>Mrs.</option></select></td> -->
 						<td><strong>Name*</strong></td>
 						<td class="span3"><form:input id="firstName" path="firstName"
-								type="text" /></td>
+								type="text" class="required"/></td>
 						<td class="span3"><form:input id="middleName"
 								path="middleName" type="text" /></td>
 						<td class="span3"><form:input id="lastName" path="lastName"
@@ -51,7 +59,7 @@
 					</tr>
 					<tr style="background-color: white;">
 						<td class="span3"><strong>Email*</strong></td>
-						<td class="span3"><form:input path="username" type="text" /></td>
+						<td class="span3"><form:input path="username" type="text" class="required email"/></td>
 					</tr>
 				</table>
 
