@@ -17,6 +17,8 @@ public interface UserService {
 
 	public User saveUser(User user);
 
+	public List<User> getAllUsers();
+
 	public List<SocialNetwork> getSocialNetworks(User user);
 
 	public List<WorkExperience> getWorkExperiences(User user);

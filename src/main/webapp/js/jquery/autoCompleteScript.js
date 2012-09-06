@@ -34,12 +34,7 @@ $(function() {
 				//alert('select');
 				title = ui.item.label.trim();
 				title = title.replace(" ", "_");
-				$('.wikiLinkUpdate').attr("href","http://en.wikipedia.org/wiki/" + title);
-				$('.wikiLinkUpdate').html("http://en.wikipedia.org/wiki/" + title);
-//				alert(ui.item.label);
-				log( ui.item ?
-					"Selected: " + ui.item.label :
-					"Nothing selected, input was " + this.value);
+				updateWikiLink(title);
 			},
 			open: function() {
 				$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );

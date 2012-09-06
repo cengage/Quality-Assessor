@@ -17,7 +17,7 @@
 <body>
 	<%@include file="/header.jsp"%>
 	<div class="background container">
-		<table style="margin-top:4%;width:80%;margin-right:auto;margin-left:auto;" class="imagetable">
+		<table style="margin-top:4%;width:60%;margin-right:auto;margin-left:80px;float:left" class="imagetable">
 			<thead>
 				<tr>
 					<td
@@ -33,12 +33,24 @@
 					<td>${domain.name}</td>
 					<td><a class='button-default' style="margin:0px 2px 0px;width: 130px;padding:4px 13px;text-align:center" 
 						 href='domain?key=${domain.id}'>Self Assessment</a></td>
-					<td><a class='button-default' style="margin:0px 2px 0px;width: 138px;padding:4px 13px;text-align:center" 
-						 href='Invite Friends to Assess'>Invite Friends to Assess</a></td>
 					<td><a class='button-default' style="margin:0px 2px 0px;width: 130px;padding:4px 13px;text-align:center" 
 						 href='Invite Friends to Assess'>View Assessment</a></td>
 				</tr>
 			</c:forEach>
+		</table >
+		<table style="float:left;margin-top:4%;margin-left:4%;font-size:12px">
+		<tr><td><a class='button-default' style="margin:0px 2px 0px;width: 100px;padding:9px 5px 19px;text-align:center" 
+						 href='invitationlist'>Invite Application Friends</a></td></tr>
+						 <tr><td><a class='button-default' style="margin:0px 2px 0px;width: 100px;padding:9px 5px 19px;text-align:center" 
+						 href='Invite Application Friends'>Invite LinkedIn Friends</a></td></tr>
+						 <tr><td><a class='button-default' style="margin:0px 2px 0px;width: 100px;padding:9px 5px 19px;text-align:center" 
+						 href='Invite Application Friends'>Invite Facebook Friends</a></td></tr>
+						 <tr><td><a class='button-default' style="margin:0px 2px 0px;width: 100px;padding:9px 5px 19px;text-align:center" 
+						 href='Invite Application Friends'>Invite Twitter Friends</a></td></tr>
+						 <tr><td><a class='button-default' style="margin:0px 2px 0px;width: 100px;padding:9px 5px 19px;text-align:center" 
+						 href='Invite Application Friends'>Invite Googleplus Friends</a></td></tr>
+						
+						 
 		</table>
 	</div>
 </body>

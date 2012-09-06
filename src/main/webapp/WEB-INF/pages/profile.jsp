@@ -14,7 +14,6 @@
 <script src="js/jquery/jquery.ui.datepicker.js"></script>
 <script src="js/jquery/jquery.watermark.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/error.css">
-<script src="js/jquery/jquery.min.js"></script>
 <script src="js/jquery/jquery.validate.min.js"></script>
 <link href="css/datepick.css" rel="stylesheet" />
 <script>
