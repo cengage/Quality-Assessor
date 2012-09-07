@@ -14,7 +14,7 @@ public class Assessment implements Serializable{
 	private User assessor;
 	private Domain domain;
 	private Date assessmentDate;
-	private Integer score;
+	private Integer score = 0;
 	
 	public Long getAssessmentId() {
 		return assessmentId;

@@ -9,8 +9,8 @@
 			<column name="assessment_id" />
 			<generator class="native" />
 		</id>
-		<property name="score" type="java.lang.Integer">
-			<column name="score" not-null="true" />
+		<property name="score" type="java.lang.Integer" >
+			<column name="score" />
 		</property>
 
 		<property name="assessmentDate" type="java.util.Date">

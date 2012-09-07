@@ -52,6 +52,10 @@
 						
 						 
 		</table>
+		
+		<div style="width:500px;padding:385px 84px 1px " >
+		<a href="">Click here to assess others</a>
+		</div>
 	</div>
 </body>
 </html>

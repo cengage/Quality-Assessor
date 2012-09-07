@@ -1,6 +1,7 @@
 package com.qaitdevlabs.qualityassessor.web;
 
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,27 +59,41 @@ public class InvitiationListController {
 	}
 
 	@RequestMapping(value = "/invitationlist", method = RequestMethod.POST)
-	public String saveSelectedUserAndDomainList(@RequestBody JsonArray domainIds,
-			@RequestBody JsonArray userIds, HttpServletRequest request) {
-		System.out.println(userIds+" dfs"+domainIds);
-//		Long userId = (Long) request.getSession().getAttribute("USER_ID");
-//		User user = userService.getUser(Long.valueOf(userId));
-//		Iterator<String> domainItr = domainIds.iterator();
-//		while (domainItr.hasNext()) {
-//			String domainId = domainItr.next();
-//			Domain domain = domainService.getDomain(domainId);
-//			Iterator<Long> userItr = userList.iterator();
-//			User assessor;
-//			while (userItr.hasNext()) {
-//				userId = userItr.next();
-//				assessor = userService.getUser(userId);
-//				Assessment assessment = new Assessment();
-//				assessment.setDomain(domain);
-//				assessment.setAssessor(assessor);
-//				assessment.setUser(user);
-//				assessmentService.saveAssessment(assessment);
-//			}
-//		}
+	public String saveSelectedUserAndDomainList(
+			@SuppressWarnings("rawtypes") @RequestBody List<LinkedHashMap> data,
+			HttpServletRequest request) {
+		System.out.println(data.get(0).get("userIds"));
+		@SuppressWarnings("unchecked")
+		List<LinkedHashMap<String, String>> userIds = (List<LinkedHashMap<String, String>>) data
+				.get(0).get("userIds");
+		@SuppressWarnings("unchecked")
+		List<LinkedHashMap<String, String>> domainIds = (List<LinkedHashMap<String, String>>) data
+				.get(1).get("domainIds");
+		for (int i = 0; i < domainIds.size(); i++) {
+			LinkedHashMap<String, String> map = domainIds.get(i);
+			System.out.println(map.get("id"));
+		}
+
+		Long userId = (Long) request.getSession().getAttribute("USER_ID");
+		User user = userService.getUser(Long.valueOf(userId));
+		Iterator<LinkedHashMap<String, String>> domainItr = domainIds
+				.iterator();
+		while (domainItr.hasNext()) {
+			String domainId = domainItr.next().get("id");
+			Domain domain = domainService.getDomain(domainId);
+			Iterator<LinkedHashMap<String, String>> userItr = userIds
+					.iterator();
+			User assessor;
+			while (userItr.hasNext()) {
+				userId = Long.valueOf(userItr.next().get("id"));
+				assessor = userService.getUser(userId);
+				Assessment assessment = new Assessment();
+				assessment.setDomain(domain);
+				assessment.setAssessor(assessor);
+				assessment.setUser(user);
+				assessmentService.saveAssessment(assessment);
+			}
+		}
 
 		return "invitationList";
 	}

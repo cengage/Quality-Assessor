@@ -20,7 +20,7 @@
 		<table style='width: 600px; margin-left: 84px'>
 			<tr>
 				<td style='width: 250px;'><b>Application Domains</b><br /> <select
-					multiple="multiple" id='domainList' style="width: 100%;">
+				size="10"	 multiple="multiple" id='domainList' style="width: 100%;">
 						<c:forEach var='domain' items="${domainList}">
 							<option value="${domain.id}">${domain.name}</option>
 						</c:forEach>
@@ -30,7 +30,7 @@
 					type='button' id='domainLeft' value='  <  ' />
 				</td>
 				<td style='width: 250px;'><b>Selected Domains</b><br /> <select
-					multiple="multiple" id='selectedDomainList' style="width: 100%;">
+				size='10'	multiple="multiple" id='selectedDomainList' style="width: 100%;">
 
 				</select></td>
 			</tr>
@@ -39,7 +39,7 @@
 		<table style='width: 600px; margin: 0px 84px 0px;'>
 			<tr>
 				<td style='width: 250px;'><b>Application Users</b><br /> <select
-					style="width: 100%" multiple="multiple" id='userList'>
+				size='10'	style="width: 100%" multiple="multiple" id='userList'>
 						<c:forEach var='user' items="${userList}">
 							<option value="${user.userId}">${user.firstName}
 								${user.lastName}</option>
@@ -50,7 +50,7 @@
 					type='button' id='userLeft' value='  <  ' />
 				</td>
 				<td style='width: 250px;'><b>Selected Users</b><br /> <select
-					style="width: 100%" multiple="multiple" id='selectedUserList'>
+				 size='10'	style="width: 100%" multiple="multiple" id='selectedUserList'>
 
 				</select></td>
 			</tr>
