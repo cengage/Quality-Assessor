@@ -304,6 +304,33 @@ public class DomainServiceImpl implements DomainService {
 		return domainDao.get(id);
 	}
 
+	public void getExtremeChildDomains(Long id, User user, User assessor,
+			List<TreeNodeDTO> extrmeChilds) {
+		Domain domain = (Domain) domainDao.get(id);
+		TreeNodeDTO node = getTreeNodeDTO(domain);
+		Assessment assessment = assessmentDao.getAssessment(assessor, user,
+				domain);
+		if (assessment != null) {
+			node.setScore(assessment.getScore());
+			node.setAssessmentId(assessment.getAssessmentId());
+		}
+
+		List<DomainMapping> subDomainMappingList = domainDao
+				.getSubDomainList(id);
+		if (subDomainMappingList.size() < 1) {
+			System.out.println(node.getTitle());
+			extrmeChilds.add(node);
+		}
+		Iterator<DomainMapping> it = subDomainMappingList.iterator();
+
+		while (it.hasNext()) {
+			DomainMapping domainMapping = (DomainMapping) it.next();
+			getExtremeChildDomains(domainMapping.getSubDomain().getDomainId(),
+					assessor, user, extrmeChilds);
+		}
+
+	}
+
 	// public List<TreeNodeDTO> getChildNodes(TreeNodeDTO node, Long id) {
 	//
 	// List<DomainMapping> subDomainMappingList = domainDao

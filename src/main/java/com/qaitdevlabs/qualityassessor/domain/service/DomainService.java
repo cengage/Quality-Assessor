@@ -6,7 +6,6 @@ import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 
-
 /**
  * This service interface is used to handle request from controller for saving,
  * updating ,deleting domains and to get child domains.
@@ -40,7 +39,7 @@ public interface DomainService {
 	 *            data transfer object of domain
 	 * @return data transfer object of saved domain
 	 */
-	public TreeNodeDTO saveDomain(TreeNodeDTO dto,User user);
+	public TreeNodeDTO saveDomain(TreeNodeDTO dto, User user);
 
 	/**
 	 * This method is used to delete domain
@@ -62,15 +61,19 @@ public interface DomainService {
 	 */
 	public int getRemainingWeightageInDomain(String domainKey);
 
-    /**
-     * This method is used to get subdomains
-     * @return list of subdomains
-     */
-    public List<DomainDTO> getSubDomains(String key);
+	/**
+	 * This method is used to get subdomains
+	 * 
+	 * @return list of subdomains
+	 */
+	public List<DomainDTO> getSubDomains(String key);
 
 	public List<DomainDTO> getListOfRootDomains();
-	
+
 	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user);
 
 	public Domain getDomain(String key);
+
+	public void getExtremeChildDomains(Long id, User user, User assessor,
+			List<TreeNodeDTO> extrmeChilds);
 }
