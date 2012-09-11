@@ -10,9 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qaitdevlabs.qualityassessor.assessment.dao.AssessmentDao;
+import com.qaitdevlabs.qualityassessor.assessment.dao.impl.AssessmentDaoImpl;
+import com.qaitdevlabs.qualityassessor.assessment.service.AssessmentService;
 import com.qaitdevlabs.qualityassessor.domain.dao.DomainDao;
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
+import com.qaitdevlabs.qualityassessor.dto.RadarChartInfo;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 import com.qaitdevlabs.qualityassessor.model.Assessment;
 import com.qaitdevlabs.qualityassessor.model.Domain;
@@ -304,32 +307,99 @@ public class DomainServiceImpl implements DomainService {
 		return domainDao.get(id);
 	}
 
-	public void getExtremeChildDomains(Long id, User user, User assessor,
-			List<TreeNodeDTO> extrmeChilds) {
+	public void getExtremeChildDomains(Long id, List<Domain> extrmeChilds) {
+		System.out.println("getExtremeChildDomains");
 		Domain domain = (Domain) domainDao.get(id);
-		TreeNodeDTO node = getTreeNodeDTO(domain);
-		Assessment assessment = assessmentDao.getAssessment(assessor, user,
-				domain);
-		if (assessment != null) {
-			node.setScore(assessment.getScore());
-			node.setAssessmentId(assessment.getAssessmentId());
-		}
-
 		List<DomainMapping> subDomainMappingList = domainDao
 				.getSubDomainList(id);
 		if (subDomainMappingList.size() < 1) {
-			System.out.println(node.getTitle());
-			extrmeChilds.add(node);
-		}
-		Iterator<DomainMapping> it = subDomainMappingList.iterator();
+			extrmeChilds.add(domain);
+			System.out.println(domain.getDomainName());
+		} else {
+			Iterator<DomainMapping> it = subDomainMappingList.iterator();
 
-		while (it.hasNext()) {
-			DomainMapping domainMapping = (DomainMapping) it.next();
-			getExtremeChildDomains(domainMapping.getSubDomain().getDomainId(),
-					assessor, user, extrmeChilds);
+			while (it.hasNext()) {
+				DomainMapping domainMapping = (DomainMapping) it.next();
+				getExtremeChildDomains(domainMapping.getSubDomain()
+						.getDomainId(), extrmeChilds);
+			}
 		}
-
 	}
+
+	public void getExtremeChildDomains(Long id, User user, User assessor,
+			List<RadarChartInfo> extrmeChilds) {
+		List<Domain> leafDomains = new ArrayList<Domain>();
+		getExtremeChildDomains(id, leafDomains);
+		Iterator<Domain> it = leafDomains.iterator();
+		while (it.hasNext()) {
+			Domain domain = it.next();
+			Assessment assessment = assessmentDao.getAssessment(assessor, user,
+					domain);
+			if (null != assessment) {
+				RadarChartInfo info = new RadarChartInfo();
+				info.setTitle(domain.getDomainName());
+				System.out
+						.println("*******************************************");
+				System.out.println(info.getTitle());
+
+				info.setScore(assessment.getScore());
+
+				System.out.println(info.getScore());
+				System.out
+						.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+				info.setCategory("self");
+				extrmeChilds.add(info);
+			}
+			double score = assessmentDao.getAverageAssessment(user, assessor,
+					domain);
+			RadarChartInfo info1 = new RadarChartInfo();
+			info1.setTitle(domain.getDomainName());
+			info1.setScore(score);
+			info1.setCategory("Average");
+			extrmeChilds.add(info1);
+
+		}
+	}
+
+//	public void test(Long id) {
+//		List<DomainMapping> domainMappings = domainDao.getSubDomainList(id);
+//		for (int i = 0; i < domainMappings.size(); i++) {
+//			DomainMapping domainMapping = domainMappings.get(i);
+//			List<DomainMapping> secondLevelDomainMappings = domainDao
+//					.getSubDomainList(id);
+//			for (int j = 0; j < secondLevelDomainMappings.size(); j++) {
+//				DomainMapping thirdLeveldomainMapping = domainMappings.get(j);
+//				int weightage = thirdLeveldomainMapping.getWeightage();
+//			}
+//		}
+//	}
+
+	// public void getExtremeChildDomains(Long id, User user, User assessor,
+	// List<TreeNodeDTO> extrmeChilds) {
+	// Domain domain = (Domain) domainDao.get(id);
+	// TreeNodeDTO node = getTreeNodeDTO(domain);
+	// Assessment assessment = assessmentDao.getAssessment(assessor, user,
+	// domain);
+	// if (assessment != null) {
+	// node.setScore(assessment.getScore());
+	// node.setAssessmentId(assessment.getAssessmentId());
+	// }
+	//
+	// List<DomainMapping> subDomainMappingList = domainDao
+	// .getSubDomainList(id);
+	// if (subDomainMappingList.size() < 1) {
+	// System.out.println(node.getTitle());
+	// extrmeChilds.add(node);
+	// }
+	// Iterator<DomainMapping> it = subDomainMappingList.iterator();
+	//
+	// while (it.hasNext()) {
+	// DomainMapping domainMapping = (DomainMapping) it.next();
+	// getExtremeChildDomains(domainMapping.getSubDomain().getDomainId(),
+	// assessor, user, extrmeChilds);
+	// }
+	//
+	// }
 
 	// public List<TreeNodeDTO> getChildNodes(TreeNodeDTO node, Long id) {
 	//

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.qaitdevlabs.qualityassessor.assessment.service.AssessmentService;
+import com.qaitdevlabs.qualityassessor.assessmentinvitation.service.AssessmentInvitationService;
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
 import com.qaitdevlabs.qualityassessor.model.Assessment;
+import com.qaitdevlabs.qualityassessor.model.AssessmentInvitation;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.service.UserService;
@@ -26,11 +28,12 @@ import com.qaitdevlabs.qualityassessor.util.JsonArray;
 @Controller
 public class InvitiationListController {
 
-	private AssessmentService assessmentService;
+	private AssessmentInvitationService assessmentInvitationService;
 
 	@Autowired
-	public void setAssessmentService(AssessmentService assessmentService) {
-		this.assessmentService = assessmentService;
+	public void setAssessmentInvitationService(
+			AssessmentInvitationService assessmentInvitationService) {
+		this.assessmentInvitationService = assessmentInvitationService;
 	}
 
 	private UserService userService;
@@ -48,8 +51,14 @@ public class InvitiationListController {
 	}
 
 	@RequestMapping(value = "/invitationlist", method = RequestMethod.GET)
-	public String getListOfApplicationUsers(ModelMap map) {
+	public String getListOfApplicationUsers(ModelMap map,
+			HttpServletRequest request) {
+		Long userId = (Long) request.getSession().getAttribute("USER_ID");
+		User user = userService.getUser(Long.valueOf(userId));
 		List<User> userList = userService.getAllUsers();
+		if (userList.contains(user)) {
+			userList.remove(user);
+		}
 		List<DomainDTO> domainList = domainService.getListOfRootDomains();
 		System.out.println(domainList.get(0).getName());
 		map.addAttribute("userList", userList);
@@ -87,11 +96,11 @@ public class InvitiationListController {
 			while (userItr.hasNext()) {
 				userId = Long.valueOf(userItr.next().get("id"));
 				assessor = userService.getUser(userId);
-				Assessment assessment = new Assessment();
-				assessment.setDomain(domain);
-				assessment.setAssessor(assessor);
-				assessment.setUser(user);
-				assessmentService.saveAssessment(assessment);
+				AssessmentInvitation assessmentInvitation = new AssessmentInvitation();
+				assessmentInvitation.setDomain(domain);
+				assessmentInvitation.setAssessor(assessor);
+				assessmentInvitation.setUser(user);
+				assessmentInvitationService.sendInvitation(assessmentInvitation);
 			}
 		}
 

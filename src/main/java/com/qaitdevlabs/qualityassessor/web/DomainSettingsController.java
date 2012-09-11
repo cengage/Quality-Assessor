@@ -64,6 +64,7 @@ public class DomainSettingsController {
 	 * @return true if no exception occurs
 	 */
 
+	@RequestMapping(value = "/updateDomain", method = RequestMethod.POST)
 	public @ResponseBody
 	String updateDomain(ModelMap model, @RequestParam String key,
 			@RequestParam String parentKey, @RequestParam String title,

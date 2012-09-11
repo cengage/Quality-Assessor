@@ -2,6 +2,7 @@ package com.qaitdevlabs.qualityassessor.domain.service;
 
 import java.util.List;
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
+import com.qaitdevlabs.qualityassessor.dto.RadarChartInfo;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.model.Domain;
@@ -75,5 +76,5 @@ public interface DomainService {
 	public Domain getDomain(String key);
 
 	public void getExtremeChildDomains(Long id, User user, User assessor,
-			List<TreeNodeDTO> extrmeChilds);
+			List<RadarChartInfo> extrmeChilds);
 }

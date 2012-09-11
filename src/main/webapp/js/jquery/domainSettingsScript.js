@@ -321,5 +321,5 @@ function checkIfDomainAlreadyExist(title) {
 function updateWikiLink(title) {
 	$('.wikiLinkUpdate').attr("href", "http://en.wikipedia.org/wiki/" + title);
 	$('.wikiLinkUpdate').html("http://en.wikipedia.org/wiki/" + title);
-	checkIfDomainAlreadyExist(title);
+	//checkIfDomainAlreadyExist(title);
 }

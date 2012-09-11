@@ -16,6 +16,7 @@ import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 import org.springframework.stereotype.Component;
 
+import com.qaitdevlabs.qualityassessor.dto.RadarChartInfo;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 
 @Component
@@ -35,16 +36,17 @@ public class RadarChart extends ApplicationFrame {
 	public DefaultCategoryDataset dataset;
 	public SpiderWebPlot plot;
 
-	public JFreeChart getJFreeChart(List<TreeNodeDTO> nodes) {
+	public JFreeChart getJFreeChart(List<RadarChartInfo> nodes) {
 
-		String series1 = "First";
-		String series2 = "Second";
+		
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		Iterator<TreeNodeDTO> it = nodes.iterator();
+		Iterator<RadarChartInfo> it = nodes.iterator();
 		while (it.hasNext()) {
-			TreeNodeDTO node = it.next();
-			dataset.addValue(node.getScore(), "series1", node.getTitle());
+		
+			RadarChartInfo node = it.next();
+			System.out.println("dfsasdfasgfagreggwergwgwg"+node.getScore()+node.getTitle());
+			dataset.addValue(node.getScore(), node.getCategory(), node.getTitle());
 		}
 				SpiderWebPlot plot = new SpiderWebPlot(dataset);
 		plot.setStartAngle(54);
@@ -61,7 +63,7 @@ public class RadarChart extends ApplicationFrame {
 		return chart;
 	}
 
-	public BufferedImage getBufferedImage(List<TreeNodeDTO> nodes ,int l,int w) {
+	public BufferedImage getBufferedImage(List<RadarChartInfo> nodes ,int l,int w) {
 		JFreeChart chart = getJFreeChart(nodes);
 		return chart.createBufferedImage(l, w);
 	}

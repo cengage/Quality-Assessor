@@ -20,6 +20,7 @@ public class User implements UserDetails, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Long userId;
+
 	private String username;
 	private String password;
 	private String firstName;
@@ -30,6 +31,7 @@ public class User implements UserDetails, Serializable {
 	private String city;
 	private String state;
 	private String zipCode;
+
 	public String getAddressLine1() {
 		return addressLine1;
 	}
@@ -68,13 +70,13 @@ public class User implements UserDetails, Serializable {
 		this.education = education;
 	}
 
-//	public String getAddress() {
-//		return address;
-//	}
-//
-//	public void setAddress(String address) {
-//		this.address = address;
-//	}
+	// public String getAddress() {
+	// return address;
+	// }
+	//
+	// public void setAddress(String address) {
+	// this.address = address;
+	// }
 
 	public String getMiddleName() {
 		return middleName;
@@ -245,6 +247,17 @@ public class User implements UserDetails, Serializable {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof User) {
+			User user = (User) obj;
+			if (user.username.equals(username)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

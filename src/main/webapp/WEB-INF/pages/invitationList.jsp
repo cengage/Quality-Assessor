@@ -11,7 +11,7 @@
 
 <body>
 
-	<%@include file="/headerlogin.jsp"%>
+	<%@include file="/header.jsp"%>
 
 	<div class="background container"
 		style="background: white; width: 927px;">

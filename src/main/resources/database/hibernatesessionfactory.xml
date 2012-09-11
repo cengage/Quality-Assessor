@@ -32,6 +32,7 @@
                 <value>/hibernatemappings/socialNetwork.hbm.xml</value>
                 <value>/hibernatemappings/workExperience.hbm.xml</value>
                 <value>/hibernatemappings/assessment.hbm.xml</value>
+                <value>/hibernatemappings/assessmentInvitation.hbm.xml</value>
 			</list>
 		</property>
 

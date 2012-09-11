@@ -34,7 +34,7 @@
 					<td><a class='button-default' style="margin:0px 2px 0px;width: 130px;padding:4px 13px;text-align:center" 
 						 href='domain?key=${domain.id}'>Self Assessment</a></td>
 					<td><a class='button-default' style="margin:0px 2px 0px;width: 130px;padding:4px 13px;text-align:center" 
-						 href='Invite Friends to Assess'>View Assessment</a></td>
+						 href='showRadarChart?key=${domain.id}'>View Assessment</a></td>
 				</tr>
 			</c:forEach>
 		</table >
@@ -54,7 +54,7 @@
 		</table>
 		
 		<div style="width:500px;padding:385px 84px 1px " >
-		<a href="">Click here to assess others</a>
+		<a href="assessmentrequests">Click here to assess others</a>
 		</div>
 	</div>
 </body>

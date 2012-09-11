@@ -62,31 +62,38 @@ public class AssessmentController {
 	@RequestMapping(value = "/rate", method = RequestMethod.GET)
 	public String showRatePage(@RequestParam String key, ModelMap map,
 			HttpServletRequest request) {
-//		Long userId = (Long) request.getSession().getAttribute("USER_ID");
-//		User assessor = userService.getUser(userId);
-//		Domain domain = domainService.getDomain(key);
-//		Assessment assessment = assessmentService.getAssessment(assessor,
-//				assessor, domain);
-//		if (assessment != null)
-//			System.out.println(assessment.getScore());
-//		else
-//			System.out.println("not assessed yet");
+
 		return "rate";
 	}
 
 	@RequestMapping(value = "/rate", method = RequestMethod.POST)
 	public @ResponseBody
-	long saveRating(@RequestParam String key, @RequestParam String id,
+	long saveRating(
+			@RequestParam String key,
+			@RequestParam String id,
+			@RequestParam(value = "requestedUserId", required = false) String requestedUserId,
 			@RequestParam String score, ModelMap map, HttpServletRequest request) {
-		System.out.println("iddddddddddddddd" + id);
+		System.out.println("id" + id);
+
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User assessor = userService.getUser(userId);
+
+		User user = null;
+		if (!requestedUserId.equals("null")) {
+			user = userService.getUser(Long.valueOf(requestedUserId));
+		} else {
+			user = assessor;
+		}
+
 		Domain domain = domainService.getDomain(key);
 		Long assessmentId = Long.valueOf(id);
+		if (assessmentId == 0) {
+			assessmentId = null;
+		}
 		Date assessmentDate = new Date();
 		Assessment assessment = new Assessment();
 		assessment.setAssessmentId(assessmentId);
-		assessment.setUser(assessor);
+		assessment.setUser(user);
 		assessment.setAssessor(assessor);
 		assessment.setDomain(domain);
 		assessment.setScore(Integer.valueOf(score));
@@ -98,12 +105,21 @@ public class AssessmentController {
 
 	@RequestMapping(value = "/domainHierarchy", method = RequestMethod.GET)
 	public @ResponseBody
-	TreeNodeDTO getDomainHierarchy(@RequestParam String key, ModelMap map,
-			HttpServletRequest request) {
+	TreeNodeDTO getDomainHierarchy(
+			@RequestParam String key,
+			@RequestParam(value = "requestedUserId", required = false) String requestedUserId,
+			ModelMap map, HttpServletRequest request) {
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User assessor = userService.getUser(userId);
+		System.out.println("requestedUserId" + requestedUserId);
+		User user = null;
+		if (!requestedUserId.equals("null")) {
+			user = userService.getUser(Long.valueOf(requestedUserId));
+		} else {
+			user = assessor;
+		}
 		TreeNodeDTO dto = domainService.getDomainHierarchy(Long.valueOf(key),
-				assessor, assessor);
+				assessor, user);
 		return dto;
 	}
 

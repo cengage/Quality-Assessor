@@ -115,7 +115,7 @@ function sendInvitation() {
 			//alert(data);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-			alert(errorThrown);
+			//alert(errorThrown);
 		},
 
 	});

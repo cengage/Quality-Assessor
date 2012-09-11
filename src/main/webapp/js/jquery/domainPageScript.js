@@ -5,32 +5,43 @@ function getURLParameter(name) {
 
 $(function() {
 	var key = getURLParameter("key");
+	var requestedUserId = getURLParameter("requestedUserId");
+
 	$("#tree")
 			.dynatree(
 					{
 						initAjax : {
 							url : "domainHierarchy",
 							data : {
-								key : key, // Optional arguments to append to
-								// the url
+								key : key,
+								requestedUserId : requestedUserId,
 								mode : "all"
 							}
 						},
-						// onLazyRead : function(node) {
-						// node.appendAjax({
-						// url : "domains",
-						// data : {
-						// "key" : node.data.key, // Optional url arguments
-						// "mode" : "all"
-						// }
-						// });
-						// },
+
 						onCustomRender : function(node) {
-							if ((node.data.score > 0)
-									&& (node.getChildren() == null)) {
+							var score = node.data.score;
+							if ((score >= 0) && (node.getChildren() == null)) {
 								title = node.data.title;
-								return "<a style='color:green;cursor:pointer' class='dynatree-title'>"
-										+ title + "</a>"
+								var ratingContainerId = "ratingContainer"
+										+ node.data.key;
+								var ratingStarHtml = "";
+								for (i = 0; i < score; i++) {
+									ratingStarHtml = ratingStarHtml
+											+ "<img class='toggle'  src='images/yellowstar.png'></img>";
+								}
+
+								var noOfWhiteStars = 5 - score;
+								for (i = 0; i < noOfWhiteStars; i++) {
+									ratingStarHtml = ratingStarHtml
+											+ "<img class='toggle'  src='images/whitestar.gif'></img>";
+								}
+								var html = "<a style='color:green;cursor:pointer' class='dynatree-title'>"
+										+ title + "</a>";
+								var score = node.data.score;
+
+								return html + "<span id=" + ratingContainerId
+										+ ">" + ratingStarHtml + "</span>";
 							}
 						},
 						onClick : function(node, event) {
@@ -47,7 +58,9 @@ $(function() {
 								$.colorbox({
 									href : 'rate?title=' + title + '&key='
 											+ key + '&score=' + score
-											+ '&assessmentId=' + assessmentId,
+											+ '&assessmentId=' + assessmentId
+											+ '&requestedUserId='
+											+ requestedUserId,
 									open : true,
 									iframe : true,
 									width : "480px",
@@ -60,11 +73,67 @@ $(function() {
 						}
 
 					});
+
+	$("span .toggle").live('click', function() {
+		if ($(this).attr('src') == 'images/whitestar.gif') {
+			$(this).attr('src', "images/yellowstar.png");
+			score = $(this).index() + 1;
+			$(this).prevAll().attr('src', "images/yellowstar.png");
+
+			var node = $("#tree").dynatree("getActiveNode");
+			saveRating(node, score, requestedUserId);
+		} else {
+				//alert($(this).index());
+				$(this).attr('src', "images/whitestar.gif");
+				$(this).nextAll().attr('src', "images/whitestar.gif");
+				score = $(this).index() - 1;
+				if (score == -1) {
+					score = 0;
+				}
+				var node = $("#tree").dynatree("getActiveNode");
+				saveRating(node, score, requestedUserId);
+			
+		}
+
+		// else {
+		// if (($(this).next().length == 0)
+		// || ($(this).next().attr('src') == 'images/whitestar.gif')) {
+		// $(this).attr('src', "images/whitestar.gif");
+		// score = $(this).index();
+		// }
+		// }
+	});
+
 });
 
 function updateNode(score, assessmentId) {
 	var node = $("#tree").dynatree("getActiveNode");
 	node.data.score = score;
 	node.data.assessmentId = assessmentId;
-	node.render();
+	//node.render();
+}
+
+function saveRating(node, updatedScore, requestedUserId) {
+	// alert(score);
+	var data = {
+		key : node.data.key,
+		score : updatedScore,
+		id : node.data.assessmentId,
+		requestedUserId : requestedUserId
+	};
+	var url = 'rate';
+	$.ajax({
+		type : 'POST',
+		url : url,
+		data : data,
+		success : function(assessmentId) {
+			updateNode(score, assessmentId);
+			// parent.$.fn.colorbox.close();
+
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			// showErrorMessage(jqXHR.responseText, "450", "300");
+		},
+		dataType : 'text'
+	});
 }

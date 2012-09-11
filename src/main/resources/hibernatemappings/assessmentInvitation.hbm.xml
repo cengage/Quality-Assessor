@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.qaitdevlabs.qualityassessor.model.AssessmentInvitation"
+		table="assessment_invitation">
+		<id name="assessmentInvitationId" type="java.lang.Long">
+			<column name="invitation_id" />
+			<generator class="native" />
+		</id>
+		
+<!-- 		<property name="assessmentDate" type="java.util.Date"> -->
+<!-- 			<column name="assessment_date" /> -->
+<!-- 		</property> -->
+
+		<many-to-one name="domain"
+			class="com.qaitdevlabs.qualityassessor.model.Domain" column="domain_id"
+			lazy="false" />
+		<many-to-one name="user"
+			class="com.qaitdevlabs.qualityassessor.model.User" column="user_id"
+			lazy="false" />
+		<many-to-one name="assessor"
+			class="com.qaitdevlabs.qualityassessor.model.User" column="assessor_id"
+			lazy="false" />
+
+	</class>
+</hibernate-mapping>

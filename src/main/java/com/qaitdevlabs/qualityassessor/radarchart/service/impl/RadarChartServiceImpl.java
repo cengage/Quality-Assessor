@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qaitdevlabs.qualityassessor.dto.RadarChartInfo;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 import com.qaitdevlabs.qualityassessor.radarchart.service.RadarChartService;
 import com.qaitdevlabs.qualityassessor.util.RadarChart;
@@ -21,8 +22,8 @@ public class RadarChartServiceImpl implements RadarChartService {
 	}
 
 	@Override
-	public BufferedImage getBufferedImage(List<TreeNodeDTO> nodes) {
-		return radarChart.getBufferedImage(nodes, 600, 600);
+	public BufferedImage getBufferedImage(List<RadarChartInfo> nodes) {
+		return radarChart.getBufferedImage(nodes, 600, 500);
 	}
 
 }

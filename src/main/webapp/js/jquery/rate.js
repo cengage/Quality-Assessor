@@ -5,12 +5,15 @@ function getURLParameter(name) {
 var score = 0;
 var key;
 var assessmentId = 0;
+var requestedUserId = "null";
 
 $(function() {
 	var title = getURLParameter('title');
 	key = getURLParameter('key');
 	assessmentId = getURLParameter('assessmentId');
 	score = getURLParameter('score');
+	requestedUserId =getURLParameter('requestedUserId');
+	
 	$(".heading").html("Provide Rating for " + title);
 	for (i = 0; i < score; i++) {
 		$('#ratingContainer').append(
@@ -45,7 +48,8 @@ function saveRating() {
 	var data = {
 		key : key,
 		score : score,
-		id : assessmentId
+		id : assessmentId,
+		requestedUserId:requestedUserId
 	};
 	var url = 'rate';
 	$.ajax({
@@ -53,7 +57,7 @@ function saveRating() {
 		url : url,
 		data : data,
 		success : function(assessmentId) {
-			parent.updateNode(score,assessmentId);
+			parent.updateNode(score, assessmentId);
 			parent.$.fn.colorbox.close();
 
 		},

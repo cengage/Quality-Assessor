@@ -1,5 +1,7 @@
 package com.qaitdevlabs.qualityassessor.assessment.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,11 @@ public class AssessmentServiceImpl implements AssessmentService {
 	@Override
 	public Assessment getAssessment(User assessor, User user, Domain domain) {
 		return assessmentDao.getAssessment(assessor,user,domain);
+	}
+
+	@Override
+	public List<Assessment> getAssessment(User assessor) {
+		return assessmentDao.getAssessment(assessor);
 	}
 
 //	@Override

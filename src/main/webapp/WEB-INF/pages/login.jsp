@@ -32,6 +32,11 @@
 					<input id="userId" type="text" name='j_username' tabindex="1" class="required email"  > 
 						<label>Password</label> 
 						<input id ="passwordId" name='j_password' type="password" tabindex="2"  class="required" minlength="6" ">
+			<c:if test="${not empty error}">
+		<div class="error">
+			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+		</div>
+	</c:if>
 				</fieldset>
 				<footer style="height:30%;">
 	<div>
