@@ -39,13 +39,9 @@ public class HomeController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = "/adminHome", method = RequestMethod.GET)
 	public String home(ModelMap model, HttpServletRequest request) {
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		User user = (User) auth.getPrincipal();
-		Long userId = user.getUserId();
-		request.getSession().setAttribute("USER_ID", userId);
+		
 		return "home";
 	}
 

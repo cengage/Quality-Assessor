@@ -18,16 +18,16 @@
 		<http-basic />
 		<!-- <intercept-url pattern="/welcome*" access="ROLE_USER,ROLE_ADMIN" /> -->
 		<form-login login-page="/login" 
-			default-target-url="/home"
-			authentication-failure-url="/loginfailed" />
-		<logout delete-cookies="true" logout-success-url="/logout"
+			default-target-url="/home" 
+			authentication-failure-url="/loginfailed"  authentication-success-handler-ref="successHandler"/>
+		<logout  delete-cookies="true" logout-success-url="/logout" 
 			invalidate-session="true" />
 	</http>
 
 	<beans:bean id="successHandler"
 		class="com.qaitdevlabs.qualityassessor.security.authorization.AuthSuccessHandler ">
 		<beans:property name="userUrl" value="/home" />
-		<beans:property name="adminUrl" value="/home" />
+		<beans:property name="adminUrl" value="/adminHome" />
 	</beans:bean>
 
 	<beans:bean id="passwordEncoder"

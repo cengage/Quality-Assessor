@@ -13,4 +13,5 @@ public interface RoleDao extends GenericDao<Role, Long>{
 	 * @return list of roles corresponds to given username
 	 */
 	public List<String> getRolesByUserName(String userName);
+	public Role getRoleByName(String roleName);
 }

@@ -46,7 +46,7 @@ public class AssessmentController {
 		this.domainService = domainService;
 	}
 
-	@RequestMapping(value = "/assessment", method = RequestMethod.GET)
+	@RequestMapping(value = {"/home","/assessment"}, method = RequestMethod.GET)
 	public String getListOfRootDomains(ModelMap map) {
 		List<DomainDTO> listOfRootDomains = domainService
 				.getListOfRootDomains();
@@ -59,6 +59,11 @@ public class AssessmentController {
 		return "domain";
 	}
 
+	@RequestMapping(value = "/excel", method = RequestMethod.GET)
+	public String showExcelPage(ModelMap map) {
+		return "excel";
+	}
+	
 	@RequestMapping(value = "/rate", method = RequestMethod.GET)
 	public String showRatePage(@RequestParam String key, ModelMap map,
 			HttpServletRequest request) {
@@ -119,7 +124,7 @@ public class AssessmentController {
 			user = assessor;
 		}
 		TreeNodeDTO dto = domainService.getDomainHierarchy(Long.valueOf(key),
-				assessor, user);
+				assessor, user,0);
 		return dto;
 	}
 

@@ -273,7 +273,8 @@ public class DomainServiceImpl implements DomainService {
 		return listOfRootDomains;
 	}
 
-	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user) {
+	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user,
+			float score) {
 		Domain domain = (Domain) domainDao.get(id);
 		TreeNodeDTO node = getTreeNodeDTO(domain);
 		Assessment assessment = assessmentDao.getAssessment(assessor, user,
@@ -287,16 +288,24 @@ public class DomainServiceImpl implements DomainService {
 				.getSubDomainList(id);
 		Iterator<DomainMapping> it = subDomainMappingList.iterator();
 		List<TreeNodeDTO> childList = new ArrayList<TreeNodeDTO>();
+
 		while (it.hasNext()) {
 			DomainMapping domainMapping = (DomainMapping) it.next();
 			TreeNodeDTO dto = getDomainHierarchy(domainMapping.getSubDomain()
-					.getDomainId(), assessor, user);
-			dto.setWeightage(domainMapping.getWeightage().toString());
+					.getDomainId(), assessor, user, score);
+			Integer weightage = domainMapping.getWeightage();
+			int childScore = dto.getScore();
+			score += childScore * weightage / 100;
+			System.out.println("score"+score+dto.getTitle()+"we"+weightage);
+			dto.setWeightage(weightage.toString());
 			childList.add(dto);
 		}
 		if (childList.size() > 0) {
 			Collections.sort(childList, new CustomDomainComparator());
 			node.setChildren(childList);
+			node.setScore((int) (score));
+			System.out.println(node.getTitle() + " " + score);
+			score = 0;
 		}
 		return node;
 	}
@@ -326,53 +335,97 @@ public class DomainServiceImpl implements DomainService {
 		}
 	}
 
+	// public void getExtremeChildDomains(Long id, User user, User assessor,
+	// List<RadarChartInfo> extrmeChilds) {
+	// List<Domain> leafDomains = new ArrayList<Domain>();
+	// getExtremeChildDomains(id, leafDomains);
+	// Iterator<Domain> it = leafDomains.iterator();
+	// while (it.hasNext()) {
+	// Domain domain = it.next();
+	// Assessment assessment = assessmentDao.getAssessment(assessor, user,
+	// domain);
+	// if (null != assessment) {
+	// RadarChartInfo info = new RadarChartInfo();
+	// info.setTitle(domain.getDomainName());
+	// System.out
+	// .println("*******************************************");
+	// System.out.println(info.getTitle());
+	//
+	// info.setScore(assessment.getScore());
+	//
+	// System.out.println(info.getScore());
+	// System.out
+	// .println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+	// info.setCategory("self");
+	// extrmeChilds.add(info);
+	// }
+	// double score = assessmentDao.getAverageAssessment(user, assessor,
+	// domain);
+	// RadarChartInfo info1 = new RadarChartInfo();
+	// info1.setTitle(domain.getDomainName());
+	// info1.setScore(score);
+	// info1.setCategory("Average");
+	// extrmeChilds.add(info1);
+	//
+	// }
+	// }
+
 	public void getExtremeChildDomains(Long id, User user, User assessor,
 			List<RadarChartInfo> extrmeChilds) {
-		List<Domain> leafDomains = new ArrayList<Domain>();
-		getExtremeChildDomains(id, leafDomains);
-		Iterator<Domain> it = leafDomains.iterator();
-		while (it.hasNext()) {
-			Domain domain = it.next();
-			Assessment assessment = assessmentDao.getAssessment(assessor, user,
-					domain);
-			if (null != assessment) {
-				RadarChartInfo info = new RadarChartInfo();
-				info.setTitle(domain.getDomainName());
-				System.out
-						.println("*******************************************");
-				System.out.println(info.getTitle());
+		List<DomainMapping> domainMappings = domainDao.getSubDomainList(id);
+		for (int i = 0; i < domainMappings.size(); i++) {
+			DomainMapping domainMapping = domainMappings.get(i);
+			Domain domain = domainMapping.getSubDomain();
+			List<DomainMapping> secondLevelDomainMappings = domainDao
+					.getSubDomainList(domain.getDomainId());
+			double selfScore = 0, combineScore = 0;
+			if (secondLevelDomainMappings.size() < 1) {
+				// int weightage = domainMapping.getWeightage();
+				Assessment assessment = assessmentDao.getAssessment(user, user,
+						domain);
+				if (assessment != null) {
+					selfScore = assessment.getScore();
+				}
+				combineScore = assessmentDao.getAverageAssessment(user,
+						assessor, domain);
 
-				info.setScore(assessment.getScore());
-
-				System.out.println(info.getScore());
-				System.out
-						.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-				info.setCategory("self");
-				extrmeChilds.add(info);
+			} else {
+				for (int j = 0; j < secondLevelDomainMappings.size(); j++) {
+					DomainMapping thirdLeveldomainMapping = secondLevelDomainMappings
+							.get(j);
+					int weightage = thirdLeveldomainMapping.getWeightage();
+					Domain thirdLeveldomain = thirdLeveldomainMapping
+							.getSubDomain();
+					Assessment assessment = assessmentDao.getAssessment(user,
+							user, thirdLeveldomain);
+					if (assessment != null) {
+						int score = assessment.getScore();
+						double actualScore = score * weightage / 100;
+						selfScore += actualScore;
+					}
+					double avgScore = assessmentDao.getAverageAssessment(user,
+							assessor, thirdLeveldomain);
+					avgScore = avgScore * weightage / 100;
+					combineScore += avgScore;
+				}
 			}
-			double score = assessmentDao.getAverageAssessment(user, assessor,
-					domain);
+			String domainName = domain.getDomainName();
+			System.out.println("domain -name" + domainName);
+			int weightage = domainMapping.getWeightage();
+			selfScore = selfScore * weightage / 100;
 			RadarChartInfo info1 = new RadarChartInfo();
-			info1.setTitle(domain.getDomainName());
-			info1.setScore(score);
-			info1.setCategory("Average");
+			info1.setTitle(domainName);
+			info1.setScore(selfScore);
+			info1.setCategory("self");
+			combineScore = combineScore * weightage / 100;
+			RadarChartInfo info2 = new RadarChartInfo();
+			info2.setTitle(domainName);
+			info2.setScore(combineScore);
+			info2.setCategory("combine");
 			extrmeChilds.add(info1);
-
+			extrmeChilds.add(info2);
 		}
 	}
-
-//	public void test(Long id) {
-//		List<DomainMapping> domainMappings = domainDao.getSubDomainList(id);
-//		for (int i = 0; i < domainMappings.size(); i++) {
-//			DomainMapping domainMapping = domainMappings.get(i);
-//			List<DomainMapping> secondLevelDomainMappings = domainDao
-//					.getSubDomainList(id);
-//			for (int j = 0; j < secondLevelDomainMappings.size(); j++) {
-//				DomainMapping thirdLeveldomainMapping = domainMappings.get(j);
-//				int weightage = thirdLeveldomainMapping.getWeightage();
-//			}
-//		}
-//	}
 
 	// public void getExtremeChildDomains(Long id, User user, User assessor,
 	// List<TreeNodeDTO> extrmeChilds) {
