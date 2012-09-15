@@ -71,7 +71,7 @@ public interface DomainService {
 
 	public List<DomainDTO> getListOfRootDomains();
 
-	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user,float score);
+	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user);
 
 	public Domain getDomain(String key);
 

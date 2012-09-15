@@ -105,6 +105,8 @@ function sendInvitation() {
 
 	data = '[{"userIds":[' + userIds + ']},{"domainIds":[' + domainIds + ']}]';
 
+	
+	
 	$.ajax({
 		type : 'POST',
 		url : 'invitationlist',

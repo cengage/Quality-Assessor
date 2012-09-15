@@ -4,8 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qaitdevlabs.qualityassessor.assessment.service.AssessmentService;
+import com.qaitdevlabs.qualityassessor.dao.RoleDao;
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 import com.qaitdevlabs.qualityassessor.model.Assessment;
 import com.qaitdevlabs.qualityassessor.model.Domain;
+import com.qaitdevlabs.qualityassessor.model.Role;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.service.UserService;
 
@@ -46,7 +51,18 @@ public class AssessmentController {
 		this.domainService = domainService;
 	}
 
-	@RequestMapping(value = {"/home","/assessment"}, method = RequestMethod.GET)
+	private RoleDao roleDao;
+
+	public RoleDao getRoleDao() {
+		return roleDao;
+	}
+
+	@Autowired
+	public void setRoleDao(RoleDao roleDao) {
+		this.roleDao = roleDao;
+	}
+
+	@RequestMapping(value = "/assessment", method = RequestMethod.GET)
 	public String getListOfRootDomains(ModelMap map) {
 		List<DomainDTO> listOfRootDomains = domainService
 				.getListOfRootDomains();
@@ -54,16 +70,38 @@ public class AssessmentController {
 		return "assessment";
 	}
 
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String home(ModelMap model, HttpServletRequest request) {
+		
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		System.out.println(auth.getAuthorities());
+		User user = (User) auth.getPrincipal();
+		Long userId = user.getUserId();
+		HttpSession session = request.getSession();
+		session.setAttribute("USER_ID", userId);
+		request.setAttribute("message",session.getAttribute("message"));
+		session.setAttribute("message",null);
+		Role adminRole = roleDao.getRoleByName("ROLE_ADMIN");
+		// Role userRole = roleDao.getRoleByName("ROLE_USER");
+		System.out.println("landing page");
+		if (auth.getAuthorities().contains(adminRole)) {
+			System.out.println("landing admin page");
+			session.setAttribute("group", "AdminGroup");
+			return "home";
+		} else {
+			System.out.println("landing user page");
+			session.setAttribute("group", "UserGroup");
+			return getListOfRootDomains(model);
+		}
+
+	}
+
 	@RequestMapping(value = "/domain", method = RequestMethod.GET)
 	public String showDomainPage(ModelMap map) {
 		return "domain";
 	}
 
-	@RequestMapping(value = "/excel", method = RequestMethod.GET)
-	public String showExcelPage(ModelMap map) {
-		return "excel";
-	}
-	
 	@RequestMapping(value = "/rate", method = RequestMethod.GET)
 	public String showRatePage(@RequestParam String key, ModelMap map,
 			HttpServletRequest request) {
@@ -124,7 +162,7 @@ public class AssessmentController {
 			user = assessor;
 		}
 		TreeNodeDTO dto = domainService.getDomainHierarchy(Long.valueOf(key),
-				assessor, user,0);
+				assessor, user);
 		return dto;
 	}
 

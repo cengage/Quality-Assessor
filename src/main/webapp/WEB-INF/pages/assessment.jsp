@@ -16,11 +16,14 @@
 <body>
 	<%@include file="/header.jsp"%>
 	<div class="background container">
+	<c:if test ="${not empty requestScope.message}">
+	<div style="padding:11px 84px;"><div style="color:windowtext;z-index:-1;padding:7px;width:750px;background:OliveDrab">${requestScope.message}</div></div>
+	</c:if>
 		<table style="margin-top:4%;width:60%;margin-right:auto;margin-left:80px;float:left" class="imagetable">
 			<thead>
 				<tr>
 					<td
-						style="font-size: 15px; font-weight: bold; background: #436F93; color: white; text-align: center;"
+						style="font-size: 15px; font-weight: bold; background: #30576E; color: white; text-align: center;"
 						colspan="4">Domain</td>
 
 				</tr>

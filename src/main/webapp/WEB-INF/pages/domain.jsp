@@ -9,6 +9,7 @@
 <script type="text/javascript" src="js/jquery/jquery.colorbox-min.js"></script>
 <script type="text/javascript" src="js/jquery/excel.js"></script>
 <link type='text/css' rel='stylesheet' href='css/colorbox.css' />
+<link type='text/css' rel='stylesheet' href='css/table.css' />
 <link type='text/css' rel='stylesheet' href='css/style.css' />
 <link rel='stylesheet' type='text/css' href='css/skin/ui.dynatree.css'>
 <style>
@@ -18,7 +19,7 @@ tr {
 }
 
 td {
-	width: 150px;
+	width: 130px;
 	height: 32px;
 }
 </style>
@@ -28,11 +29,57 @@ td {
 	<div class="background container">
 
 
-		<!-- Add a <div> element where the tree should appear: -->
-		<!-- 	<div id="tree"></div> -->
-		<!-- 	</div> -->
-<br>
-		<div id="excelDivId"></div>
+		<br>
+		
+		<div style="float:left;margin-left: 27px; margin-top: 20px;margin-right:30px" id="excelDivId">
+		<label ><strong>Click on the stars infront of domains to give rating of that domain</strong></label>
+		</div>
+		
+		<div id="explanationStarId" style="margin-top:20px">
+		<label><strong>Star Explanations</strong></label>
+			<table style="margin-top:15px">
+				<tr>
+					<td style="width:30%"><img class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/yellowstar.png"></td>
+					<td style="width:25%">Excellent</td>
+				</tr>
+				<tr>
+					<td><img class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/whitestar.gif"></td>
+					<td>Very Good</td>
+				</tr>
+				<tr>
+					<td><img class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/whitestar.gif"> <img
+						class="toggle" src="images/whitestar.gif"></td>
+					<td>Good</td>
+				</tr>
+				<tr>
+					<td><img class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/whitestar.gif"> <img
+						class="toggle" src="images/whitestar.gif"> <img
+						class="toggle" src="images/whitestar.gif"></td>
+					<td>Bad</td>
+				</tr>
+				<tr>
+					<td><img class="toggle" src="images/yellowstar.png"> <img
+						class="toggle" src="images/whitestar.gif"> <img
+						class="toggle" src="images/whitestar.gif"> <img
+						class="toggle" src="images/whitestar.gif"> <img
+						class="toggle" src="images/whitestar.gif"></td>
+					<td>Very Bad</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </body>
 </html>

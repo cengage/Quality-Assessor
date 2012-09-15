@@ -273,8 +273,7 @@ public class DomainServiceImpl implements DomainService {
 		return listOfRootDomains;
 	}
 
-	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user,
-			float score) {
+	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user) {
 		Domain domain = (Domain) domainDao.get(id);
 		TreeNodeDTO node = getTreeNodeDTO(domain);
 		Assessment assessment = assessmentDao.getAssessment(assessor, user,
@@ -289,23 +288,24 @@ public class DomainServiceImpl implements DomainService {
 		Iterator<DomainMapping> it = subDomainMappingList.iterator();
 		List<TreeNodeDTO> childList = new ArrayList<TreeNodeDTO>();
 
+		float score1=0;
 		while (it.hasNext()) {
 			DomainMapping domainMapping = (DomainMapping) it.next();
 			TreeNodeDTO dto = getDomainHierarchy(domainMapping.getSubDomain()
-					.getDomainId(), assessor, user, score);
+					.getDomainId(), assessor, user);
 			Integer weightage = domainMapping.getWeightage();
-			int childScore = dto.getScore();
-			score += childScore * weightage / 100;
-			System.out.println("score"+score+dto.getTitle()+"we"+weightage);
+			float childScore = dto.getScore();
+			score1 += childScore * weightage / 100;
+			System.out.println("childScore "+childScore+"score"+score1+dto.getTitle()+"we"+weightage);
 			dto.setWeightage(weightage.toString());
 			childList.add(dto);
 		}
 		if (childList.size() > 0) {
 			Collections.sort(childList, new CustomDomainComparator());
 			node.setChildren(childList);
-			node.setScore((int) (score));
-			System.out.println(node.getTitle() + " " + score);
-			score = 0;
+			node.setScore(score1);
+			System.out.println(node.getTitle() + " " + score1);
+			score1 = 0;
 		}
 		return node;
 	}
@@ -400,12 +400,13 @@ public class DomainServiceImpl implements DomainService {
 							user, thirdLeveldomain);
 					if (assessment != null) {
 						int score = assessment.getScore();
-						double actualScore = score * weightage / 100;
+						double actualScore = (float)score * weightage / 100;
 						selfScore += actualScore;
+						System.out.println(score+" "+actualScore+" "+weightage+" "+selfScore+" "+thirdLeveldomain.getDomainName());
 					}
 					double avgScore = assessmentDao.getAverageAssessment(user,
 							assessor, thirdLeveldomain);
-					avgScore = avgScore * weightage / 100;
+					avgScore = (float)avgScore * weightage / 100;
 					combineScore += avgScore;
 				}
 			}
@@ -416,12 +417,12 @@ public class DomainServiceImpl implements DomainService {
 			RadarChartInfo info1 = new RadarChartInfo();
 			info1.setTitle(domainName);
 			info1.setScore(selfScore);
-			info1.setCategory("self");
+			info1.setCategory("Self");
 			combineScore = combineScore * weightage / 100;
 			RadarChartInfo info2 = new RadarChartInfo();
 			info2.setTitle(domainName);
 			info2.setScore(combineScore);
-			info2.setCategory("combine");
+			info2.setCategory("Combine");
 			extrmeChilds.add(info1);
 			extrmeChilds.add(info2);
 		}

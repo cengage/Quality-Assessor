@@ -10,9 +10,11 @@ import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.plot.SpiderWebPlot;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.RefineryUtilities;
 import org.springframework.stereotype.Component;
 
@@ -52,14 +54,19 @@ public class RadarChart extends ApplicationFrame {
 		plot.setStartAngle(54);
 		plot.setInteriorGap(0.40);
 		plot.setToolTipGenerator(new StandardCategoryToolTipGenerator());
+		LegendTitle legendtitle = new LegendTitle(plot);
+        legendtitle.setPosition(RectangleEdge.BOTTOM);
+        
 		JFreeChart chart = new JFreeChart("", TextTitle.DEFAULT_FONT, plot,
 				false);
+		chart.addSubtitle(legendtitle);
 		ChartUtilities.applyCurrentTheme(chart);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		this.plot = (SpiderWebPlot) chartPanel.getChart().getPlot();
 		this.dataset = (DefaultCategoryDataset) plot.getDataset();
-		chartPanel.setPreferredSize(new Dimension(500, 270));
+		chartPanel.setPreferredSize(new Dimension(400, 270));
 		setContentPane(chartPanel);
+		
 		return chart;
 	}
 

@@ -19,7 +19,7 @@ public class TreeNodeDTO {
 	private String isLazy; // default false, Call onLazyRead(), when the node is
 	// expanded for the first time to allow for delayed
 	// creation of children.
-	private int score;
+	private float score;
 	private long assessmentId;
 	private String tooltip; // default null, Show this popup text.
 	private String href; // default null,Added to the generated <a> tag.
@@ -232,11 +232,11 @@ public class TreeNodeDTO {
 		this.weightage = weightage;
 	}
 
-	public int getScore() {
+	public float getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(float score) {
 		this.score = score;
 	}
 

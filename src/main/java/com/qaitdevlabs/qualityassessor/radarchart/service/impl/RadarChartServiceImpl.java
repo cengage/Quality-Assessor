@@ -23,7 +23,7 @@ public class RadarChartServiceImpl implements RadarChartService {
 
 	@Override
 	public BufferedImage getBufferedImage(List<RadarChartInfo> nodes) {
-		return radarChart.getBufferedImage(nodes, 600, 500);
+		return radarChart.getBufferedImage(nodes, 500, 400);
 	}
 
 }

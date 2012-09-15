@@ -8,13 +8,16 @@
 <body>
 	<div id='cssmenu'>
 		<ul>
-			<c:if test="${sessionScope.group=='AdminGroup'}">
-				<li><a href='adminHome'><span>Home</span></a></li>
-			</c:if>
-			<li><a href='home'><span><c:choose>
-						<c:when test="${sessionScope.group=='AdminGroup'}">Assessment</c:when>
-						<c:otherwise> Home</c:otherwise>
-					</c:choose> </span></a></li>
+			
+				<li><a href='home'><span>Home</span></a></li>
+			
+			
+				<c:if test="${sessionScope.group=='AdminGroup'}">
+					<li><a href='assessment'><span>Assessment</span></a></li>
+				</c:if>
+				
+		
+
 
 			<li><a href='profile'><span>Profile</span></a></li>
 			<li><a href="<c:url value='j_spring_security_logout'/>"><span>Logout</span></a></li>

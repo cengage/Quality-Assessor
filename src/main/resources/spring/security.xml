@@ -19,7 +19,7 @@
 		<!-- <intercept-url pattern="/welcome*" access="ROLE_USER,ROLE_ADMIN" /> -->
 		<form-login login-page="/login" 
 			default-target-url="/home" 
-			authentication-failure-url="/loginfailed"  authentication-success-handler-ref="successHandler"/>
+			authentication-failure-url="/loginfailed" />
 		<logout  delete-cookies="true" logout-success-url="/logout" 
 			invalidate-session="true" />
 	</http>

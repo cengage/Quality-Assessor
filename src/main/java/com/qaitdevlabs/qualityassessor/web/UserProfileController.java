@@ -115,7 +115,7 @@ public class UserProfileController {
 		socialNetwork.setGoogleplusId(userProfileDTO.getGoogleplusId());
 		userService.saveSocialNetwork(socialNetwork);
 		
-
-		return "redirect:/profile";
+		request.getSession(false).setAttribute("message","Your Profile has been updated successfully.");
+		return "redirect:/home";
 	}
 }

@@ -39,11 +39,7 @@ public class HomeController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/adminHome", method = RequestMethod.GET)
-	public String home(ModelMap model, HttpServletRequest request) {
-		
-		return "home";
-	}
+	
 
 	/**
 	 * This method is used to get list of child domains corresponding to parent

@@ -104,7 +104,8 @@ public class InvitiationListController {
 			}
 		}
 
-		return "invitationList";
+		request.getSession(false).setAttribute("message","Invitation has been sent.");
+		return "redirect:/home";
 	}
 
 }

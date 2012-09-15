@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
@@ -17,24 +16,24 @@
 <script src="js/jquery/jquery.validate.min.js"></script>
 <link href="css/datepick.css" rel="stylesheet" />
 <script>
-  $(document).ready(function(){
-    $("#profileForm").validate();
-  });
-  </script>
+	$(document).ready(function() {
+		$("#profileForm").validate();
+	});
+</script>
 </head>
 
 <body>
 	<%@include file="/header.jsp"%>
 
 	<div class="background container" style="height: auto">
-		<div style="margin: 0px">
+		<div style="margin: 0px; padding-top: 30px">
 
 			<form:form id="profileForm" action="profile" method="POST"
 				commandName="userProfileDTO">
 
 
 				<table class="zebra-striped"
-					style="width: 650px; margin: 30px 30px 10px 120px; border: 1px solid #CCCCCC;">
+					style="width: 650px; margin: 0px 30px 10px 120px; border: 1px solid #CCCCCC;">
 					<thead>
 						<tr>
 							<td style="text-align: center; border-bottom: 1px solid #CCCCCC;"
@@ -50,7 +49,7 @@
 						<!-- 							<option>Mrs.</option></select></td> -->
 						<td><strong>Name*</strong></td>
 						<td class="span3"><form:input id="firstName" path="firstName"
-								type="text" class="required"/></td>
+								type="text" class="required" /></td>
 						<td class="span3"><form:input id="middleName"
 								path="middleName" type="text" /></td>
 						<td class="span3"><form:input id="lastName" path="lastName"
@@ -58,7 +57,8 @@
 					</tr>
 					<tr style="background-color: white;">
 						<td class="span3"><strong>Email*</strong></td>
-						<td class="span3"><form:input path="username" type="text" class="required email"/></td>
+						<td class="span3"><form:input path="username" type="text"
+								class="required email" /></td>
 					</tr>
 				</table>
 
@@ -118,9 +118,9 @@
 						varStatus="stat">
 						<tr id="workExpTexts${stat.index}" class="cloneWorkExpTexts">
 							<td><form:input type="hidden"
-									path="workExperiences[${stat.index}].workExperienceId" />
-								<form:input path="workExperiences[${stat.index}].title"
-									class="title" type="text" /></td>
+									path="workExperiences[${stat.index}].workExperienceId" /> <form:input
+									path="workExperiences[${stat.index}].title" class="title"
+									type="text" /></td>
 							<td><form:input
 									path="workExperiences[${stat.index}].areaOfExpertise"
 									class="areaOfExperience" type="text" /></td>
@@ -188,8 +188,10 @@
 					<!-- 							type="button" value="Add More Social Network"></td> -->
 					<!-- 					</tr> -->
 				</table>
-				<input style="margin: 30px 30px 10px 120px;" type="submit"
-					class="btn primary" value="Save">
+				<div align="center">
+					<input style="margin-top: 20px;margin-bottom:10px" type="submit"
+						class="btn primary" value="Save">
+				</div>
 			</form:form>
 		</div>
 	</div>

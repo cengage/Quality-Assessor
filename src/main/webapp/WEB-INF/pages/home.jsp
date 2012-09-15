@@ -15,17 +15,22 @@
 </head>
 
 <body class="homeClass">
-<%@include file="/header.jsp"%>
+	<%@include file="/header.jsp"%>
 	<div class="background container">
-	
-	<div style="background:white;padding:10px">
-	
-		<a style="margin:0px 2px 0px;width: 130px" class='button-default'
-			href="javascript:showAddRootDomainView()">Add New Domain</a>
-	</div>
-	<p></p>
-	<!-- Add a <div> element where the tree should appear: -->
-	<div id="tree"></div>
+
+		<div style="background: white; padding: 10px">
+			<c:if test="${not empty requestScope.message}">
+				<div style="padding: 11px 7px;">
+					<div
+						style="color: windowtext; z-index: -1; padding: 7px; width: 750px; background: OliveDrab">${requestScope.message}</div>
+				</div>
+			</c:if>
+			<a style="margin: 0px 2px 0px; width: 130px" class='button-default'
+				href="javascript:showAddRootDomainView()">Add New Domain</a>
+		</div>
+		<p></p>
+		<!-- Add a <div> element where the tree should appear: -->
+		<div id="tree"></div>
 	</div>
 </body>
 </html>
