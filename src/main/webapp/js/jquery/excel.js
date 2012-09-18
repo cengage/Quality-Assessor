@@ -2,10 +2,10 @@ function getURLParameter(name) {
 	return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [
 			, null ])[1]);
 }
-
+var requestedUserId = "null";
 $(function() {
 	var key = getURLParameter("key");
-	var requestedUserId = getURLParameter("requestedUserId");
+	requestedUserId = getURLParameter("requestedUserId");
 	$.ajax({
 		type : 'GET',
 		url : 'domainHierarchy?key='+key+'&requestedUserId='+requestedUserId,
@@ -29,6 +29,7 @@ $(function() {
 					if (children != null) {
 
 						ratingStarHtml = getRatingStarHtml(obj.score, false);
+						//alert(ratingStarHtml);
 						ul += "<tr childCount=" + children.length
 								+ "><td style='border-top:none;border-bottom:none;'></td><td style='border-bottom:none'>" + obj.title
 								+ "</td><td></td><td score=" + obj.score
@@ -98,7 +99,7 @@ function getRatingStarHtml(score, editable) {
 	} else {
 		for (k = 0; k < score; k++) {
 			ratingStarHtml = ratingStarHtml
-					+ "<img   src='images/yellowstar.png'></img>";
+					+ "<img   src='images/greenstar.png'></img>";
 		}
 
 		var noOfWhiteStars = 5 - score;
@@ -113,7 +114,7 @@ function getRatingStarHtml(score, editable) {
 $(".toggle").live('click', function() {
 	previousScore = $(this).parent().attr("score");
 	score = previousScore;
-	alert("yellow" + score);
+	//alert("yellow" + score);
 	if ($(this).attr('src') == 'images/whitestar.gif') {
 		$(this).attr('src', "images/yellowstar.png");
 		$(this).prevAll().attr('src', "images/yellowstar.png");
@@ -143,12 +144,12 @@ $(".toggle").live('click', function() {
 		parentScore = (score - previousScore) * weightage / 100;
 		parentPrevScore = $('#' + parentId).attr("score");
 		updatedScore = parseFloat(parentPrevScore) + parentScore;
-		alert(updatedScore);
+		//alert(updatedScore);
 		$('#' + parentId).attr("score", updatedScore);
-		$('#' + parentId).html(getRatingStarHtml(updatedScore, true));
+		$('#' + parentId).html(getRatingStarHtml(updatedScore, false));
 		// alert(score);
 	}
-	saveRating(id, assessmentId, score, "null");
+	saveRating(id, assessmentId, score, requestedUserId);
 	// else {
 	// if (($(this).next().length == 0)
 	// || ($(this).next().attr('src') == 'images/whitestar.gif')) {

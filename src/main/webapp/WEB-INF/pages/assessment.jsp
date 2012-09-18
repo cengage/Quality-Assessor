@@ -9,17 +9,30 @@
 <link href="css/button.css" type="text/css" rel="stylesheet">
 <link href="css/common.css" type="text/css" rel="stylesheet">
 <link type='text/css' rel='stylesheet' href='css/style.css' />
-</head>
-<script>
-
+<script type="text/javascript" src="js/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		if ($("#messageDiv").is(':visible')) {
+			setTimeout(function() {
+				$("#messageDiv").hide('blind');
+			}, 3000);
+		}
+		;
+	});
 </script>
+</head>
 <body>
 	<%@include file="/header.jsp"%>
 	<div class="background container">
-	<c:if test ="${not empty requestScope.message}">
-	<div style="padding:11px 84px;"><div style="color:windowtext;z-index:-1;padding:7px;width:750px;background:OliveDrab">${requestScope.message}</div></div>
-	</c:if>
-		<table style="margin-top:4%;width:60%;margin-right:auto;margin-left:80px;float:left" class="imagetable">
+		<c:if test="${not empty requestScope.message}">
+			<div id="messageDiv" style="padding: 11px 84px;">
+				<div
+					style="color: windowtext; z-index: -1; padding: 7px; width: 750px; background: OliveDrab">${requestScope.message}</div>
+			</div>
+		</c:if>
+		<table
+			style="margin-top: 4%; width: 60%; margin-right: auto; margin-left: 80px; float: left"
+			class="imagetable">
 			<thead>
 				<tr>
 					<td
@@ -33,30 +46,48 @@
 				varStatus="status">
 				<tr>
 					<td>${domain.name}</td>
-					<td><a class='button-default' style="margin:0px 2px 0px;width: 130px;padding:4px 13px;text-align:center" 
-						 href='domain?key=${domain.id}'>Self Assessment</a></td>
-					<td><a class='button-default' style="margin:0px 2px 0px;width: 130px;padding:4px 13px;text-align:center" 
-						 href='showRadarChart?key=${domain.id}'>View Assessment</a></td>
+					<td><a class='button-default'
+						style="margin: 0px 2px 0px; width: 130px; padding: 4px 13px; text-align: center"
+						href='domain?key=${domain.id}'>Self Assessment</a></td>
+					<td><a class='button-default'
+						style="margin: 0px 2px 0px; width: 130px; padding: 4px 13px; text-align: center"
+						href='showRadarChart?key=${domain.id}&domainName=${domain.name}'>View Assessment</a></td>
 				</tr>
 			</c:forEach>
-		</table >
-		<table style="float:left;margin-top:4%;margin-left:4%;font-size:12px">
-		<tr><td><a class='button-default' style="margin:0px 2px 0px;width: 100px;padding:9px 5px 19px;text-align:center" 
-						 href='invitationlist'>Invite Application Friends</a></td></tr>
-						 <tr><td><a class='button-default' style="margin:0px 2px 0px;width: 100px;padding:9px 5px 19px;text-align:center" 
-						 href='Invite Application Friends'>Invite LinkedIn Friends</a></td></tr>
-						 <tr><td><a class='button-default' style="margin:0px 2px 0px;width: 100px;padding:9px 5px 19px;text-align:center" 
-						 href='Invite Application Friends'>Invite Facebook Friends</a></td></tr>
-						 <tr><td><a class='button-default' style="margin:0px 2px 0px;width: 100px;padding:9px 5px 19px;text-align:center" 
-						 href='Invite Application Friends'>Invite Twitter Friends</a></td></tr>
-						 <tr><td><a class='button-default' style="margin:0px 2px 0px;width: 100px;padding:9px 5px 19px;text-align:center" 
-						 href='Invite Application Friends'>Invite Googleplus Friends</a></td></tr>
-						
-						 
 		</table>
-		
-		<div style="width:500px;padding:385px 84px 1px " >
-		<a href="assessmentrequests">Click here to assess others</a>
+		<table
+			style="float: left; margin-top: 4%; margin-left: 4%; font-size: 12px">
+			<tr>
+				<td><a class='button-default'
+					style="margin: 0px 2px 0px; width: 100px; padding: 9px 5px 19px; text-align: center"
+					href='invitationlist'>Invite Application Colleagues</a></td>
+			</tr>
+			<tr>
+				<td><a class='button-default'
+					style="margin: 0px 2px 0px; width: 100px; padding: 9px 5px 19px; text-align: center"
+					href='Invite Application Friends'>Invite LinkedIn Colleagues</a></td>
+			</tr>
+			<tr>
+				<td><a class='button-default'
+					style="margin: 0px 2px 0px; width: 100px; padding: 9px 5px 19px; text-align: center"
+					href='Invite Application Friends'>Invite Facebook Colleagues</a></td>
+			</tr>
+			<tr>
+				<td><a class='button-default'
+					style="margin: 0px 2px 0px; width: 100px; padding: 9px 5px 19px; text-align: center"
+					href='Invite Application Friends'>Invite Twitter Colleagues</a></td>
+			</tr>
+			<tr>
+				<td><a class='button-default'
+					style="margin: 0px 2px 0px; width: 100px; padding: 9px 5px 19px; text-align: center"
+					href='Invite Application Friends'>Invite Googleplus Colleagues</a></td>
+			</tr>
+
+
+		</table>
+
+		<div style="width: 500px; padding: 385px 84px 1px">
+			<a href="assessmentrequests">Click here to assess others</a>
 		</div>
 	</div>
 </body>

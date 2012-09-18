@@ -51,18 +51,7 @@ public class AssessmentController {
 		this.domainService = domainService;
 	}
 
-	private RoleDao roleDao;
-
-	public RoleDao getRoleDao() {
-		return roleDao;
-	}
-
-	@Autowired
-	public void setRoleDao(RoleDao roleDao) {
-		this.roleDao = roleDao;
-	}
-
-	@RequestMapping(value = "/assessment", method = RequestMethod.GET)
+	@RequestMapping(value = "/assessments", method = RequestMethod.GET)
 	public String getListOfRootDomains(ModelMap map) {
 		List<DomainDTO> listOfRootDomains = domainService
 				.getListOfRootDomains();
@@ -70,32 +59,7 @@ public class AssessmentController {
 		return "assessment";
 	}
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(ModelMap model, HttpServletRequest request) {
-		
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		System.out.println(auth.getAuthorities());
-		User user = (User) auth.getPrincipal();
-		Long userId = user.getUserId();
-		HttpSession session = request.getSession();
-		session.setAttribute("USER_ID", userId);
-		request.setAttribute("message",session.getAttribute("message"));
-		session.setAttribute("message",null);
-		Role adminRole = roleDao.getRoleByName("ROLE_ADMIN");
-		// Role userRole = roleDao.getRoleByName("ROLE_USER");
-		System.out.println("landing page");
-		if (auth.getAuthorities().contains(adminRole)) {
-			System.out.println("landing admin page");
-			session.setAttribute("group", "AdminGroup");
-			return "home";
-		} else {
-			System.out.println("landing user page");
-			session.setAttribute("group", "UserGroup");
-			return getListOfRootDomains(model);
-		}
-
-	}
+	
 
 	@RequestMapping(value = "/domain", method = RequestMethod.GET)
 	public String showDomainPage(ModelMap map) {

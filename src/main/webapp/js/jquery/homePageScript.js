@@ -41,6 +41,13 @@ $(function() {
 				}
 
 			});
+	
+	if($("#messageDiv").is(':visible')){
+	setTimeout(function() {
+        $("#messageDiv").hide('blind');},3000);
+	};
+
+	
 });
 
 function updateNode(title, weightage) {

@@ -29,4 +29,6 @@ public interface UserService {
 
 	public User updateUser(User user);
 
+	public User findUserWithProperty(String property, String value);
+	
 }

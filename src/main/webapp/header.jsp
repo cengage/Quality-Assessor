@@ -13,13 +13,13 @@
 			
 			
 				<c:if test="${sessionScope.group=='AdminGroup'}">
-					<li><a href='assessment'><span>Assessment</span></a></li>
+					<li><a href='domainManager'><span>Domain Manager</span></a></li>
 				</c:if>
 				
 		
 
-
-			<li><a href='profile'><span>Profile</span></a></li>
+			<li><a href='assessments'><span>Assessments</span></a></li>
+			<li><a href='profile'><span> My Profile</span></a></li>
 			<li><a href="<c:url value='j_spring_security_logout'/>"><span>Logout</span></a></li>
 		</ul>
 	</div>

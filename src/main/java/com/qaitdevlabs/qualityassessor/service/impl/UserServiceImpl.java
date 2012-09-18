@@ -86,4 +86,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.getAll();
 	}
 
+	@Override
+	public User findUserWithProperty(String property, String value) {
+		return userDao.findUserWithProperty(property, value);
+	}
+
 }

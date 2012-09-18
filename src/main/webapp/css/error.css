@@ -8,3 +8,14 @@
 /* 	font-family: Verdana; */
  	font-size: 15px; 
 }
+
+.objectError{
+	margin: 30px 30px 10px 120px;
+	width: 20em;
+	float: left;
+	float: none;
+	color: red;
+	vertical-align: top;
+/* 	font-family: Verdana; */
+ 	font-size: 15px; 
+}

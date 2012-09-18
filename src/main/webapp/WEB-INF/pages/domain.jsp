@@ -39,44 +39,44 @@ td {
 		<label><strong>Star Explanations</strong></label>
 			<table style="margin-top:15px">
 				<tr>
-					<td style="width:30%"><img class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/yellowstar.png"></td>
-					<td style="width:25%">Excellent</td>
+					<td style="width:32%"><img  src="images/yellowstar.png"> <img
+						 src="images/yellowstar.png"> <img
+						 src="images/yellowstar.png"> <img
+						 src="images/yellowstar.png"> <img
+						 src="images/yellowstar.png"></td>
+					<td style="width:20%">Mastering</td>
 				</tr>
 				<tr>
-					<td><img class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/whitestar.gif"></td>
-					<td>Very Good</td>
+					<td><img  src="images/yellowstar.png"> <img
+						 src="images/yellowstar.png"> <img
+						 src="images/yellowstar.png"> <img
+						 src="images/yellowstar.png"> <img
+						 src="images/whitestar.gif"></td>
+					<td>Journeying</td>
 				</tr>
 				<tr>
-					<td><img class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/whitestar.gif"> <img
-						class="toggle" src="images/whitestar.gif"></td>
-					<td>Good</td>
+					<td><img  src="images/yellowstar.png"> <img
+						 src="images/yellowstar.png"> <img
+						 src="images/yellowstar.png"> <img
+						 src="images/whitestar.gif"> <img
+						 src="images/whitestar.gif"></td>
+					<td>Practicing</td>
 				</tr>
 				<tr>
-					<td><img class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/whitestar.gif"> <img
-						class="toggle" src="images/whitestar.gif"> <img
-						class="toggle" src="images/whitestar.gif"></td>
-					<td>Bad</td>
+					<td><img  src="images/yellowstar.png"> <img
+						 src="images/yellowstar.png"> <img
+						 src="images/whitestar.gif"> <img
+						 src="images/whitestar.gif"> <img
+						 src="images/whitestar.gif"></td>
+					<td>Learning</td>
 				</tr>
 				<tr>
-					<td><img class="toggle" src="images/yellowstar.png"> <img
-						class="toggle" src="images/whitestar.gif"> <img
-						class="toggle" src="images/whitestar.gif"> <img
-						class="toggle" src="images/whitestar.gif"> <img
-						class="toggle" src="images/whitestar.gif"></td>
-					<td>Very Bad</td>
+					<td><img  src="images/yellowstar.png"> <img
+						 src="images/whitestar.gif"> <img
+						 src="images/whitestar.gif"> <img
+						 src="images/whitestar.gif"> <img
+						 src="images/whitestar.gif"></td>
+					<td>Questioning</td>
 				</tr>
 			</table>
 		</div>

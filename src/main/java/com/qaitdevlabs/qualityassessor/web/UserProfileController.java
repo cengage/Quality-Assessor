@@ -81,8 +81,26 @@ public class UserProfileController {
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public String updateUserProfile(@Valid UserProfileDTO userProfileDTO,
 			BindingResult result, ModelMap map, HttpServletRequest request) {
+		
+		if (result.hasErrors()) {
+			return "profile";
+		}
+		
+		
+		
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
+		
+		if(!userProfileDTO.getUsername().equals(user.getUsername())){
+			User dbUser = userService.findUserWithProperty("username",
+					userProfileDTO.getUsername());
+			if (dbUser != null) {
+				result.rejectValue("", "errors.existing.user", null,
+						"*Another User already exist with same email address");
+				return "profile";
+			}
+		}
+		
 		user.setUsername(userProfileDTO.getUsername());
 		user.setFirstName(userProfileDTO.getFirstName());
 		user.setLastName(userProfileDTO.getLastName());

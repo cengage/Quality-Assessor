@@ -15,10 +15,11 @@
 <link rel="stylesheet" type="text/css" href="css/error.css">
 <script src="js/jquery/jquery.validate.min.js"></script>
 <link href="css/datepick.css" rel="stylesheet" />
+
 <script>
-	$(document).ready(function() {
-		$("#profileForm").validate();
-	});
+		$(document).ready(function() {
+			$("#profileForm").validate();
+		});
 </script>
 </head>
 
@@ -28,9 +29,9 @@
 	<div class="background container" style="height: auto">
 		<div style="margin: 0px; padding-top: 30px">
 
-			<form:form id="profileForm" action="profile" method="POST"
+			<form:form  id="profileForm" action="profile" method="POST"
 				commandName="userProfileDTO">
-
+				<form:errors path="" cssClass="objectError" />
 
 				<table class="zebra-striped"
 					style="width: 650px; margin: 0px 30px 10px 120px; border: 1px solid #CCCCCC;">
@@ -49,7 +50,8 @@
 						<!-- 							<option>Mrs.</option></select></td> -->
 						<td><strong>Name*</strong></td>
 						<td class="span3"><form:input id="firstName" path="firstName"
-								type="text" class="required" /></td>
+								type="text" class="required" /> <form:errors path="firstName"
+								cssClass="error" /></td>
 						<td class="span3"><form:input id="middleName"
 								path="middleName" type="text" /></td>
 						<td class="span3"><form:input id="lastName" path="lastName"
@@ -59,6 +61,8 @@
 						<td class="span3"><strong>Email*</strong></td>
 						<td class="span3"><form:input path="username" type="text"
 								class="required email" /></td>
+						<td colspan="2"><form:errors path="username" cssClass="error" /></td>
+
 					</tr>
 				</table>
 
@@ -188,8 +192,9 @@
 					<!-- 							type="button" value="Add More Social Network"></td> -->
 					<!-- 					</tr> -->
 				</table>
+
 				<div align="center">
-					<input style="margin-top: 20px;margin-bottom:10px" type="submit"
+					<input style="margin-top: 20px; margin-bottom: 10px" type="submit"
 						class="btn primary" value="Save">
 				</div>
 			</form:form>

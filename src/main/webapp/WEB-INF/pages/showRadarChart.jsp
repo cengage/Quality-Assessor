@@ -8,13 +8,28 @@
 <script src='js/jquery/jquery.min.js' type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery/showRadarChart.js"></script>
 <link href="css/common.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+#loader {
+/*   border: 1px solid #ccc; */
+/*   width: 500px; */
+/*   height: 500px; */
+}
+
+/** 
+ * While we're having the loading class set.
+ * Removig it, will remove the loading message
+ */
+#loader.loading {
+  background: url(images/image-loader.gif) no-repeat center center;
+}
+</style>
 </head>
 
 <body>
 	<%@include file="/header.jsp"%>
 	<div class="background container">
-	<div style="font-size:18px;padding:43px"><label><strong>Domain Assessment in form of Radar Chart</strong></label></div>
-		<div align="center">
+	<div align="center" style="font-size:18px;padding:43px"><label><strong id="headingMsg">Domain Assessment in form of Radar Chart</strong></label></div>
+		<div align="center" id="loader" class="loading" >
 			<img id="radarChartId" src="radarChart" />
 		</div>
 	</div>

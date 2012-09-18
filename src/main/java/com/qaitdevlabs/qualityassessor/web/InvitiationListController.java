@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qaitdevlabs.qualityassessor.assessment.service.AssessmentService;
 import com.qaitdevlabs.qualityassessor.assessmentinvitation.service.AssessmentInvitationService;
@@ -68,9 +69,11 @@ public class InvitiationListController {
 	}
 
 	@RequestMapping(value = "/invitationlist", method = RequestMethod.POST)
-	public String saveSelectedUserAndDomainList(
+	public @ResponseBody
+	String saveSelectedUserAndDomainList(
 			@SuppressWarnings("rawtypes") @RequestBody List<LinkedHashMap> data,
 			HttpServletRequest request) {
+		String successView = "";
 		System.out.println(data.get(0).get("userIds"));
 		@SuppressWarnings("unchecked")
 		List<LinkedHashMap<String, String>> userIds = (List<LinkedHashMap<String, String>>) data
@@ -100,12 +103,15 @@ public class InvitiationListController {
 				assessmentInvitation.setDomain(domain);
 				assessmentInvitation.setAssessor(assessor);
 				assessmentInvitation.setUser(user);
-				assessmentInvitationService.sendInvitation(assessmentInvitation);
+				assessmentInvitationService
+						.sendInvitation(assessmentInvitation);
 			}
 		}
 
-		request.getSession(false).setAttribute("message","Invitation has been sent.");
-		return "redirect:/home";
+		request.getSession(false).setAttribute("message",
+				"Invitation has been sent.");
+		successView = "home";
+		return successView;
 	}
 
 }

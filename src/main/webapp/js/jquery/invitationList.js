@@ -86,39 +86,46 @@ function sendInvitation() {
 	var userList = $('#selectedUserList option');
 	var domainList = $('#selectedDomainList option');
 
-	userList.each(function(index, id) {
+	if (domainList.length == 0) {
+		alert("Please select atleast one domain");
+	} else if (userList.length == 0) {
+		alert("Please select atleast one user");
+	} else {
 
-		var userId = {};
-		userId['id'] = $(id).val();
+		userList.each(function(index, id) {
 
-		userIds.push(JSON.stringify(userId));
+			var userId = {};
+			userId['id'] = $(id).val();
 
-	});
+			userIds.push(JSON.stringify(userId));
 
-	domainList.each(function(index, id) {
+		});
 
-		var domainId = {};
-		domainId['id'] = $(id).val();
-		domainIds.push(JSON.stringify(domainId));
+		domainList.each(function(index, id) {
 
-	});
+			var domainId = {};
+			domainId['id'] = $(id).val();
+			domainIds.push(JSON.stringify(domainId));
 
-	data = '[{"userIds":[' + userIds + ']},{"domainIds":[' + domainIds + ']}]';
+		});
 
-	
-	
-	$.ajax({
-		type : 'POST',
-		url : 'invitationlist',
-		data : data,
-		dataType : 'json',
-		contentType : 'application/json',
-		success : function(data) {
-			//alert(data);
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			//alert(errorThrown);
-		},
+		data = '[{"userIds":[' + userIds + ']},{"domainIds":[' + domainIds
+				+ ']}]';
 
-	});
+		$.ajax({
+			type : 'POST',
+			url : 'invitationlist',
+			data : data,
+			dataType : 'text',
+			contentType : 'application/json',
+			success : function(data) {
+				window.location.href = data;
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert(errorThrown);
+			},
+
+		});
+	}
+
 }

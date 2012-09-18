@@ -196,6 +196,14 @@
 			<version>${hibernate.validator.version}</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+            
+
 		<!--sevlet-api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
