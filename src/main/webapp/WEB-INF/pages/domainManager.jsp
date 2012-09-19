@@ -7,11 +7,21 @@
 <script src='js/jquery/jquery.cookie.js' type="text/javascript"></script>
 <script src='js/jquery/jquery.dynatree.js' type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery/jquery.colorbox-min.js"></script>
-<script type="text/javascript" src="js/jquery/homePageScript.js"></script>
+<!-- <script type="text/javascript" src="js/jquery/homePageScript.js"></script> -->
+<script type="text/javascript" src="js/jquery/domainManager.js"></script>
 <link type='text/css' rel='stylesheet' href='css/colorbox.css' />
 <link type='text/css' rel='stylesheet' href='css/button.css' />
 <link type='text/css' rel='stylesheet' href='css/style.css' />
 <link rel='stylesheet' type='text/css' href='css/skin/ui.dynatree.css'>
+<style type="text/css">
+.inputWeightage{
+width:30px;
+}
+
+.addBorder{
+border:1px;
+}
+</style>
 </head>
 
 <body class="homeClass">
@@ -24,7 +34,7 @@
 		</div>
 		<p></p>
 		<!-- Add a <div> element where the tree should appear: -->
-		<div id="tree"></div>
+		<div style="width:700px" id="domainDivId"></div>
 	</div>
 </body>
 </html>

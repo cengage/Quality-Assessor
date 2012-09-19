@@ -1,6 +1,7 @@
 package com.qaitdevlabs.qualityassessor.domain.dao.impl;
 
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -8,16 +9,16 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+
 import com.qaitdevlabs.qualityassessor.dao.impl.GenericDaoImpl;
 import com.qaitdevlabs.qualityassessor.domain.dao.DomainDao;
-import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.DomainMapping;
 
 /**
  * 
  * @author anujchhabra
- *
+ * 
  */
 @Repository
 public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
@@ -58,7 +59,7 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 			String SQL_QUERY = "from DomainMapping domainMapping where domainMapping.domain.id=:id";
 			Query query = session.createQuery(SQL_QUERY);
 			query.setParameter("id", id);
-            domainmappings = query.list();
+			domainmappings = query.list();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {
@@ -155,7 +156,24 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 
 	}
 
-	                                                               
+	@Override
+	public List<Domain> findDomainsWithProperty(String property, String value) {
+		Session session = null;
+		List<Domain> domains = null;
+		try {
+			session = getSessionFactory().openSession();
+			String queryString = "from Domain where " + property + " = :value";
+			Query query = session.createQuery(queryString);
+			query.setString("value", value);
+			domains = (List<Domain>) query.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return domains;
+
+	}
 
 }
 

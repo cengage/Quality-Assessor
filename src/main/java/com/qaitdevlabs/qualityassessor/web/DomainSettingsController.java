@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
+import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.service.UserService;
 
@@ -25,6 +26,7 @@ import com.qaitdevlabs.qualityassessor.service.UserService;
  * @author anujchhabra
  * 
  */
+
 @Controller
 public class DomainSettingsController {
 
@@ -145,4 +147,12 @@ public class DomainSettingsController {
         List<DomainDTO> subDomains = domainService.getSubDomains(key);
         return subDomains;
     }
+    
+    @RequestMapping(value = "/getDomain", method = RequestMethod.GET)
+    public @ResponseBody List<DomainDTO> getExistingDomains(@RequestParam String name){
+    	List<DomainDTO> listOfExistingDomains = domainService.findDomainsWithProperty("domainName", name);
+    	//System.out.println("size "+listOfExistingDomains.size());
+    		return listOfExistingDomains;
+    }
+    
 }

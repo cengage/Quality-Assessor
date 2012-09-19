@@ -75,4 +75,6 @@ public interface DomainDao extends GenericDao<Domain, Long> {
 	 */
 	public Domain saveOrUpdateDomain(Domain domain);
 
+	public List<Domain> findDomainsWithProperty(String property, String value);
+
 }

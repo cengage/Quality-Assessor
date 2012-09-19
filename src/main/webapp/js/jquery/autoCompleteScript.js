@@ -33,7 +33,6 @@ $(function() {
 			select: function( event, ui ) {
 				//alert('select');
 				title = ui.item.label.trim();
-				title = title.replace(" ", "_");
 				updateWikiLink(title);
 			},
 			open: function() {

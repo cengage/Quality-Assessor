@@ -310,16 +310,79 @@ function showSubDomainsWeightage() {
 }
 
 function checkIfDomainAlreadyExist(title) {
+	var url = 'getDomain?name=' + title;
 	$.ajax({
 		type : 'GET',
 		url : url,
 		success : function(data) {
+			for (i = 0; i < data.length; i++) {
+
+				var radio = $("<input  type='radio' value=" + i + "><label style='font-family: tahoma,arial,helvetica;font-size: 13pt; white-space: nowrap;'>"
+						+ data[i].name + "</lable></input><span id='tree'></span>");
+				$('#existedDomainDiv').append(radio);
+				getCompleteTree(data[i].id, data[i].name);
+			}
 		}
 	});
 }
 
 function updateWikiLink(title) {
-	$('.wikiLinkUpdate').attr("href", "http://en.wikipedia.org/wiki/" + title);
-	$('.wikiLinkUpdate').html("http://en.wikipedia.org/wiki/" + title);
-	//checkIfDomainAlreadyExist(title);
+	var wikiTitle = title.replace(" ", "_");
+	$('.wikiLinkUpdate').attr("href",
+			"http://en.wikipedia.org/wiki/" + wikiTitle);
+	$('.wikiLinkUpdate').html("http://en.wikipedia.org/wiki/" + wikiTitle);
+	checkIfDomainAlreadyExist(title);
+}
+
+function getCompleteTree(key, title) {
+	$("#tree").dynatree({
+		initAjax : {
+			url : "domains",
+			data : {
+				key : key, // Optional arguments to append to the url
+				mode : "all"
+			}
+		},
+		onLazyRead : function(node) {
+			node.appendAjax({
+				url : "domains",
+				data : {
+					"key" : node.data.key, // Optional url arguments
+					"mode" : "all"
+				}
+			});
+		},
+		 classNames: {nodeIcon:null},
+
+	// onClick : function(node, event) {
+	// if (node.getEventTargetType(event) == "title") {
+	// var parentKey = node.data.parentKey;
+	// var key = node.data.key;
+	// var title = node.data.title;
+	// var weightage = node.data.weightage;
+	// $.colorbox({
+	// href : 'domainSettings?key=' + key + '&parentKey='
+	// + parentKey + '&title=' + title
+	// + '&weightage=' + weightage,
+	// open : true,
+	// iframe : true,
+	// width : "600px",
+	// height : "380px",
+	// opacity : 0.9,
+	//
+	// });
+	//
+	// }
+	// }
+
+	});
+//	var currentRootNode = $("#tree").dynatree("getRoot");
+//	var rootnode = {
+//		parentKey : key,
+//		title : title,
+//		children : currentRootNode.getChildren(),
+//	};
+//	currentRootNode.removeChildren();
+//	currentRootNode.addChild(rootnode);
+
 }

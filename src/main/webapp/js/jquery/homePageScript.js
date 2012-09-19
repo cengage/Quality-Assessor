@@ -19,6 +19,7 @@ $(function() {
 						}
 					});
 				},
+				classNames: {nodeIcon:null},
 				onClick : function(node, event) {
 					if (node.getEventTargetType(event) == "title") {
 						var parentKey = node.data.parentKey;

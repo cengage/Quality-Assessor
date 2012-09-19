@@ -17,11 +17,15 @@
 <script src='js/jquery/autoCompleteScript.js'></script>
 <script src="js/jquery.colorbox-min.js"></script>
 <link rel="stylesheet" href="css/jquery.ui.autocomplete.css">
+<script src='js/jquery/jquery.dynatree.js' type="text/javascript"></script>
+<link rel='stylesheet' type='text/css' href='css/skin/ui.dynatree.css'>
 <style>
 .ui-autocomplete-loading {
 	background: white url('images/ui-anim_basic_16x16.gif') right center
 		no-repeat;
 }
+
+
 </style>
 <link type='text/css' rel='stylesheet' href='css/style.css' />
 
@@ -65,9 +69,17 @@
 		<div>
 			<input class="autoCompleteWiki" id="newTitleId" type="text">
 		</div>
+
 		<div>
-        			<a target="_blank" class="wikiLinkUpdate" href=""></a>
-        		</div>
+			<a target="_blank" class="wikiLinkUpdate" href=""></a>
+		</div>
+		<div>
+			<strong>Domains already existed with same name</strong>
+		</div>
+		<div id="existedDomainDiv">
+		
+		</div>
+
 		<div id="newTitleErrorId"></div>
 		<p></p>
 		<div id="newWeightageDiv">
@@ -85,13 +97,17 @@
 		</div>
 		<p></p>
 		<p></p>
-		<div style="float:left">
+		<div style="float: left">
 			<a style="width: 47px" class='button-default'
 				href="javascript:saveDomain()">Add</a>
 		</div>
-        <div style="float:left;float: left;position: absolute;right: 0;margin:0 18px" id="subDomainWeightageDiv">
-        <a id="subDomainWeightageLink" href="javascript:showSubDomainsWeightage()">Show Sub-Domain Weighing</a>
-        </div>
+		<div
+			style="float: left; float: left; position: absolute; right: 0; margin: 0 18px"
+			id="subDomainWeightageDiv">
+			<a id="subDomainWeightageLink"
+				href="javascript:showSubDomainsWeightage()">Show Sub-Domain
+				Weighing</a>
+		</div>
 
 
 		<div id="backButtonId" align="right"

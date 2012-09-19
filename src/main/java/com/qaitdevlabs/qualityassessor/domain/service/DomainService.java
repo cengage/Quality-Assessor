@@ -77,4 +77,6 @@ public interface DomainService {
 
 	public void getExtremeChildDomains(Long id, User user, User assessor,
 			List<RadarChartInfo> extrmeChilds);
+
+	public List<DomainDTO> findDomainsWithProperty(String property, String value);
 }

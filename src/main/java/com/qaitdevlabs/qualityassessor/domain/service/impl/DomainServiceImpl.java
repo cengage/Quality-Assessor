@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -288,7 +291,7 @@ public class DomainServiceImpl implements DomainService {
 		Iterator<DomainMapping> it = subDomainMappingList.iterator();
 		List<TreeNodeDTO> childList = new ArrayList<TreeNodeDTO>();
 
-		float score1=0;
+		float score1 = 0;
 		while (it.hasNext()) {
 			DomainMapping domainMapping = (DomainMapping) it.next();
 			TreeNodeDTO dto = getDomainHierarchy(domainMapping.getSubDomain()
@@ -296,7 +299,8 @@ public class DomainServiceImpl implements DomainService {
 			Integer weightage = domainMapping.getWeightage();
 			float childScore = dto.getScore();
 			score1 += childScore * weightage / 100;
-			System.out.println("childScore "+childScore+"score"+score1+dto.getTitle()+"we"+weightage);
+			System.out.println("childScore " + childScore + "score" + score1
+					+ dto.getTitle() + "we" + weightage);
 			dto.setWeightage(weightage.toString());
 			childList.add(dto);
 		}
@@ -400,13 +404,15 @@ public class DomainServiceImpl implements DomainService {
 							user, thirdLeveldomain);
 					if (assessment != null) {
 						int score = assessment.getScore();
-						double actualScore = (float)score * weightage / 100;
+						double actualScore = (float) score * weightage / 100;
 						selfScore += actualScore;
-						System.out.println(score+" "+actualScore+" "+weightage+" "+selfScore+" "+thirdLeveldomain.getDomainName());
+						System.out.println(score + " " + actualScore + " "
+								+ weightage + " " + selfScore + " "
+								+ thirdLeveldomain.getDomainName());
 					}
 					double avgScore = assessmentDao.getAverageAssessment(user,
 							assessor, thirdLeveldomain);
-					avgScore = (float)avgScore * weightage / 100;
+					avgScore = (float) avgScore * weightage / 100;
 					combineScore += avgScore;
 				}
 			}
@@ -428,6 +434,24 @@ public class DomainServiceImpl implements DomainService {
 		}
 	}
 
+	@Override
+	public List<DomainDTO> findDomainsWithProperty(String property, String value) {
+		List<DomainDTO> listOfDomainDTO = null;
+		List<Domain> listOfDomains = domainDao.findDomainsWithProperty(
+				property, value);
+		if (listOfDomains.size() > 0) {
+			listOfDomainDTO = new ArrayList<DomainDTO>();
+			Iterator<Domain> domainItr = listOfDomains.iterator();
+			while (domainItr.hasNext()) {
+				Domain domain = domainItr.next();
+				DomainDTO dto = new DomainDTO();
+				dto.setId(String.valueOf(domain.getDomainId()));
+				dto.setName(domain.getDomainName());
+				listOfDomainDTO.add(dto);
+			}
+		}
+		return listOfDomainDTO;
+	}
 	// public void getExtremeChildDomains(Long id, User user, User assessor,
 	// List<TreeNodeDTO> extrmeChilds) {
 	// Domain domain = (Domain) domainDao.get(id);
