@@ -121,7 +121,7 @@ public class GenericDaoImpl<T, PK extends Serializable> implements
 		if (entity == null) {
 			log.warn("Uh oh, '" + this.persistentClass + "' object with id '"
 					+ id + "' not found...");
-			throw new ObjectRetrievalFailureException(this.persistentClass, id);
+			//throw new ObjectRetrievalFailureException(this.persistentClass, id);
 		}
 
 		return entity;

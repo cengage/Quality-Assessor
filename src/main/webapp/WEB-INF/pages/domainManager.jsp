@@ -13,6 +13,10 @@
 <link type='text/css' rel='stylesheet' href='css/button.css' />
 <link type='text/css' rel='stylesheet' href='css/style.css' />
 <link rel='stylesheet' type='text/css' href='css/skin/ui.dynatree.css'>
+<script src="js/jquery/jquery.ui.autocomplete.min.js"></script>
+<script src='js/jquery/autoCompleteScript.js'></script>
+<link rel="stylesheet" href="css/jquery.ui.autocomplete.css">
+<link rel="stylesheet" href="css/jquery.ui.all.css">
 <style type="text/css">
 .inputWeightage{
 width:30px;
@@ -21,10 +25,18 @@ width:30px;
 .addBorder{
 border:1px;
 }
+
+.iconWidth{
+width:2%;
+}
+
+img{
+cursor:pointer;
+}
 </style>
 </head>
 
-<body class="homeClass">
+<body >
 	<%@include file="/header.jsp"%>
 	<div class="background container">
 

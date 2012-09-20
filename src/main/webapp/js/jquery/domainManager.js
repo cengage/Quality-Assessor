@@ -3,157 +3,116 @@ function getURLParameter(name) {
 			, null ])[1]);
 }
 var requestedUserId = "null";
+
 $(function() {
-	var key = getURLParameter("key");
-	requestedUserId = getURLParameter("requestedUserId");
-	$.ajax({
-		type : 'GET',
-		url : 'domainHierarchy?key='+key+'&requestedUserId='+requestedUserId,
-		success : function(data) {
-			var ul = "";
-			ul += '<table style="margin-top:15px;margin-left:20px;width:100%;" class="imagetable" id="excelId">';
-			data = JSON.parse(data);
-			ul += "<tr><td><img class='editDomain' src='images/edit.png'/></td><td><img src='images/cross.png'/></td><td style='border-bottom:none'><input class='addBorder' type='text' value=" + data.title + "></td><td></td><td></td><td></td></tr>"
-			children = data.children;
 
-			// Second Level
-			if (children != null) {
+	$
+			.ajax({
+				type : 'GET',
+				url : 'domains?key=0',
+				success : function(data) {
+					data = JSON.parse(data);
+					// alert(data.length);
+					for (i = 0; i < data.length; i++) {
+						var table = "";
+						table += "<table style='margin-top:15px;margin-left:20px;width:100%;' class='imagetable' id='tableId"
+								+ i + "'>";
+						table += "<tr pid='0' id="
+								+ data[i].key
+								+ "><td class='iconWidth'><img class='expandDomain' src='images/expand.png'/></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td style='border-bottom:none'><input  readonly='readonly' size='30' class='addBorder autoCompleteWiki' type='text' value='"
+								+ data[i].title
+								+ "'></td><td></td><td></td><td></td></tr>"
+						$('#domainDivId').append(table);
+					}
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+				},
+				dataType : 'text'
+			});
 
-				var arr = children;
-				for (i = 0; i < arr.length; i++) {
-					obj = arr[i];
+});
+
+function showCompleteDomainTree(rootKey, table) {
+	$
+			.ajax({
+				type : 'GET',
+				url : 'domainHierarchy?key=' + rootKey + '&requestedUserId='
+						+ requestedUserId,
+				success : function(data) {
+					var ul = "";
+				
+					data = JSON.parse(data);
 					
-					children = obj.children;
+					children = data.children;
 
-					// Third Level
+					// Second Level
 					if (children != null) {
 
-						ratingStarHtml = getRatingStarHtml(obj.score, false);
-						//alert(ratingStarHtml);
-						ul += "<tr childCount=" + children.length
-								+ "><td style='border-top:none;border-bottom:none;'></td><td></td><td></td><td><img class='editDomain' src='images/edit.png'/></td><td><img src='images/cross.png'/></td><td style='border-bottom:none'><input class='addBorder' type='text' value=" + obj.title
-								+ "></td><td><input class='inputWeightage addBorder' type='text' value="+obj.weightage+"></td><td></td><td score=" + obj.score
-								+ " id=p" + i + ">" 
-								+ "</td></tr>";
-						// ul += "<tr></tr>";
-						var arr1 = children;
-						for (j = 0; j < arr1.length; j++) {
-							obj1 = arr1[j];
+						var arr = children;
+						for (i = 0; i < arr.length; i++) {
+							obj = arr[i];
 
-							score = obj1.score;
-							weightage = obj1.weightage;
-							key = obj1.key;
-							ratingStarHtml = getRatingStarHtml(score, true);
-							
-							ul += "<tr><td style='border-top:none;border-bottom:none;'></td><td style='border-top:none;border-bottom:none;'></td><td></td><td></td><td></td><td></td><td></td><td><img class='editDomain' src='images/edit.png'/></td><td><img src='images/cross.png'/></td><td  i=" + i + " j="
-									+ j + "><input class='addBorder' type='text' value=" + obj1.title
-									+ "></td><td><input class='addBorder' class='inputWeightage' type='text' value="+obj1.weightage+"></td></tr>";
+							children = obj.children;
+
+							// Third Level
+							if (children != null) {
+
+								// alert(ratingStarHtml);
+								ul += "<tr pid='"+rootKey+"' id='"+obj.key+"' "
+										+ "><td colspan='5' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td style='border-bottom:none'><input   readonly='readonly' class='addBorder autoCompleteWiki' type='text' value='"
+										+ obj.title
+										+ "'></td><td><input readonly='readonly' class='inputWeightage addBorder' type='text' value="
+										+ obj.weightage
+										+ "></td><td></td><td score="
+										+ obj.score + " id=p" + i + ">"
+										+ "</td></tr>";
+								// ul += "<tr></tr>";
+								var arr1 = children;
+								for (j = 0; j < arr1.length; j++) {
+									obj1 = arr1[j];
+
+									score = obj1.score;
+									weightage = obj1.weightage;
+									key = obj1.key;
+
+									ul += "<tr pid='"+obj.key+"' id='"+obj1.key+"'><td colspan='11' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td  i="
+											+ i
+											+ " j="
+											+ j
+											+ "><input  readonly='readonly' class='addBorder autoCompleteWiki' type='text' value='"
+											+ obj1.title
+											+ "'></td><td><input  readonly='readonly' class='addBorder inputWeightage' type='text' value="
+											+ obj1.weightage + "></td></tr>";
+
+								}
+								// ul += "<tr></tr>";
+							} else {
+
+								ul += "<tr pid='"+rootKey+"' id='"+obj.key+"' childCount=0><td colspan='5' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td><input  readonly='readonly' class='addBorder autoCompleteWiki' type='text' value='"
+										+ obj.title
+										+ "'></td><td><input  readonly='readonly' class='inputWeightage addBorder'  type='text' value="
+										+ obj.weightage
+										+ "></td><td></td><td assessmentId="
+										+ obj.assessmentId
+										+ " id="
+										+ obj.key
+										+ ">" + "</td></tr>";
+							}
 
 						}
-						// ul += "<tr></tr>";
-					} else {
-						ratingStarHtml = getRatingStarHtml(obj.score, true);
-						ul += "<tr childCount=0><td style='border-top:none;border-bottom:none;'></td><td></td><td></td><td><img class='editDomain' src='images/edit.png'/></td><td><img src='images/cross.png'/></td><td><input class='addBorder' type='text' value=" + obj.title
-								+ "></td><td><input class='inputWeightage addBorder'  type='text' value="+obj.weightage+"></td><td></td><td assessmentId="
-								+ obj.assessmentId + " id=" + obj.key + ">"
-								+ "</td></tr>";
+
 					}
-
-				}
-
-			}
-			ul += '</table>'
-			$('#domainDivId').append(ul);
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			// showErrorMessage(jqXHR.responseText, "450", "300");
-		},
-		dataType : 'text'
-	});
-
-	
-//var starExplStr='<table style="margin-top:15px"><tr><td style="width:30%"><img class="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/yellowstar.png"> <imgclass="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/yellowstar.png"></td><td style="width:25%">Excellent</td></tr><tr><td><img class="toggle" src="images/yellowstar.png"> <imgclass="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/whitestar.gif"></td><td>Very Good</td></tr><tr><td><img class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"></td><td>Good</td></tr><tr><td><img class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"></td><td>Bad</td></tr><tr><td><img class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"></td><td>Very Bad</td></tr></table>';
-//	$('#explanationStarId').append(starExplStr);
-	
-});
-
-function getRatingStarHtml(score, editable) {
-	// alert("rating score" + score);
-	ratingStarHtml = "";
-	score = Math.round(score);
-	if (editable == true) {
-		for (k = 0; k < score; k++) {
-			ratingStarHtml = ratingStarHtml
-					+ "<img class='toggle'  src='images/yellowstar.png'></img>";
-		}
-
-		var noOfWhiteStars = 5 - score;
-		for (m = 0; m < noOfWhiteStars; m++) {
-			ratingStarHtml = ratingStarHtml
-					+ "<img class='toggle'  src='images/whitestar.gif'></img>";
-		}
-	} else {
-		for (k = 0; k < score; k++) {
-			ratingStarHtml = ratingStarHtml
-					+ "<img   src='images/greenstar.png'></img>";
-		}
-
-		var noOfWhiteStars = 5 - score;
-		for (m = 0; m < noOfWhiteStars; m++) {
-			ratingStarHtml = ratingStarHtml
-					+ "<img   src='images/whitestar.gif'></img>";
-		}
-	}
-	return ratingStarHtml;
+					// ul += '</table>'
+					table.append(ul);
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					// showErrorMessage(jqXHR.responseText, "450", "300");
+				},
+				dataType : 'text'
+			});
 }
 
-$(".toggle").live('click', function() {
-	previousScore = $(this).parent().attr("score");
-	score = previousScore;
-	//alert("yellow" + score);
-	if ($(this).attr('src') == 'images/whitestar.gif') {
-		$(this).attr('src', "images/yellowstar.png");
-		$(this).prevAll().attr('src', "images/yellowstar.png");
-		score = $(this).index() + 1;
-		// var node = $("#tree").dynatree("getActiveNode");
-		// saveRating(node, score, requestedUserId);
-	} else {
-		// alert($(this).index());
-		$(this).attr('src', "images/whitestar.gif");
-		$(this).nextAll().attr('src', "images/whitestar.gif");
-		score = $(this).index() - 1;
-		if (score == -1) {
-			score = 0;
-		}
-		// alert(score);
 
-		// var node = $("#tree").dynatree("getActiveNode");
-		// saveRating(node, score, requestedUserId);
-
-	}
-	$(this).parent().attr("score", score);
-	id = $(this).parent().attr("id");
-	assessmentId = $(this).parent().attr("assessmentId");
-	parentId = $(this).parent().attr("parentId");
-	if (parentId != null) {
-		weightage = $(this).parent().attr("weightage");
-		parentScore = (score - previousScore) * weightage / 100;
-		parentPrevScore = $('#' + parentId).attr("score");
-		updatedScore = parseFloat(parentPrevScore) + parentScore;
-		//alert(updatedScore);
-		$('#' + parentId).attr("score", updatedScore);
-		$('#' + parentId).html(getRatingStarHtml(updatedScore, false));
-		// alert(score);
-	}
-	saveRating(id, assessmentId, score, requestedUserId);
-	// else {
-	// if (($(this).next().length == 0)
-	// || ($(this).next().attr('src') == 'images/whitestar.gif')) {
-	// $(this).attr('src', "images/whitestar.gif");
-	// score = $(this).index();
-	// }
-	// }
-});
 
 $(function() {
 	$('td').live(
@@ -164,41 +123,118 @@ $(function() {
 						$(this).parent());
 				// alert('Row: ' + rowIndex + ', Column: ' + colIndex);
 			});
-	
+
 	$(".editDomain").live('click', function() {
 		var row = $(this).closest('tr');
 		row.find('input').removeClass("addBorder");
-		$(this).attr("src","images/save.png");
-		$(this).removeClass("editDomain");
-		$(this).addClass("saveDomain");
-		});
-	
-	$(".saveDomain").live('click', function() {
-		var row = $(this).closest('tr');
-		row.find('input').addClass("addBorder");
-		$(this).attr("src","images/edit.png");
-		$(this).removeClass("saveDomain");
-		$(this).addClass("editDomain");
+		row.find('input').attr('readonly', false);
+		$(this).hide();
+		// $(this).closest('td img .deleteDomain').hide();
+		$(this).parent().next().children().attr("src", "images/save.png");
+		$(this).parent().next().children().addClass("saveDomain");
+		$(this).parent().prev().children().hide();
+		// $(this).removeClass("editDomain");
+		$(this).parent().next().children().addClass("saveDomain");
+		$(this).parent().next().children().removeClass("deleteDomain");
 	});
 
+	$(".saveDomain").live('click', function() {
+		var row = $(this).closest('tr');
+		var key = row.attr("id");
+		var parentKey = row.attr("pid");
+		var titleTd = row.find('input::nth-child(1)');
+		var title = titleTd.val();
+		var weightageTd = row.find('input::nth-child(2)');
+		var weightage = weightageTd.val();
+		updateDomain(key,parentKey,title,weightage);
+		row.find('input').addClass("addBorder");
+		row.find('input').attr('readonly', 'readonly');
+		$(this).attr("src", "images/cross.png");
+		$(this).addClass("deleteDomain");
+		$(this).parent().prev().children().show();
+		$(this).parent().prev().prev().children().show();
+		$(this).removeClass("saveDomain");
+	});
+
+	$(".expandDomain").live('click', function() {
+		key = $(this).closest('tr').attr("id");
+		var table = $(this).closest('table');
+		showCompleteDomainTree(key, table);
+		$(this).attr("src", "images/collapse.png");
+		$(this).removeClass("expandDomain");
+		$(this).addClass("collapseDomain");
+	});
+
+	$(".collapseDomain").live('click', function() {
+		var table = $(this).closest('table');
+		table.find("tr:gt(0)").remove();
+		$(this).attr("src", "images/expand.png");
+		$(this).removeClass("collapseDomain");
+		$(this).addClass("expandDomain");
+
+	});
+
+	$(".newDomain").live('click',function() {
+			var row = $(this).closest('tr');
+			var cell = $(this).closest('td');
+			var pid= row.attr("id");
+			var colspan = cell.prev().attr("colspan");
+			if (colspan == 5) {
+				var tr = "<tr id='0' pid='"+pid+"'><td colspan='11'><td  class='iconWidth'><img style='display:none' class='editDomain' src='images/edit.png'/></td><td><img class='saveDomain' src='images/save.png'></td><td><input class='autoCompleteWiki' type='text'></td><td><input class='inputWeightage' type='text'></td></tr>";
+				row.after(tr);
+				} else {
+				var tr = "<tr id='0' pid='"+pid+"'><td colspan='5'><td  class='iconWidth'><img style='display:none'  class='newDomain' src='images/new.png'/></td><td  class='iconWidth'><img style='display:none' class='editDomain' src='images/edit.png'/></td><td><img class='saveDomain' src='images/save.png'></td><td><input class='autoCompleteWiki' type='text'></td><td><input class='inputWeightage' type='text'></td></tr>";
+				row.after(tr);
+				}
+			});
+	
+	$(".deleteDomain").live('click', function() {
+		var row = $(this).closest('tr');
+		var key = row.attr("id");
+		var parentKey = row.attr("pid");
+		deleteDomain(key,parentKey);
+		//row.remove();
+		
+		
+		var table = $(this).closest('table');
+		var tr = table.find('tr::nth-child(1)');
+		var key = tr.attr('id');
+		table.find("tr:gt(0)").remove();
+		showCompleteDomainTree(key, table);
+		$(this).attr("src", "images/collapse.png");
+		$(this).removeClass("expandDomain");
+		$(this).addClass("collapseDomain");
+		
+	});
+	
 });
 
 
+function showAddRootDomainView(){
+	var table = "";
+	table += "<table style='margin-top:15px;margin-left:20px;width:100%;' class='imagetable' id='tableId'>";
+	table += "<tr id='0' pid='0'><td class='iconWidth'><img  class='expandDomain' src='images/expand.png'/></td><td class='iconWidth'><img style='display:none' class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img style='display:none' class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='saveDomain' src='images/save.png'/></td><td style='border-bottom:none'><input class='autoCompleteWiki' size='30' type='text'></td><td></td><td></td><td></td></tr>"
+	$('#domainDivId').prepend(table);
+}
 
-function saveRating(id, assessmentId, updatedScore, requestedUserId) {
-	// alert(score);
+
+
+function updateDomain(key,parentKey,title,weightage) {
+	if(weightage==undefined){
+		weightage = '100';
+	}
 	var data = {
-		key : id,
-		score : updatedScore,
-		id : assessmentId,
-		requestedUserId : requestedUserId
-	};
-	var url = 'rate';
+			key : key,
+			parentKey : parentKey,
+			title : title,
+			weightage : weightage
+		};
+	var url ='updateDomain';
 	$.ajax({
 		type : 'POST',
 		url : url,
 		data : data,
-		success : function(assessmentId) {
+		success : function(data) {
 
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
@@ -208,4 +244,23 @@ function saveRating(id, assessmentId, updatedScore, requestedUserId) {
 	});
 }
 
+function deleteDomain(key,parentKey) {
+	
+	var data = {
+			key : key,
+			parentKey : parentKey,
+		};
+	var url ='deleteDomain';
+	$.ajax({
+		type : 'POST',
+		url : url,
+		data : data,
+		success : function(data) {
 
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			// showErrorMessage(jqXHR.responseText, "450", "300");
+		},
+		dataType : 'text'
+	});
+}

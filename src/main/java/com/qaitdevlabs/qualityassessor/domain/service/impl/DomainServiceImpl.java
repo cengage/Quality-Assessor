@@ -119,31 +119,37 @@ public class DomainServiceImpl implements DomainService {
 	}
 
 	private TreeNodeDTO getTreeNodeDTO(Domain domain) {
+		if (domain != null) {
+			TreeNodeDTO dto = new TreeNodeDTO();
+			dto.setKey(String.valueOf(domain.getDomainId()));
+			dto.setTitle(domain.getDomainName());
+			dto.setWikipediaLink(domain.getWikipediaLink());
+			dto.setCreationDate(domain.getCreationDate());
+			// dto.setCreationUserName(domain.getCreationUser().getUsername());
+			// dto.setModificationUserName(domain.getModificationUser().getUsername());
+			dto.setModificationDate(domain.getModificationDate());
+			return dto;
+		} else
+			return null;
 
-		TreeNodeDTO dto = new TreeNodeDTO();
-		dto.setKey(String.valueOf(domain.getDomainId()));
-		dto.setTitle(domain.getDomainName());
-		dto.setWikipediaLink(domain.getWikipediaLink());
-		dto.setCreationDate(domain.getCreationDate());
-		// dto.setCreationUserName(domain.getCreationUser().getUsername());
-		// dto.setModificationUserName(domain.getModificationUser().getUsername());
-		dto.setModificationDate(domain.getModificationDate());
-
-		return dto;
 	}
 
 	@Override
-	public void updateDomain(TreeNodeDTO dto) {
+	public void updateDomain(TreeNodeDTO dto, User user) {
 
 		Long key = Long.valueOf(dto.getKey());
 		String parent = dto.getParentKey();
 
-		if (parent.equals("null")) {
-
-			Domain domain = domainDao.get(key);
+		if (parent.equals("0")) {
+			Domain domain = null;
+			domain = domainDao.get(key);
+			if (domain == null) {
+				domain = new Domain();
+				domain.setCreationDate(dto.getModificationDate());
+				domain.setCreationUser(user);
+			}
 			domain.setModificationDate(dto.getModificationDate());
 			domain.setDomainName(dto.getTitle());
-			// domain.getModificationUser()
 			domain.setIsParent(true);
 			domain.setIsActive(true);
 			domainDao.saveOrUpdateDomain(domain);
@@ -157,14 +163,29 @@ public class DomainServiceImpl implements DomainService {
 
 			DomainMapping domainMapping = domainDao.getDomainMapping(parentKey,
 					key);
+			if (domainMapping == null) {
+				domainMapping = new DomainMapping();
+				Domain subDomain = new Domain();
+				subDomain.setDomainName(dto.getTitle());
+				subDomain.setCreationDate(dto.getCreationDate());
+				subDomain.setModificationDate(dto.getCreationDate());
+				subDomain.setCreationUser(user);
+				subDomain.setIsActive(true);
+				subDomain.setIsParent(false);
+				Domain domain = domainDao.get(parentKey);
+				domainMapping.setDomain(domain);
+				domainMapping.setSubDomain(subDomain);
+				domainMapping.setCreationDate(modificationDate);
+			} else {
+				Domain domain = domainMapping.getSubDomain();
+				domain.setModificationDate(modificationDate);
+				domain.setDomainName(domainName);
+				domainDao.saveOrUpdateDomain(domain);
+			}
 			domainMapping.setWeightage(weightage);
 			domainMapping.setModificationDate(modificationDate);
 			domainDao.saveOrUpdateDomainMapping(domainMapping);
 
-			Domain domain = domainMapping.getSubDomain();
-			domain.setModificationDate(modificationDate);
-			domain.setDomainName(domainName);
-			domainDao.saveOrUpdateDomain(domain);
 		}
 	}
 
@@ -207,7 +228,7 @@ public class DomainServiceImpl implements DomainService {
 		Long domainId = Long.valueOf(key);
 		Long parentDomainId = null;
 
-		if (parentKey.equals("null")) {
+		if (parentKey.equals("0")) {
 
 			Domain domain = domainDao.get(domainId);
 			domain.setIsParent(false);

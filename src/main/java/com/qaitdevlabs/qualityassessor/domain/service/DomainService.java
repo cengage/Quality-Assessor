@@ -31,7 +31,7 @@ public interface DomainService {
 	 * @param dto
 	 *            data transfer object of domain
 	 */
-	public void updateDomain(TreeNodeDTO dto);
+	public void updateDomain(TreeNodeDTO dto,User user);
 
 	/**
 	 * This method is used to save new domain

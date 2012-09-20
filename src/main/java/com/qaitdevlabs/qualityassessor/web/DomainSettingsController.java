@@ -70,11 +70,13 @@ public class DomainSettingsController {
 	public @ResponseBody
 	String updateDomain(ModelMap model, @RequestParam String key,
 			@RequestParam String parentKey, @RequestParam String title,
-			@RequestParam String weightage) {
+			@RequestParam String weightage,HttpServletRequest request) {
 
 		System.out.println("Contoller" + key + " " + parentKey + " " + title
 				+ " " + weightage);
 
+		Long userId = (Long) request.getSession().getAttribute("USER_ID");
+		User user = userService.getUser(userId);
 		Date modificationDate = new Date();
 		TreeNodeDTO dto = new TreeNodeDTO();
 		dto.setKey(key);
@@ -82,8 +84,8 @@ public class DomainSettingsController {
 		dto.setTitle(title);
 		dto.setWeightage(weightage);
 		dto.setModificationDate(modificationDate);
-
-		domainService.updateDomain(dto);
+		dto.setCreationDate(modificationDate);
+		domainService.updateDomain(dto,user);
 
 		return "true";
 	}
@@ -104,7 +106,7 @@ public class DomainSettingsController {
 	@RequestMapping(value = "/saveDomain", method = RequestMethod.POST)
 	public @ResponseBody
 	TreeNodeDTO saveDomain(ModelMap model, @RequestParam String parentKey,
-			@RequestParam String title, @RequestParam String weightage,HttpServletRequest request) {
+			@RequestParam String title, @RequestParam(required=false) String weightage,HttpServletRequest request) {
 
 		System.out.println("Contoller" + parentKey + " " + title + " "
 				+ weightage);

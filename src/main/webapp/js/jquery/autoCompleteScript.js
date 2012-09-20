@@ -1,10 +1,13 @@
 $(function() {
+	
+	$(".autoCompleteWiki").live('click',function(){$(".autoCompleteWiki").autocomplete(autocomplete_opts)});
+	
 		function log( message ) {
 			$( "<div/>" ).text( message ).prependTo( "#log" );
 			$( "#log" ).scrollTop( 0 );
 		}
 
-		$( ".autoCompleteWiki" ).autocomplete({
+		var autocomplete_opts = {
 			source: function( request, response ) {
 				$.ajax({
 					url: "http://en.wikipedia.org/w/api.php",
@@ -33,7 +36,7 @@ $(function() {
 			select: function( event, ui ) {
 				//alert('select');
 				title = ui.item.label.trim();
-				updateWikiLink(title);
+				$(this).val(title);
 			},
 			open: function() {
 				$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
@@ -41,5 +44,5 @@ $(function() {
 			close: function() {
 				$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
 			}
-		});
+		};
 	});
