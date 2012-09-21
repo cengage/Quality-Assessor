@@ -37,6 +37,7 @@ $(function() {
 				//alert('select');
 				title = ui.item.label.trim();
 				$(this).val(title);
+				
 			},
 			open: function() {
 				$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );

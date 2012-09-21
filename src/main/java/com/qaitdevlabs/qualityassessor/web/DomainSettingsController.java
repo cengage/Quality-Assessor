@@ -85,9 +85,12 @@ public class DomainSettingsController {
 		dto.setWeightage(weightage);
 		dto.setModificationDate(modificationDate);
 		dto.setCreationDate(modificationDate);
-		domainService.updateDomain(dto,user);
-
-		return "true";
+		Long domainId = null;
+		domainId = domainService.updateDomain(dto,user);
+		if(domainId == null){
+			domainId = (long) 0;
+		}
+		return domainId.toString();
 	}
 
 	/**

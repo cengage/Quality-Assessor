@@ -33,6 +33,12 @@ width:2%;
 img{
 cursor:pointer;
 }
+
+.titleClass{
+
+width:30%;
+}
+
 </style>
 </head>
 

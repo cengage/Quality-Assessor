@@ -135,14 +135,13 @@ public class DomainServiceImpl implements DomainService {
 	}
 
 	@Override
-	public void updateDomain(TreeNodeDTO dto, User user) {
+	public Long updateDomain(TreeNodeDTO dto, User user) {
 
 		Long key = Long.valueOf(dto.getKey());
 		String parent = dto.getParentKey();
-
+		Long  domainId = null;
 		if (parent.equals("0")) {
-			Domain domain = null;
-			domain = domainDao.get(key);
+			Domain domain = domainDao.get(key);
 			if (domain == null) {
 				domain = new Domain();
 				domain.setCreationDate(dto.getModificationDate());
@@ -153,7 +152,7 @@ public class DomainServiceImpl implements DomainService {
 			domain.setIsParent(true);
 			domain.setIsActive(true);
 			domainDao.saveOrUpdateDomain(domain);
-
+			domainId=domain.getDomainId();
 		} else {
 
 			Long parentKey = Long.valueOf(parent);
@@ -163,9 +162,10 @@ public class DomainServiceImpl implements DomainService {
 
 			DomainMapping domainMapping = domainDao.getDomainMapping(parentKey,
 					key);
+			Domain subDomain = null;
 			if (domainMapping == null) {
 				domainMapping = new DomainMapping();
-				Domain subDomain = new Domain();
+				subDomain = new Domain();
 				subDomain.setDomainName(dto.getTitle());
 				subDomain.setCreationDate(dto.getCreationDate());
 				subDomain.setModificationDate(dto.getCreationDate());
@@ -177,16 +177,17 @@ public class DomainServiceImpl implements DomainService {
 				domainMapping.setSubDomain(subDomain);
 				domainMapping.setCreationDate(modificationDate);
 			} else {
-				Domain domain = domainMapping.getSubDomain();
-				domain.setModificationDate(modificationDate);
-				domain.setDomainName(domainName);
-				domainDao.saveOrUpdateDomain(domain);
+				subDomain = domainMapping.getSubDomain();
+				subDomain.setModificationDate(modificationDate);
+				subDomain.setDomainName(domainName);
+				domainDao.saveOrUpdateDomain(subDomain);
 			}
 			domainMapping.setWeightage(weightage);
 			domainMapping.setModificationDate(modificationDate);
 			domainDao.saveOrUpdateDomainMapping(domainMapping);
-
+			domainId=subDomain.getDomainId();
 		}
+		return domainId;
 	}
 
 	@Override
