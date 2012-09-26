@@ -22,8 +22,9 @@
 </script>
 </head>
 <body>
-	<%@include file="/header.jsp"%>
+	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
 	<div class="background container">
+	<%@include file="/WEB-INF/pages/header.jsp"%>
 		<c:if test="${not empty requestScope.message}">
 			<div id="messageDiv" style="padding: 11px 84px;">
 				<div
@@ -31,7 +32,7 @@
 			</div>
 		</c:if>
 		<table
-			style="margin-top: 4%; width: 60%; margin-right: auto; margin-left: 80px; float: left"
+			style="margin-top: 4%; width: 60%; margin-right: auto; margin-left: 80px; float: left;margin-bottom:20px"
 			class="imagetable">
 			<thead>
 				<tr>
@@ -45,13 +46,14 @@
 			<c:forEach items="${listOfRootDomains}" var="domain"
 				varStatus="status">
 				<tr>
-					<td>${domain.name}</td>
+					<td><span class='spanTitle'>${domain.name}</span></td>
 					<td><a class='button-default'
 						style="margin: 0px 2px 0px; width: 130px; padding: 4px 13px; text-align: center"
-						href='domain?key=${domain.id}'>Self Assessment</a></td>
+						href='assessments/${domain.id}'><span class='spanTitle'>Self Assessment</span></a></td>
 					<td><a class='button-default'
 						style="margin: 0px 2px 0px; width: 130px; padding: 4px 13px; text-align: center"
-						href='showRadarChart?key=${domain.id}&domainName=${domain.name}'>View Assessment</a></td>
+						href='assessments/${domain.id}/chart?domainName=${domain.name}'>
+						<span class='spanTitle'>View Assessment</span></a></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -60,22 +62,22 @@
 			<tr>
 				<td><a class='button-default'
 					style="margin: 0px 2px 0px; width: 100px; padding: 9px 5px 19px; text-align: center"
-					href='invitationlist'>Invite Application Colleagues</a></td>
+					href='invitationlist'><span class='spanTitle'>Invite Application Colleagues</span></a></td>
 			</tr>
 			<tr>
 				<td><a class='button-default'
 					style="margin: 0px 2px 0px; width: 100px; padding: 9px 5px 19px; text-align: center"
-					href='Invite Application Friends'>Invite LinkedIn Colleagues</a></td>
+					href='Invite Application Friends'><span class='spanTitle'>Invite LinkedIn Colleagues</span></a></td>
 			</tr>
 			<tr>
 				<td><a class='button-default'
 					style="margin: 0px 2px 0px; width: 100px; padding: 9px 5px 19px; text-align: center"
-					href='Invite Application Friends'>Invite Facebook Colleagues</a></td>
+					href='Invite Application Friends'><span class='spanTitle'>Invite Facebook Colleagues</span></a></td>
 			</tr>
 			<tr>
 				<td><a class='button-default'
 					style="margin: 0px 2px 0px; width: 100px; padding: 9px 5px 19px; text-align: center"
-					href='Invite Application Friends'>Invite Twitter Colleagues</a></td>
+					href='Invite Application Friends'><span class='spanTitle'>Invite Twitter Colleagues</span></a></td>
 			</tr>
 			<tr>
 				<td><a class='button-default'
@@ -86,9 +88,10 @@
 
 		</table>
 
-		<div style="width: 500px; padding: 385px 84px 1px">
-			<a href="assessmentrequests">Click here to assess others</a>
+		<div style="width: 500px; padding: 430px 84px 1px;">
+			<a  style="color:#30576E" href="assessmentRequests">Click here to assess others</a>
 		</div>
 	</div>
+	<%@include file="/WEB-INF/pages/footer.jsp"%>
 </body>
 </html>

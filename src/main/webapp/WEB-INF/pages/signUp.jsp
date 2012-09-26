@@ -39,15 +39,15 @@
 
 <body>
 
-	<%@include file="/headerlogin.jsp"%>
+	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
 
 	<!-- <body style="padding: 100px 0 0 250px;"> -->
 
 
 	<div class="background container"
 		style="background: white; width: 927px; margin: auto;">
-
-
+	<%@include file="/WEB-INF/pages/headerlogin.jsp"%>
+	
 
 
 		<!-- 		<H2>Sign In</H2> -->
@@ -94,7 +94,7 @@
 
 
 	</div>
-
+<%@include file="/WEB-INF/pages/footer.jsp"%>
 
 </body>
 </html>

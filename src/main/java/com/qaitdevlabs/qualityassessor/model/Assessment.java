@@ -12,6 +12,7 @@ public class Assessment implements Serializable{
 	private Long assessmentId;
 	private User user;
 	private User assessor;
+	private AssessmentInvitation invitation;
 	private Domain domain;
 	private Date assessmentDate;
 	private Integer score = 0;
@@ -62,6 +63,14 @@ public class Assessment implements Serializable{
 
 	public void setScore(Integer score) {
 		this.score = score;
+	}
+
+	public AssessmentInvitation getInvitation() {
+		return invitation;
+	}
+
+	public void setInvitation(AssessmentInvitation invitation) {
+		this.invitation = invitation;
 	}
 
 	

@@ -36,23 +36,32 @@ cursor:pointer;
 
 .titleClass{
 
-width:30%;
+width:25%;
+}
+
+.spanTitle{
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 18px;
 }
 
 </style>
 </head>
 
 <body >
-	<%@include file="/header.jsp"%>
-	<div class="background container">
 
-		<div style="background: white; padding: 10px">
+	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
+	<div class="background container">
+	<%@include file="/WEB-INF/pages/header.jsp"%>
+		<div style="background: white; margin: 20px">
 			<a style="margin: 0px 2px 0px; width: 130px" class='button-default'
 				href="javascript:showAddRootDomainView()">Add New Domain</a>
 		</div>
 		<p></p>
 		<!-- Add a <div> element where the tree should appear: -->
-		<div style="width:700px" id="domainDivId"></div>
+		<div style="width:850px;margin:auto;" id="domainDivId"></div>
 	</div>
+	<%@include file="/WEB-INF/pages/footer.jsp"%>
 </body>
 </html>

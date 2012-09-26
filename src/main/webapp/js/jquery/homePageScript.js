@@ -34,9 +34,8 @@ $(function() {
 							iframe : true,
 							width : "600px",
 							height : "380px",
-							opacity : 0.9,
-
-						});
+							opacity : 0.9
+});
 
 					}
 				}
@@ -80,6 +79,6 @@ function showAddRootDomainView() {
 		iframe : true,
 		width : "600px",
 		height : "380px",
-		opacity : 0.9,
+		opacity : 0.9
 	});
 }

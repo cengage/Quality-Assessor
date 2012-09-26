@@ -6,13 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.qaitdevlabs.qualityassessor.assessmentinvitation.service.AssessmentInvitationService;
-import com.qaitdevlabs.qualityassessor.model.Assessment;
+import com.qaitdevlabs.qualityassessor.dto.AssessmentRequestDTO;
+import com.qaitdevlabs.qualityassessor.model.AssessmentInvitation;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.service.UserService;
 
 @Controller
-public class AssessOthersController {
+public class AssessmentRequestsController {
 
 	private AssessmentInvitationService assessmentInvitationService;
 
@@ -21,7 +24,7 @@ public class AssessOthersController {
 			AssessmentInvitationService assessmentInvitationService) {
 		this.assessmentInvitationService = assessmentInvitationService;
 	}
-	
+
 	private UserService userService;
 
 	@Autowired
@@ -29,14 +32,28 @@ public class AssessOthersController {
 		this.userService = userService;
 	}
 
-	@RequestMapping(value = "/assessmentrequests", method = RequestMethod.GET)
-	public String getAssessmentRequests(HttpServletRequest request) {
+	@RequestMapping(value = "/assessmentRequests", method = RequestMethod.GET)
+	public String getAssessmentRequests(HttpServletRequest request, @RequestParam(defaultValue = "false") String ignoreInvitation) {
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User assessor = userService.getUser(userId);
-		List<Assessment> assessmentList = assessmentInvitationService
-				.getAssessmentInvitations(assessor);
+		boolean ignore = Boolean.valueOf(ignoreInvitation);
+		List<AssessmentRequestDTO> assessmentList = assessmentInvitationService
+				.getAssessmentInvitations(assessor,ignore);
 		request.setAttribute("assessmentRequestList", assessmentList);
 		return "assessmentRequests";
+	}
+
+	@RequestMapping(value = "/ignoreInvitation", method = RequestMethod.GET)
+	public String ignoreRequest(HttpServletRequest request,
+			@RequestParam String invitationId) {
+		AssessmentInvitation assessmentInvitation = assessmentInvitationService
+				.getAssessmentInvitation(invitationId);
+		if (assessmentInvitation != null) {
+			assessmentInvitation.setIgnoreInvitation(true);
+			assessmentInvitationService
+					.saveOrUpdateInvitation(assessmentInvitation);
+		}
+		return "redirect:/assessmentRequests";
 
 	}
 }

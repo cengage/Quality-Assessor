@@ -1,5 +1,6 @@
 package com.qaitdevlabs.qualityassessor.web;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,19 +13,16 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.qaitdevlabs.qualityassessor.assessment.service.AssessmentService;
 import com.qaitdevlabs.qualityassessor.assessmentinvitation.service.AssessmentInvitationService;
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
-import com.qaitdevlabs.qualityassessor.model.Assessment;
 import com.qaitdevlabs.qualityassessor.model.AssessmentInvitation;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.service.UserService;
-import com.qaitdevlabs.qualityassessor.util.JsonArray;
+
 
 @Controller
 public class InvitiationListController {
@@ -75,6 +73,7 @@ public class InvitiationListController {
 			HttpServletRequest request) {
 		String successView = "";
 		System.out.println(data.get(0).get("userIds"));
+		Date invitationDate = new Date();
 		@SuppressWarnings("unchecked")
 		List<LinkedHashMap<String, String>> userIds = (List<LinkedHashMap<String, String>>) data
 				.get(0).get("userIds");
@@ -103,6 +102,7 @@ public class InvitiationListController {
 				assessmentInvitation.setDomain(domain);
 				assessmentInvitation.setAssessor(assessor);
 				assessmentInvitation.setUser(user);
+				assessmentInvitation.setInvitationDate(invitationDate);
 				assessmentInvitationService
 						.sendInvitation(assessmentInvitation);
 			}

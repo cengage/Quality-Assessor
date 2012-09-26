@@ -5,7 +5,7 @@ function getURLParameter(name) {
 
 var domainName = '';
 $(function() {
-	var key = getURLParameter("key");
+	var key = (window.location.pathname).split("/",4)[3];
 	var domainName = getURLParameter("domainName");
 	// $('#radarChartId').attr("src", "radarChart?key=" + key);
 	$('#headingMsg').html(
@@ -36,5 +36,5 @@ $(function() {
 	})
 
 	// *finally*, set the src attribute of the new image to our image
-	.attr('src', "radarChart?key=" + key);
+	.attr('src', "../../radarChart?key=" + key);
 });

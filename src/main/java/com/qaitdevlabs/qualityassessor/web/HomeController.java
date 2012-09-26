@@ -83,18 +83,5 @@ public class HomeController {
 
 	}
 
-	/**
-	 * This method is used to get list of child domains corresponding to parent
-	 * key
-	 * 
-	 * @param key
-	 *            parent key
-	 * @return list of child domains
-	 */
-	@RequestMapping(value = "/domains")
-	public @ResponseBody
-	List<TreeNodeDTO> getDomainList(@RequestParam String key) {
-		List<TreeNodeDTO> list = domainService.getDomainList(key);
-		return list;
-	}
+	
 }

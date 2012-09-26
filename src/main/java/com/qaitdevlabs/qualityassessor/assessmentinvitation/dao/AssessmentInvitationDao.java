@@ -10,6 +10,10 @@ import com.qaitdevlabs.qualityassessor.model.User;
 
 public interface AssessmentInvitationDao extends GenericDao<AssessmentInvitation, Serializable>{
 	
-	public List<Assessment> getAssessmentInvitations(User assessor);
+	public AssessmentInvitation saveOrUpdateAssessmentInvitation(
+			AssessmentInvitation assessmentInvitation);
+
+	public List<AssessmentInvitation> getAssessmentInvitations(User assessor,
+			boolean isIgnore);
 
 }

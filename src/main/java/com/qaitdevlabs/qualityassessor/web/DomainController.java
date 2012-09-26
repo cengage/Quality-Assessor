@@ -28,7 +28,7 @@ import com.qaitdevlabs.qualityassessor.service.UserService;
  */
 
 @Controller
-public class DomainSettingsController {
+public class DomainController {
 
 	private UserService userService;
 
@@ -44,12 +44,7 @@ public class DomainSettingsController {
 		this.domainService = domainService;
 	}
 
-	@RequestMapping(value = "/domainSettings", method = RequestMethod.GET)
-	public String domainSettingsPage(ModelMap model) {
-
-		return "domainSettings";
-	}
-
+	
 	/**
 	 * This method handles update operation on domains
 	 * 
@@ -66,9 +61,9 @@ public class DomainSettingsController {
 	 * @return true if no exception occurs
 	 */
 
-	@RequestMapping(value = "/updateDomain", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveOrUpdateDomain", method = RequestMethod.POST)
 	public @ResponseBody
-	String updateDomain(ModelMap model, @RequestParam String key,
+	String saveOrUpdateDomain(ModelMap model, @RequestParam String key,
 			@RequestParam String parentKey, @RequestParam String title,
 			@RequestParam String weightage,HttpServletRequest request) {
 
@@ -92,41 +87,8 @@ public class DomainSettingsController {
 		}
 		return domainId.toString();
 	}
-
-	/**
-	 * This method handles save operation on domains
-	 * 
-	 * @param model
-	 *            ModelMap
-	 * @param parentKey
-	 *            parent key of domain
-	 * @param title
-	 *            domain name
-	 * @param weightage
-	 *            weightage of domain
-	 * @return data transfer object of saved domain
-	 */
-	@RequestMapping(value = "/saveDomain", method = RequestMethod.POST)
-	public @ResponseBody
-	TreeNodeDTO saveDomain(ModelMap model, @RequestParam String parentKey,
-			@RequestParam String title, @RequestParam(required=false) String weightage,HttpServletRequest request) {
-
-		System.out.println("Contoller" + parentKey + " " + title + " "
-				+ weightage);
-		Long userId = (Long) request.getSession().getAttribute("USER_ID");
-		User user = userService.getUser(userId);
-		Date creationDate = new Date();
-		TreeNodeDTO dto = new TreeNodeDTO();
-		dto.setParentKey(parentKey);
-		dto.setTitle(title);
-		dto.setWeightage(weightage);
-		dto.setCreationDate(creationDate);
-
-		dto = domainService.saveDomain(dto,user);
-		System.out.println(dto);
-		return dto;
-	}
-
+	
+	
 	/**
 	 * This method handles delete operation on domains
 	 * 
@@ -146,18 +108,83 @@ public class DomainSettingsController {
 		boolean success = domainService.deleteDomain(parentKey, key);
 		return String.valueOf(success);
 	}
+	
+	
+	 /**
+		 * This method is used to get list of child domains corresponding to parent
+		 * key
+		 * 
+		 * @param key
+		 *            parent key
+		 * @return list of child domains
+		 */
+		@RequestMapping(value = "/domains")
+		public @ResponseBody
+		List<TreeNodeDTO> getDomainList(@RequestParam String key) {
+			List<TreeNodeDTO> list = domainService.getDomainList(key);
+			return list;
+		}
+	
+		
+		
+		
+//	@RequestMapping(value = "/domainSettings", method = RequestMethod.GET)
+//	public String domainSettingsPage(ModelMap model) {
+//
+//		return "domainSettings";
+//	}
 
-    @RequestMapping(value = "/getSubDomains", method = RequestMethod.GET)
-    public @ResponseBody List<DomainDTO>getSubDomains(ModelMap model, @RequestParam String key) {
-        List<DomainDTO> subDomains = domainService.getSubDomains(key);
-        return subDomains;
-    }
+	
+
+//	/**
+//	 * This method handles save operation on domains
+//	 * 
+//	 * @param model
+//	 *            ModelMap
+//	 * @param parentKey
+//	 *            parent key of domain
+//	 * @param title
+//	 *            domain name
+//	 * @param weightage
+//	 *            weightage of domain
+//	 * @return data transfer object of saved domain
+//	 */
+//	@RequestMapping(value = "/saveDomain", method = RequestMethod.POST)
+//	public @ResponseBody
+//	TreeNodeDTO saveDomain(ModelMap model, @RequestParam String parentKey,
+//			@RequestParam String title, @RequestParam(required=false) String weightage,HttpServletRequest request) {
+//
+//		System.out.println("Contoller" + parentKey + " " + title + " "
+//				+ weightage);
+//		Long userId = (Long) request.getSession().getAttribute("USER_ID");
+//		User user = userService.getUser(userId);
+//		Date creationDate = new Date();
+//		TreeNodeDTO dto = new TreeNodeDTO();
+//		dto.setParentKey(parentKey);
+//		dto.setTitle(title);
+//		dto.setWeightage(weightage);
+//		dto.setCreationDate(creationDate);
+//
+//		dto = domainService.saveDomain(dto,user);
+//		System.out.println(dto);
+//		return dto;
+//	}
+
+	
+
+//    @RequestMapping(value = "/getSubDomains", method = RequestMethod.GET)
+//    public @ResponseBody List<DomainDTO>getSubDomains(ModelMap model, @RequestParam String key) {
+//        List<DomainDTO> subDomains = domainService.getSubDomains(key);
+//        return subDomains;
+//    }
     
-    @RequestMapping(value = "/getDomain", method = RequestMethod.GET)
-    public @ResponseBody List<DomainDTO> getExistingDomains(@RequestParam String name){
-    	List<DomainDTO> listOfExistingDomains = domainService.findDomainsWithProperty("domainName", name);
-    	//System.out.println("size "+listOfExistingDomains.size());
-    		return listOfExistingDomains;
-    }
+//    @RequestMapping(value = "/getDomain", method = RequestMethod.GET)
+//    public @ResponseBody List<DomainDTO> getExistingDomains(@RequestParam String name){
+//    	List<DomainDTO> listOfExistingDomains = domainService.findDomainsWithProperty("domainName", name);
+//    	//System.out.println("size "+listOfExistingDomains.size());
+//    		return listOfExistingDomains;
+//    }
     
+    
+   
 }

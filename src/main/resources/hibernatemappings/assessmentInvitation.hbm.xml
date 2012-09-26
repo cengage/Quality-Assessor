@@ -10,10 +10,14 @@
 			<generator class="native" />
 		</id>
 		
-<!-- 		<property name="assessmentDate" type="java.util.Date"> -->
-<!-- 			<column name="assessment_date" /> -->
-<!-- 		</property> -->
+		<property name="invitationDate" type="java.util.Date">
+			<column name="invitation_date" />
+		</property>
 
+		<property name="ignoreInvitation" type="java.lang.Boolean">
+			<column name="ignoreInvitation" />
+		</property>
+		
 		<many-to-one name="domain"
 			class="com.qaitdevlabs.qualityassessor.model.Domain" column="domain_id"
 			lazy="false" />

@@ -8,8 +8,9 @@
 .container {
     margin-left: auto;
     margin-right: auto;
-    width: 920px;
-    min-height : 597px;
+    width: 927px;
+    min-height : 650px;
+    overflow: hidden;
 }
 body {
     background-color: #FFFFFF;
@@ -20,4 +21,11 @@ body {
     font-weight: normal;
     line-height: 18px;
     margin: 0;
+}
+
+.spanTitle{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 18px;
 }

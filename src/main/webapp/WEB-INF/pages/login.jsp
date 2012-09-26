@@ -21,10 +21,11 @@
 </head>
 
 <body>
-	
-		<%@include file="/headerlogin.jsp"%>
+		<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
+		
 		
 		<div class="background container" style="background: white;width:927px;margin:auto;">
+		<%@include file="/WEB-INF/pages/headerlogin.jsp"%>
 			<form id="loginForm" class="box login" name='f' style="min-height:260px"
 				action="<c:url value='j_spring_security_check' />"   method='POST'>
 				<fieldset class="boxBody" style="height:70%;">
@@ -39,18 +40,16 @@
 	</c:if>
 				</fieldset>
 				<footer style="height:30%;">
-	<div>
-					<input  type="submit" class="btnLogin" value="Login"></div>
+					<div>
+					<input  type="submit" class="btnLogin" value="Login">
+					</div>
 					<div style="margin:5px 5px 5px 247px;font-weight:bold;font-size:14px;font-style:italic">
-					<a  href="signUp"><font  color="#3E698C"><u>SignUp!</u></font></a></div>
+					<a  href="signUp"><font  color="#3E698C"><u>SignUp!</u></font></a>
+					</div>
 				</footer>
 				
 			</form>
-<!-- 			<footer id="main"> -->
-<!-- 				<a href="http://wwww.cssjunction.com">Simple Login Form -->
-<!-- 					(HTML5/CSS3 Coded) by CSS Junction</a> | <a -->
-<!-- 					href="http://www.premiumpixels.com">PSD by Premium Pixels</a> -->
-<!-- 			</footer> -->
+
 		</div>
 		
 	

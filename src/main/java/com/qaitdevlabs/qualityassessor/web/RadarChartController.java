@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,9 +46,9 @@ public class RadarChartController {
 		this.radarChartService = radarChartService;
 	}
 
-	@RequestMapping(value = "/showRadarChart", method = RequestMethod.GET)
-	public String showRadarChart(ModelMap model) {
-		return "showRadarChart";
+	@RequestMapping(value = "assessments/{key}/chart", method = RequestMethod.GET)
+	public String showRadarChart(ModelMap model , @PathVariable String key) {
+		return "radarChart";
 	}
 
 	@RequestMapping(value = "/radarChart", method = RequestMethod.GET)

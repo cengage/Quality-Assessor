@@ -24,9 +24,10 @@
 </head>
 
 <body>
-	<%@include file="/header.jsp"%>
-
+	
+	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
 	<div class="background container" style="height: auto">
+	<%@include file="/WEB-INF/pages/header.jsp"%>
 		<div style="margin: 0px; padding-top: 30px">
 
 			<form:form  id="profileForm" action="profile" method="POST"
@@ -200,5 +201,6 @@
 			</form:form>
 		</div>
 	</div>
+	<%@include file="/WEB-INF/pages/footer.jsp"%>
 </body>
 </html>

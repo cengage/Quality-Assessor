@@ -5,9 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src='js/jquery/jquery.min.js' type="text/javascript"></script>
-<script type="text/javascript" src="js/jquery/showRadarChart.js"></script>
-<link href="css/common.css" type="text/css" rel="stylesheet">
+<script src='../../js/jquery/jquery.min.js' type="text/javascript"></script>
+<script type="text/javascript" src="../../js/jquery/radarChart.js"></script>
+<link href="../../css/common.css" type="text/css" rel="stylesheet">
 <style type="text/css">
 #loader {
 /*   border: 1px solid #ccc; */
@@ -20,18 +20,20 @@
  * Removig it, will remove the loading message
  */
 #loader.loading {
-  background: url(images/image-loader.gif) no-repeat center center;
+  background: url(../../images/image-loader.gif) no-repeat center center;
 }
 </style>
 </head>
 
 <body>
-	<%@include file="/header.jsp"%>
+	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
 	<div class="background container">
+	<%@include file="/WEB-INF/pages/header.jsp"%>
 	<div align="center" style="font-size:18px;padding:43px"><label><strong id="headingMsg">Domain Assessment in form of Radar Chart</strong></label></div>
 		<div align="center" id="loader" class="loading" >
-			<img id="radarChartId" src="radarChart" />
+			
 		</div>
 	</div>
+	<%@include file="/WEB-INF/pages/footer.jsp"%>
 </body>
 </html>

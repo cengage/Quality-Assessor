@@ -1,14 +1,17 @@
 function getURLParameter(name) {
+	//alert(window.location.pathname);
 	return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [
 			, null ])[1]);
 }
 var requestedUserId = "null";
 $(function() {
-	var key = getURLParameter("key");
+//	alert(window.location.pathname);
+	var key = (window.location.pathname).split("/",4)[3];
 	requestedUserId = getURLParameter("requestedUserId");
+	invitationId = getURLParameter("invitationId");
 	$.ajax({
 		type : 'GET',
-		url : 'domainHierarchy?key='+key+'&requestedUserId='+requestedUserId,
+		url : '../domainHierarchy?key='+key+'&requestedUserId='+requestedUserId,
 		success : function(data) {
 			var ul = "";
 			ul += '<table style="margin-top:15px;border-color: #999999;border-style: solid;" class="imagetable" id="excelId">';
@@ -76,8 +79,7 @@ $(function() {
 	});
 
 	
-//var starExplStr='<table style="margin-top:15px"><tr><td style="width:30%"><img class="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/yellowstar.png"> <imgclass="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/yellowstar.png"></td><td style="width:25%">Excellent</td></tr><tr><td><img class="toggle" src="images/yellowstar.png"> <imgclass="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/yellowstar.png"> <img class="toggle" src="images/whitestar.gif"></td><td>Very Good</td></tr><tr><td><img class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"></td><td>Good</td></tr><tr><td><img class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"></td><td>Bad</td></tr><tr><td><img class="toggle" src="images/yellowstar.png"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"> <img	class="toggle" src="images/whitestar.gif"></td><td>Very Bad</td></tr></table>';
-//	$('#explanationStarId').append(starExplStr);
+
 	
 });
 
@@ -88,24 +90,24 @@ function getRatingStarHtml(score, editable) {
 	if (editable == true) {
 		for (k = 0; k < score; k++) {
 			ratingStarHtml = ratingStarHtml
-					+ "<img class='toggle'  src='images/yellowstar.png'></img>";
+					+ "<img class='toggle'  src='../images/yellowstar.png'></img>";
 		}
 
 		var noOfWhiteStars = 5 - score;
 		for (m = 0; m < noOfWhiteStars; m++) {
 			ratingStarHtml = ratingStarHtml
-					+ "<img class='toggle'  src='images/whitestar.gif'></img>";
+					+ "<img class='toggle'  src='../images/whitestar.gif'></img>";
 		}
 	} else {
 		for (k = 0; k < score; k++) {
 			ratingStarHtml = ratingStarHtml
-					+ "<img   src='images/greenstar.png'></img>";
+					+ "<img   src='../images/greenstar.png'></img>";
 		}
 
 		var noOfWhiteStars = 5 - score;
 		for (m = 0; m < noOfWhiteStars; m++) {
 			ratingStarHtml = ratingStarHtml
-					+ "<img   src='images/whitestar.gif'></img>";
+					+ "<img   src='../images/whitestar.gif'></img>";
 		}
 	}
 	return ratingStarHtml;
@@ -115,24 +117,17 @@ $(".toggle").live('click', function() {
 	previousScore = $(this).parent().attr("score");
 	score = previousScore;
 	//alert("yellow" + score);
-	if ($(this).attr('src') == 'images/whitestar.gif') {
-		$(this).attr('src', "images/yellowstar.png");
-		$(this).prevAll().attr('src', "images/yellowstar.png");
+	if ($(this).attr('src') == '../images/whitestar.gif') {
+		$(this).attr('src', "../images/yellowstar.png");
+		$(this).prevAll().attr('src', "../images/yellowstar.png");
 		score = $(this).index() + 1;
-		// var node = $("#tree").dynatree("getActiveNode");
-		// saveRating(node, score, requestedUserId);
+		
 	} else {
 		// alert($(this).index());
-		$(this).attr('src', "images/whitestar.gif");
-		$(this).nextAll().attr('src', "images/whitestar.gif");
-		score = $(this).index() - 1;
-		if (score == -1) {
-			score = 0;
-		}
-		// alert(score);
+		$(this).attr('src', "../images/whitestar.gif");
+		$(this).nextAll().attr('src', "../images/whitestar.gif");
+		score = $(this).index() ;
 
-		// var node = $("#tree").dynatree("getActiveNode");
-		// saveRating(node, score, requestedUserId);
 
 	}
 	$(this).parent().attr("score", score);
@@ -149,14 +144,8 @@ $(".toggle").live('click', function() {
 		$('#' + parentId).html(getRatingStarHtml(updatedScore, false));
 		// alert(score);
 	}
-	saveRating(id, assessmentId, score, requestedUserId);
-	// else {
-	// if (($(this).next().length == 0)
-	// || ($(this).next().attr('src') == 'images/whitestar.gif')) {
-	// $(this).attr('src', "images/whitestar.gif");
-	// score = $(this).index();
-	// }
-	// }
+	saveRating(id, assessmentId, score, requestedUserId, invitationId);
+	
 });
 
 $(function() {
@@ -170,15 +159,16 @@ $(function() {
 			});
 });
 
-function saveRating(id, assessmentId, updatedScore, requestedUserId) {
+function saveRating(id, assessmentId, updatedScore, requestedUserId, invitationId) {
 	// alert(score);
 	var data = {
 		key : id,
 		score : updatedScore,
 		id : assessmentId,
-		requestedUserId : requestedUserId
+		requestedUserId : requestedUserId,
+		invitationId : invitationId
 	};
-	var url = 'rate';
+	var url = 'save';
 	$.ajax({
 		type : 'POST',
 		url : url,

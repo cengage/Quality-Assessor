@@ -26,6 +26,9 @@
 		<many-to-one name="assessor"
 			class="com.qaitdevlabs.qualityassessor.model.User" column="assessor_id"
 			lazy="false" />
+		<many-to-one name="invitation"
+			class="com.qaitdevlabs.qualityassessor.model.AssessmentInvitation" column="invitation_id"
+			lazy="false" />	
 
 	</class>
 </hibernate-mapping>
