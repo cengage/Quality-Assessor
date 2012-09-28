@@ -31,7 +31,7 @@
 	<%@include file="/WEB-INF/pages/header.jsp"%>
 	<div align="center" style="font-size:18px;padding:43px"><label><strong id="headingMsg">Domain Assessment in form of Radar Chart</strong></label></div>
 		<div align="center" id="loader" class="loading" >
-			
+	
 		</div>
 	</div>
 	<%@include file="/WEB-INF/pages/footer.jsp"%>

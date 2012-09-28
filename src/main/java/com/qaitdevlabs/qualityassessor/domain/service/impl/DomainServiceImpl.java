@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.qaitdevlabs.qualityassessor.assessment.dao.AssessmentDao;
 import com.qaitdevlabs.qualityassessor.assessment.dao.impl.AssessmentDaoImpl;
 import com.qaitdevlabs.qualityassessor.assessment.service.AssessmentService;
+import com.qaitdevlabs.qualityassessor.common.exception.GenericException;
 import com.qaitdevlabs.qualityassessor.domain.dao.DomainDao;
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
@@ -139,7 +140,7 @@ public class DomainServiceImpl implements DomainService {
 
 		Long key = Long.valueOf(dto.getKey());
 		String parent = dto.getParentKey();
-		Long  domainId = null;
+		Long domainId = null;
 		if (parent.equals("0")) {
 			Domain domain = domainDao.get(key);
 			if (domain == null) {
@@ -152,7 +153,7 @@ public class DomainServiceImpl implements DomainService {
 			domain.setIsParent(true);
 			domain.setIsActive(true);
 			domainDao.saveOrUpdateDomain(domain);
-			domainId=domain.getDomainId();
+			domainId = domain.getDomainId();
 		} else {
 
 			Long parentKey = Long.valueOf(parent);
@@ -185,7 +186,7 @@ public class DomainServiceImpl implements DomainService {
 			domainMapping.setWeightage(weightage);
 			domainMapping.setModificationDate(modificationDate);
 			domainDao.saveOrUpdateDomainMapping(domainMapping);
-			domainId=subDomain.getDomainId();
+			domainId = subDomain.getDomainId();
 		}
 		return domainId;
 	}
@@ -338,7 +339,13 @@ public class DomainServiceImpl implements DomainService {
 
 	@Override
 	public Domain getDomain(String key) {
-		Long id = Long.valueOf(key);
+		Long id = null;
+		try {
+			id = Long.valueOf(key);
+		} catch (Exception e) {
+			System.out.println(e);
+			throw new GenericException("Requested url is incorrect!!!");
+		}
 		return domainDao.get(id);
 	}
 

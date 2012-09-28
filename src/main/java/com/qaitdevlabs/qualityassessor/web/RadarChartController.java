@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.qaitdevlabs.qualityassessor.common.exception.GenericException;
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
 import com.qaitdevlabs.qualityassessor.dto.RadarChartInfo;
+import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.radarchart.service.RadarChartService;
 import com.qaitdevlabs.qualityassessor.service.UserService;
@@ -48,6 +51,13 @@ public class RadarChartController {
 
 	@RequestMapping(value = "assessments/{key}/chart", method = RequestMethod.GET)
 	public String showRadarChart(ModelMap model , @PathVariable String key) {
+		Domain domain = domainService.getDomain(key);
+		if(domain == null){
+			throw new GenericException("Requested domain doesn't exist!!!");
+		}
+		else if(!domain.getIsParent()){
+			throw new GenericException("Requested domain is not a root domain!!!");
+		}
 		return "radarChart";
 	}
 

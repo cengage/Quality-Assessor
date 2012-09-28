@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.qaitdevlabs.qualityassessor.assessment.service.AssessmentService;
 import com.qaitdevlabs.qualityassessor.assessmentinvitation.service.AssessmentInvitationService;
+import com.qaitdevlabs.qualityassessor.common.exception.GenericException;
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
 import com.qaitdevlabs.qualityassessor.model.Assessment;
