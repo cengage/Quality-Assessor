@@ -96,7 +96,7 @@ function showCompleteDomainTree(rootKey, table) {
 
 								ul += "<tr pid='"+rootKey+"' id='"+obj.key+"' childCount=0><td colspan='5' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'><span class='spanTitle'>"+obj.title+"</span><input style='display:none' class='autoCompleteWiki' type='text' value='"
 										+ obj.title
-										+ "'></td><td><input   class='inputWeightage addBorder'  type='text' value="
+										+ "'></td><td><input readonly='readonly'  class='inputWeightage addBorder'  type='text' value="
 										+ obj.weightage
 										+ "></td><td></td><td assessmentId="
 										+ obj.assessmentId
@@ -129,7 +129,9 @@ $(function() {
 		titleInput.show();
 		var spanTitle = row.find('.spanTitle');
 		spanTitle.hide();
-		row.find('.inputWeightage').removeClass("addBorder");
+		var weightageInput = row.find('.inputWeightage');
+		weightageInput.removeClass("addBorder");
+		weightageInput.attr('readonly',false);
 		$(this).attr("src", "images/save.png");
 		$(this).parent().prev().children().hide();
 		$(this).removeClass("editDomain");
@@ -145,8 +147,8 @@ $(function() {
 		spanTitle.html(title);
 		spanTitle.show();
 		titleInput.hide();
-		var weightageTd = row.find('.inputWeightage');
-		var weightage = weightageTd.val();
+		var weightageInput = row.find('.inputWeightage');
+		var weightage = weightageInput.val();
 
 		var key = row.attr("id");
 		if(key =='new'){
@@ -172,7 +174,8 @@ $(function() {
 		
 		
 		saveDomain(key,parentKey,title,weightage,row);
-		row.find('.inputWeightage').addClass("addBorder");
+		weightageInput.addClass("addBorder");
+		weightageInput.attr('readonly','readonly');
 		$(this).attr("src", "images/edit.png");
 		$(this).addClass("editDomain");
 		$(this).parent().prev().children().show();

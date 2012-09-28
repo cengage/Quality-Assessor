@@ -32,9 +32,13 @@ $(function() {
 
 	// if there was an error loading the image, react accordingly
 	.error(function() {
-		// notify the user that the image could not be loaded
+			alert("image loading error occured");
 	})
 
 	// *finally*, set the src attribute of the new image to our image
 	.attr('src', "../../radarChart?key=" + key);
+	
+	
+	
+	
 });

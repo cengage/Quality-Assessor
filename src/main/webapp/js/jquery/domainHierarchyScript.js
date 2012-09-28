@@ -73,8 +73,11 @@ $(function() {
 			$('#excelDivId').append(ul);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-			// showErrorMessage(jqXHR.responseText, "450", "300");
-		},
+			$('html').html(jqXHR.responseText);
+//			var win = window.open('', '_self');
+//			win.document.getElementsByTagName('Body')[0].innerText = jqXHR.responseText;
+
+	},
 		dataType : 'text'
 	});
 
