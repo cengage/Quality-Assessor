@@ -1,8 +1,7 @@
-package com.qaitdevlabs.qualityassessor.assessmentinvitation.dao;
+package com.qaitdevlabs.qualityassessor.assessmentinvitation.dao.impl;
 
 import java.io.Serializable;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -10,11 +9,9 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-
+import com.qaitdevlabs.qualityassessor.assessmentinvitation.dao.AssessmentInvitationDao;
 import com.qaitdevlabs.qualityassessor.dao.impl.GenericDaoImpl;
-import com.qaitdevlabs.qualityassessor.model.Assessment;
 import com.qaitdevlabs.qualityassessor.model.AssessmentInvitation;
-import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.User;
 
 @Repository

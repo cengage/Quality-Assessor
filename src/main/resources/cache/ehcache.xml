@@ -1,10 +1,9 @@
 <ehcache>
 	<diskStore path="java.io.tmpdir" />
-	<defaultCache maxElementsInMemory="0" eternal="false"
+	<defaultCache maxElementsInMemory="5" eternal="false"
 		timeToIdleSeconds="0" timeToLiveSeconds="0" overflowToDisk="false" />
-	<cache name="Authorities" maxElementsInMemory="1" eternal="false"
-		timeToIdleSeconds="600" timeToLiveSeconds="600" overflowToDisk="true"
-		maxElementsOnDisk="10000000" diskPersistent="true"
+	<cache name="Authorities" maxElementsInMemory="50" eternal="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="600" overflowToDisk="false"
 		diskExpiryThreadIntervalSeconds="600" memoryStoreEvictionPolicy="LRU" />
 	
 </ehcache>

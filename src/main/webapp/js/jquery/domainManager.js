@@ -12,7 +12,7 @@ $(function() {
 				type : 'GET',
 				url : 'domains?key=0',
 				success : function(data) {
-					data = JSON.parse(data);
+		data = JSON.parse(data);
 					for (i = 0; i < data.length; i++) {
 						var table = "";
 						table += "<table style='margin-top:15px;width:100%;' class='imagetable' id='tableId"
@@ -340,7 +340,7 @@ function deleteDomain(key,parentKey) {
 	
 	var data = {
 			key : key,
-			parentKey : parentKey,
+			parentKey : parentKey
 		}
 	
 	var url ='deleteDomain';

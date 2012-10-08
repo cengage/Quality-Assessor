@@ -49,6 +49,7 @@ public class CustomFilterSecurityMetadataSource extends
 		System.out.println("getattributes");
 		FilterInvocation fi = (FilterInvocation) object;
 		String url = fi.getRequestUrl();
+		System.out.println(url);
 		String method = fi.getHttpRequest().getMethod();
 		List<ConfigAttribute> attributes = null;
 		attributes = getAttributesByURL(url, method);

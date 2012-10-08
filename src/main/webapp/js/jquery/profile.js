@@ -28,7 +28,7 @@ $(document)
 														+ num
 														+ " td input.fromDatepicker")
 												.datepicker({ dateFormat: 'dd-mm-yy' });
-/
+
 										$(
 												'#workExpTexts'
 														+ newNum

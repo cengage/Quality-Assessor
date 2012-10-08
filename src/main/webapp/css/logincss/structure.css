@@ -1,15 +1,4 @@
-/*
-  ✰✰✰✰✰✰✰✰✰✰✰✰✰✰ 
 
-  Simple Login Form
-  HTML5/CSS3 Coded by: $hekh@r d-Ziner, CSSJunction.com
-  PSD by:PremiumPixels.com
-  
-  Uuage: Free. You can modify, remove our links and use wherever you want ☺.
-  
-  ✰✰✰✰✰✰✰✰✰✰✰✰✰✰✰ 
-  
-*/
 body{
 /*   background:#eff3f6; */
 }
@@ -22,10 +11,10 @@ body{
     -moz-border-radius:5px;
     border-radius:5px;
 /*     -moz-box-shadow:rgba(0,0,0,0.15) 0 0 1px; */
-    -webkit-box-shadow:rgba(0,0,0,0.15) 0 0 1px;
-    box-shadow:rgba(0,0,0,0.15) 0 0 1px;
+/*     -webkit-box-shadow:rgba(0,0,0,0.15) 0 0 1px; */
+/*     box-shadow:rgba(0,0,0,0.15) 0 0 1px; */
     color:#444;
-    font:normal 12px/14px Arial, Helvetica, Sans-serif;
+    font:normal 13px/14px Arial, Helvetica, Sans-serif;
     margin:0 auto 30px;
 	overflow:hidden;
 }
@@ -51,7 +40,7 @@ body{
 {
     background:#eff4f6;
     border-top:1px solid #fff;
-    padding:22px 26px;
+    padding:12px 26px;
     overflow:hidden;
 	
 }
@@ -124,7 +113,7 @@ body{
 {
     -moz-border-radius:2px;
     -webkit-border-radius:2px;
-    border-radius:6px;
+/*     border-radius:6px; */
     background:#30576E;
 /*     background-color:#3E698C; */
 /*     background:-moz-linear-gradient(center top , #3E698C 0%, #30576E 100%) repeat scroll 0 0 transparent; */
@@ -133,11 +122,11 @@ body{
     border:1px solid #7db0cc !important;
     cursor: pointer;
     padding:11px 16px;
-    font:bold 11px/14px Verdana, Tahomma, Geneva;
+    font:bold 12px/14px Verdana, Tahomma, Geneva;
     text-shadow:rgba(0,0,0,0.2) 0 1px 0px; 
     color:#fff;
-    -moz-box-shadow:inset rgba(255,255,255,0.6) 0 1px 1px, rgba(0,0,0,0.1) 0 1px 1px;
-    -webkit-box-shadow:inset rgba(255,255,255,0.6) 0 1px 1px, rgba(0,0,0,0.1) 0 1px 1px;
+/*     -moz-box-shadow:inset rgba(255,255,255,0.6) 0 1px 1px, rgba(0,0,0,0.1) 0 1px 1px; */
+/*     -webkit-box-shadow:inset rgba(255,255,255,0.6) 0 1px 1px, rgba(0,0,0,0.1) 0 1px 1px; */
 /*     box-shadow:inset rgba(255,255,255,0.6) 0 1px 1px, rgba(0,0,0,0.1) 0 1px 1px; */
     margin-left:12px;
 /*     float:right; */

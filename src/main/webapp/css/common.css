@@ -13,8 +13,8 @@
     overflow: hidden;
 }
 body {
-    background-color: #FFFFFF;
-    background-image: url("../images/bg.png");
+    background-color: DarkSlateGrey;
+/*     background-image: url("../images/bg.png"); */
     color: #404040;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 /*     font-size: 13px; */

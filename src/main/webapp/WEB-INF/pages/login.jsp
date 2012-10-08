@@ -8,7 +8,7 @@
 <link href="css/common.css" rel="Stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="css/logincss/reset.css">
 <link rel="stylesheet" type="text/css" href="css/logincss/structure.css">
-<link rel="stylesheet" type="text/css" href="css/error.css">
+<link rel="stylesheet" tyhttp://localhost:8080/qualityassessope="text/css" href="css/error.css">
 <!-- <script type="text/javascript" src="js/jquery/validation.js"></script> -->
 <!-- <script type="text/javascript" src="js/jquery/loginValidation.js"></script> -->
 
@@ -32,7 +32,7 @@
 					<label>Email</label> 
 					<input id="userId" type="text" name='j_username' tabindex="1" class="required email"  > 
 						<label>Password</label> 
-						<input id ="passwordId" name='j_password' type="password" tabindex="2"  class="required" minlength="6" ">
+						<input id ="passwordId" name='j_password' type="password" tabindex="2"  class="required" minlength="6">
 			<c:if test="${not empty error}">
 		<div class="error">
 			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
@@ -51,7 +51,7 @@
 			</form>
 
 		</div>
-		
+		<%@include file="/WEB-INF/pages/footer.jsp"%>
 	
 </body>
 </html>

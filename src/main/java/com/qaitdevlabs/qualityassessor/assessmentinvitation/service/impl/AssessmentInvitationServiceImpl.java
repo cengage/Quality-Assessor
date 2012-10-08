@@ -1,17 +1,15 @@
-package com.qaitdevlabs.qualityassessor.assessmentinvitation.service;
+package com.qaitdevlabs.qualityassessor.assessmentinvitation.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.qaitdevlabs.qualityassessor.assessmentinvitation.dao.AssessmentInvitationDao;
+import com.qaitdevlabs.qualityassessor.assessmentinvitation.service.AssessmentInvitationService;
 import com.qaitdevlabs.qualityassessor.dto.AssessmentRequestDTO;
-import com.qaitdevlabs.qualityassessor.model.Assessment;
 import com.qaitdevlabs.qualityassessor.model.AssessmentInvitation;
 import com.qaitdevlabs.qualityassessor.model.User;
 

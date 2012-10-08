@@ -8,6 +8,7 @@
 <script src='js/jquery/jquery.dynatree.js' type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery/jquery.colorbox-min.js"></script>
 <!-- <script type="text/javascript" src="js/jquery/homePageScript.js"></script> -->
+<script src='js/json2/json2.js' type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery/domainManager.js"></script>
 <link type='text/css' rel='stylesheet' href='css/colorbox.css' />
 <link type='text/css' rel='stylesheet' href='css/button.css' />
