@@ -22,15 +22,8 @@ import com.qaitdevlabs.qualityassessor.dto.RadarChartInfo;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 
 @Component
-public class RadarChart extends ApplicationFrame {
-	public RadarChart() {
-		super("ttile");
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * 
-	 */
+public class RadarChart  {
+	
 	private static final long serialVersionUID = 1L;
 
 	
@@ -65,7 +58,7 @@ public class RadarChart extends ApplicationFrame {
 		this.plot = (SpiderWebPlot) chartPanel.getChart().getPlot();
 		this.dataset = (DefaultCategoryDataset) plot.getDataset();
 		chartPanel.setPreferredSize(new Dimension(400, 270));
-		setContentPane(chartPanel);
+		
 		
 		return chart;
 	}
