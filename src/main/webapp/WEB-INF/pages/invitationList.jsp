@@ -11,10 +11,11 @@
 <body>
 	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
 	<div class="background container"
-		style="background: white; width: 927px;">
+		style="background: white; width: 70%;">
 		<%@include file="/WEB-INF/pages/header.jsp"%>
-		<div style="font-size:18px;padding:43px"><label><strong>Select Domain to Assess</strong></label></div>
-		<table style='width: 600px; margin-left: 84px'>
+		<div style="margin-left:50px">
+		<div style="font-size:18px;margin-bottom:30px;margin-top:30px"><label><strong>Select Domain to Assess</strong></label></div>
+		<table style='width: 68%; margin-left: 10%'>
 			<tr>
 				<td style='width: 250px;'><b>Application Domains</b><br /> <select
 				size="10"	 multiple="multiple" id='domainList' style="width: 100%;">
@@ -32,8 +33,8 @@
 				</select></td>
 			</tr>
 		</table>
-		<div style="font-size:18px;padding:43px"><label><strong>Select Users</strong></label></div>
-		<table style='width: 600px; margin: 0px 84px 0px;'>
+		<div style="font-size:18px;margin-bottom:30px;margin-top:30px"><label><strong>Select Users</strong></label></div>
+		<table style='width: 68%; margin-left: 10%;'>
 			<tr>
 				<td style='width: 250px;'><b>Application Users</b><br /> <select
 				size='10'	style="width: 100%" multiple="multiple" id='userList'>
@@ -55,10 +56,9 @@
 
 
 
-		<div align="center"
-			style="position: absolute; width: 150px; text-align: center; right: 50%; margin-top: 40px">
+		<div style="width: 150px; text-align: center; right: 50%; margin-top: 40px;margin-left:36%">
 			<a  class='button-default' href="javascript:sendInvitation();">Send Invitations</a>
-		</div>
+		</div></div>
 	</div>
 	<%@include file="/WEB-INF/pages/footer.jsp"%>
 </body>

@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
@@ -35,7 +38,7 @@
 				<form:errors path="" cssClass="objectError" />
 
 				<table class="zebra-striped"
-					style="width: 650px; margin: 0px 30px 10px 120px; border: 1px solid #CCCCCC;">
+					style="width: 80%; margin: 30px auto auto; border: 1px solid #CCCCCC;">
 					<thead>
 						<tr>
 							<td style="text-align: center; border-bottom: 1px solid #CCCCCC;"
@@ -68,7 +71,7 @@
 				</table>
 
 				<table class="zebra-striped"
-					style="width: 650px; margin: 30px 30px 10px 120px; border: 1px solid #CCCCCC;">
+					style="width: 80%; margin: 30px auto auto; border: 1px solid #CCCCCC;">
 					<thead>
 						<tr>
 							<td style="text-align: center; border-bottom: 1px solid #CCCCCC;"
@@ -100,7 +103,7 @@
 
 
 				<table id="workExpTable1" class="zebra-striped"
-					style="width: 650px; margin: 30px 30px 10px 120px; border: 1px solid #CCCCCC;">
+					style="width: 80%; margin: 30px auto auto; border: 1px solid #CCCCCC;">
 
 					<thead>
 						<tr>
@@ -122,22 +125,20 @@
 					<c:forEach items="${userProfileDTO.workExperiences}"
 						varStatus="stat">
 						<tr id="workExpTexts${stat.index}" class="cloneWorkExpTexts">
-							<td><form:input type="hidden"
+							<td style="width:25%"><form:input type="hidden"
 									path="workExperiences[${stat.index}].workExperienceId" /> <form:input
 									path="workExperiences[${stat.index}].title" class="title"
-									type="text" /></td>
-							<td><form:input
+									type="text" style="width:90%" /></td>
+							<td style="width:25%"><form:input
 									path="workExperiences[${stat.index}].areaOfExpertise"
-									class="areaOfExperience" type="text" /></td>
-							<td><form:input
+									class="areaOfExperience" type="text" style="width:90%"/></td>
+							<td style="width:25%"><form:input
 									path="workExperiences[${stat.index}].roleDescription"
-									class="roleDescription" type="text" /></td>
-							<td style="width: 44%"><form:input style="width: 100%"
-									class="fromDatepicker"
-									path="workExperiences[${stat.index}].fromDate" type="text" /></td>
-							<td style="width: 44%"><form:input style="width: 100%"
-									class="toDatepicker"
-									path="workExperiences[${stat.index}].toDate" type="text" /></td>
+									class="roleDescription" type="text" style="width:90%"/></td>
+							<td style="width:13%"><form:input class="fromDatepicker"
+									path="workExperiences[${stat.index}].fromDate" type="text" style="width:90%"/></td>
+							<td style="width:12%"><form:input class="toDatepicker"
+									path="workExperiences[${stat.index}].toDate" type="text" style="width:90%"/></td>
 						</tr>
 					</c:forEach>
 
@@ -153,7 +154,7 @@
 
 
 				<table id="socialNetwork1" class="zebra-striped"
-					style="width: 650px; margin: 30px 30px 10px 120px; border: 1px solid #CCCCCC;">
+					style="width: 80%; margin: 30px auto auto; border: 1px solid #CCCCCC;">
 
 					<thead>
 						<tr>

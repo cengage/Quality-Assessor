@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE HTML>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Login Form</title>
@@ -45,7 +47,7 @@
 
 
 	<div class="background container"
-		style="background: white; width: 927px; margin: auto;">
+		style="background: white; width: 70%; margin: auto;">
 	<%@include file="/WEB-INF/pages/headerlogin.jsp"%>
 	
 
@@ -53,8 +55,8 @@
 		<!-- 		<H2>Sign In</H2> -->
 
 		<form:form id="signUpForm" class="box login"
-			style="top: 36%; min-height: 480px" action="signUp" method="post" commandName="userProfileDTO" >
-			<fieldset class="boxBody" style="height: 85%">
+			style="top: 36%;" action="signUp" method="post" commandName="userProfileDTO" >
+			<fieldset class="boxBody" style="height: 75%">
 				<label style="margin: 2px 9px 2px 2px;font-size: 12px;position: absolute;right: 0;">* fields are required</label>
 				<label class="userform-box-name">First Name*</label> 
 				<form:input path="firstName" type="text" value="" class="required" /> 
@@ -84,9 +86,9 @@
 
 
 			</fieldset>
-			<footer style="height: 15%">
+			<fieldset class="formFooter" style="height: 25%;padding:20px 26px;">
 				<input type="submit" class="btnLogin" value="Sign Up">
-			</footer>
+			</fieldset>
 
 
 
