@@ -12,20 +12,23 @@ $(function() {
 				type : 'GET',
 				url : 'domains?key=0',
 				success : function(data) {
-		data = JSON.parse(data);
+					data = JSON.parse(data);
 					for (i = 0; i < data.length; i++) {
 						var table = "";
 						table += "<table style='margin-top:15px;width:100%;' class='imagetable' id='tableId"
 								+ i + "'>";
 						table += "<tr pid='0' id="
 								+ data[i].key
-								+ "><td class='iconWidth'><img class='expandDomain' src='images/expand.png'/></td>" +
-										"<td class='iconWidth'><img class='newDomain' src='images/new.png'/></td>" +
-										"<td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td>" +
-										"<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>" +
-										"<td class='titleClass' class='addBorder' ><span class='spanTitle'>"+data[i].title+"</span><input style='display:none' " +
-										"class='autoCompleteWiki' type='text' value='"+ data[i].title +"'>" +
-												"</td><td></td><td></td><td></td></tr>"
+								+ "><td class='iconWidth'><img class='expandDomain' src='images/expand.png'/></td>"
+								+ "<td class='iconWidth'><img class='newDomain' src='images/new.png'/></td>"
+								+ "<td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td>"
+								+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
+								+ "<td class='titleClass' class='addBorder' ><span class='spanTitle'>"
+								+ data[i].title
+								+ "</span><input style='display:none' "
+								+ "class='autoCompleteWiki' type='text' value='"
+								+ data[i].title + "'>"
+								+ "</td><td></td><td></td><td></td></tr>"
 						$('#domainDivId').append(table);
 					}
 				},
@@ -34,7 +37,6 @@ $(function() {
 				dataType : 'text'
 			});
 
-	
 });
 
 function showCompleteDomainTree(rootKey, table) {
@@ -45,9 +47,9 @@ function showCompleteDomainTree(rootKey, table) {
 						+ requestedUserId,
 				success : function(data) {
 					var ul = "";
-				
+
 					data = JSON.parse(data);
-					
+
 					children = data.children;
 
 					// Second Level
@@ -63,9 +65,15 @@ function showCompleteDomainTree(rootKey, table) {
 							if (children != null) {
 
 								// alert(ratingStarHtml);
-								ul += "<tr pid='"+rootKey+"' id='"+obj.key+"' "
-										+ "><td colspan='5' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'><span class='spanTitle'>"+obj.title+"</span> " +
-												"<input style='display:none'  class='autoCompleteWiki' type='text' value='"
+								ul += "<tr pid='"
+										+ rootKey
+										+ "' id='"
+										+ obj.key
+										+ "' "
+										+ "><td colspan='5' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'><span class='spanTitle'>"
+										+ obj.title
+										+ "</span> "
+										+ "<input style='display:none'  class='autoCompleteWiki' type='text' value='"
 										+ obj.title
 										+ "'></td><td><input  readonly='readonly' class='inputWeightage addBorder' type='text' value="
 										+ obj.weightage
@@ -81,11 +89,17 @@ function showCompleteDomainTree(rootKey, table) {
 									weightage = obj1.weightage;
 									key = obj1.key;
 
-									ul += "<tr pid='"+obj.key+"' id='"+obj1.key+"'><td colspan='11' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'  i="
+									ul += "<tr pid='"
+											+ obj.key
+											+ "' id='"
+											+ obj1.key
+											+ "'><td colspan='11' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'  i="
 											+ i
 											+ " j="
 											+ j
-											+ "><span class='spanTitle'>"+obj1.title+"</span><input style='display:none' class='autoCompleteWiki' type='text' value='"
+											+ "><span class='spanTitle'>"
+											+ obj1.title
+											+ "</span><input style='display:none' class='autoCompleteWiki' type='text' value='"
 											+ obj1.title
 											+ "'></td><td><input  readonly='readonly' class='addBorder inputWeightage' type='text' value="
 											+ obj1.weightage + "></td></tr>";
@@ -94,14 +108,18 @@ function showCompleteDomainTree(rootKey, table) {
 								// ul += "<tr></tr>";
 							} else {
 
-								ul += "<tr pid='"+rootKey+"' id='"+obj.key+"' childCount=0><td colspan='5' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'><span class='spanTitle'>"+obj.title+"</span><input style='display:none' class='autoCompleteWiki' type='text' value='"
+								ul += "<tr pid='"
+										+ rootKey
+										+ "' id='"
+										+ obj.key
+										+ "' childCount=0><td colspan='5' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'><span class='spanTitle'>"
+										+ obj.title
+										+ "</span><input style='display:none' class='autoCompleteWiki' type='text' value='"
 										+ obj.title
 										+ "'></td><td><input readonly='readonly'  class='inputWeightage addBorder'  type='text' value="
 										+ obj.weightage
 										+ "></td><td></td><td assessmentId="
-										+ obj.assessmentId
-										+ " id="
-										+ obj.key
+										+ obj.assessmentId + " id=" + obj.key
 										+ ">" + "</td></tr>";
 							}
 
@@ -118,10 +136,7 @@ function showCompleteDomainTree(rootKey, table) {
 			});
 }
 
-
-
 $(function() {
-	
 
 	$(".editDomain").live('click', function() {
 		var row = $(this).closest('tr');
@@ -131,7 +146,7 @@ $(function() {
 		spanTitle.hide();
 		var weightageInput = row.find('.inputWeightage');
 		weightageInput.removeClass("addBorder");
-		weightageInput.attr('readonly',false);
+		weightageInput.attr('readonly', false);
 		$(this).attr("src", "images/save.png");
 		$(this).parent().prev().children().hide();
 		$(this).removeClass("editDomain");
@@ -139,55 +154,58 @@ $(function() {
 
 	});
 
-	$(".saveDomain").live('click', function() {
-		var row = $(this).closest('tr');
-		var titleInput = row.find('.autoCompleteWiki');
-		var title = titleInput.val();
-		var spanTitle = row.find('.spanTitle');
-		spanTitle.html(title);
-		spanTitle.show();
-		titleInput.hide();
-		var weightageInput = row.find('.inputWeightage');
-		var weightage = weightageInput.val();
+	$(".saveDomain")
+			.live(
+					'click',
+					function() {
+						var row = $(this).closest('tr');
+						var titleInput = row.find('.autoCompleteWiki');
+						var title = titleInput.val();
+						var spanTitle = row.find('.spanTitle');
+						spanTitle.html(title);
+						spanTitle.show();
+						titleInput.hide();
+						var weightageInput = row.find('.inputWeightage');
+						var weightage = weightageInput.val();
 
-		var key = row.attr("id");
-		if(key =='new'){
-			key='0';
-		}
-		var parentKey = row.attr("pid");
-		
-		
-		var table = $(this).closest('table');
-		var rows = table.find("tr[pid='"+parentKey+"']");
-		sum=0;
-		
-		rows.each(function(index) {
-		    sum = sum + parseInt($(this).find('.inputWeightage').val());
-		});
-		
-		if(sum > 100){
-			alert("Total sum of subdomain's weightage under a domain can't be greater than 100");
-			return;
-		}
-		
-		//row.find('input').attr('readonly',true);
-		
-		
-		saveDomain(key,parentKey,title,weightage,row);
-		weightageInput.addClass("addBorder");
-		weightageInput.attr('readonly','readonly');
-		$(this).attr("src", "images/edit.png");
-		$(this).addClass("editDomain");
-		$(this).parent().prev().children().show();
-		$(this).removeClass("saveDomain");
-		
-		var expandImg =row.find('.expandDomain');
-		
-		if (expandImg.is(":hidden")) {
-			expandImg.show();  // hide button
-		 }
-		
-	});
+						var key = row.attr("id");
+						if (key == 'new') {
+							key = '0';
+						}
+						var parentKey = row.attr("pid");
+
+						var table = $(this).closest('table');
+						var rows = table.find("tr[pid='" + parentKey + "']");
+						sum = 0;
+
+						rows.each(function(index) {
+							sum = sum
+									+ parseInt($(this).find('.inputWeightage')
+											.val());
+						});
+
+						if (sum > 100) {
+							alert("Total sum of subdomain's weightage under a domain can't be greater than 100");
+							return;
+						}
+
+						// row.find('input').attr('readonly',true);
+
+						saveDomain(key, parentKey, title, weightage, row);
+						weightageInput.addClass("addBorder");
+						weightageInput.attr('readonly', 'readonly');
+						$(this).attr("src", "images/edit.png");
+						$(this).addClass("editDomain");
+						$(this).parent().prev().children().show();
+						$(this).removeClass("saveDomain");
+
+						var expandImg = row.find('.expandDomain');
+
+						if (expandImg.is(":hidden")) {
+							expandImg.show(); // hide button
+						}
+
+					});
 
 	$(".expandDomain").live('click', function() {
 		key = $(this).closest('tr').attr("id");
@@ -207,71 +225,85 @@ $(function() {
 
 	});
 
-	$(".newDomain").live('click',function() {
-			var row = $(this).closest('tr');
-			var cell = $(this).closest('td');
-			var ppid =row.attr("pid");
-			var pid= row.attr("id");
-			if(ppid=='0'){
-				expandDomain =row.find('.expandDomain');   
-				if(expandDomain.length>0){						//if domain not expanded then first expand it
-					var table = $(this).closest('table');
-					showCompleteDomainTree(pid, table);
-					expandDomain.attr("src", "images/collapse.png");
-					expandDomain.removeClass("expandDomain");
-					expandDomain.addClass("collapseDomain");
-				}
-			}
-			
-			var colspan = cell.prev().attr("colspan");
-			if (colspan == 5) {
-							var tr = "<tr id='new' pid='"+pid+"'><td class='iconWidth' colspan='11'></td>" +
-							"<td class='iconWidth'><img class='saveDomain' src='images/save.png'></td>" +
-							"<td  class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>" +
-							"<td class='titleClass'><span class='spanTitle'></span><input class='autoCompleteWiki' type='text'></td>" +
-							"<td><input class='inputWeightage' type='text'></td></tr>";
+	$(".newDomain")
+			.live(
+					'click',
+					function() {
+						var row = $(this).closest('tr');
+						var cell = $(this).closest('td');
+						var ppid = row.attr("pid");
+						var pid = row.attr("id");
+						if (ppid == '0') {
+							expandDomain = row.find('.expandDomain');
+							if (expandDomain.length > 0) { // if domain not
+															// expanded then
+															// first expand it
+								var table = $(this).closest('table');
+								showCompleteDomainTree(pid, table);
+								expandDomain.attr("src", "images/collapse.png");
+								expandDomain.removeClass("expandDomain");
+								expandDomain.addClass("collapseDomain");
+							}
+						}
+
+						var colspan = cell.prev().attr("colspan");
+						if (colspan == 5) {
+							var tr = "<tr id='new' pid='"
+									+ pid
+									+ "'><td class='iconWidth' colspan='11'></td>"
+									+ "<td class='iconWidth'><img class='saveDomain' src='images/save.png'></td>"
+									+ "<td  class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
+									+ "<td class='titleClass'><span class='spanTitle'></span><input class='autoCompleteWiki' type='text'></td>"
+									+ "<td><input class='inputWeightage' type='text'></td></tr>";
 							row.after(tr);
 						} else {
 							var tr = "<tr id='new' pid='"
 									+ pid
-									+ "'><td colspan='5'></td><td  class='iconWidth'><img style='display:none'  class='newDomain' src='images/new.png'/></td>" +
-											"<td class='iconWidth'><img class='saveDomain' src='images/save.png'></td>" +
-											"<td  class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>" +
-											"<td class='titleClass'><span class='spanTitle'></span><input class='autoCompleteWiki' type='text'></td>" +
-											"<td><input class='inputWeightage' type='text'></td></tr>";
+									+ "'><td colspan='5'></td><td  class='iconWidth'><img style='display:none'  class='newDomain' src='images/new.png'/></td>"
+									+ "<td class='iconWidth'><img class='saveDomain' src='images/save.png'></td>"
+									+ "<td  class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
+									+ "<td class='titleClass'><span class='spanTitle'></span><input class='autoCompleteWiki' type='text'></td>"
+									+ "<td><input class='inputWeightage' type='text'></td></tr>";
 							row.after(tr);
 						}
-			});
-	
-	$(".deleteDomain").live('click', function() {
-		
-		if(!confirm('Are you sure you want to delete domain?'))
-		{
-			return;
-		}
-		
-		var row = $(this).closest('tr');
-		var key = row.attr("id");
-		var parentKey = row.attr("pid");
-		if (key != 'new') {
-			deleteDomain(key, parentKey);
-		}
-		
-		var table = $(this).closest('table');
-		if (parentKey != '0') {
-			row.remove();
-			table.find("tr[pid='" + key + "']").remove();
-			// showCompleteDomainTree(key, table);
-			$(this).attr("src", "images/collapse.png");
-			$(this).removeClass("expandDomain");
-			$(this).addClass("collapseDomain");
-		} else {
-			table.remove();
-		}
-	});
-	
+					});
 
-		$(".inputWeightage").live(
+	$(".deleteDomain").live('click', function() {
+
+		var row = $(this).closest('tr');
+		var table = $(this).closest('table');
+		var key = row.attr("id");
+		var data = {
+			key : key
+		};
+		$.ajax({
+			type : 'POST',
+			url : 'hasUpdateOrDeletePermission',
+			data : data,
+			success : function(data) {
+				if (data.success == false) {
+					alert(data.message);
+					return;
+				}
+				if (!confirm('Are you sure you want to delete domain?')) {
+					return;
+				}
+
+				var parentKey = row.attr("pid");
+				if (key != 'new') {
+					deleteDomain(key, parentKey, table, row);
+				}
+
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.responseText);
+			},
+			dataType : 'json'
+		});
+
+	});
+
+	$(".inputWeightage").live(
 			'keydown',
 			function(evt) {
 				{
@@ -289,43 +321,40 @@ $(function() {
 					return false;
 				}
 			});
-	
+
 });
 
-
-function showAddRootDomainView(){
+function showAddRootDomainView() {
 	var table = "";
 	table += "<table style='margin-top:15px;width:100%;' class='imagetable' id='tableId'>";
-	table += "<tr id='0' pid='0'><td class='iconWidth'><img style='display:none' class='expandDomain' src='images/expand.png'/></td>" +
-			"<td class='iconWidth'><img style='display:none' class='newDomain' src='images/new.png'/></td>" +
-			"<td class='iconWidth'><img class='saveDomain' src='images/save.png'/></td>" +
-			"<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>" +
-			"<td class='titleClass'><span class='spanTitle'></span><input class='autoCompleteWiki' size='30' type='text'></td>" +
-			"<td></td><td></td><td></td></tr>"
+	table += "<tr id='0' pid='0'><td class='iconWidth'><img style='display:none' class='expandDomain' src='images/expand.png'/></td>"
+			+ "<td class='iconWidth'><img style='display:none' class='newDomain' src='images/new.png'/></td>"
+			+ "<td class='iconWidth'><img class='saveDomain' src='images/save.png'/></td>"
+			+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
+			+ "<td class='titleClass'><span class='spanTitle'></span><input class='autoCompleteWiki' size='30' type='text'></td>"
+			+ "<td></td><td></td><td></td></tr>"
 	$('#domainDivId').prepend(table);
 }
 
-
-
-function saveDomain(key,parentKey,title,weightage,row) {
-	if(weightage==undefined){
+function saveDomain(key, parentKey, title, weightage, row) {
+	if (weightage == undefined) {
 		weightage = '100';
 	}
-	data ='0';
+	data = '0';
 	var data = {
-			key : key,
-			parentKey : parentKey,
-			title : title,
-			weightage : weightage
-		};
-	var url ='saveOrUpdateDomain';
+		key : key,
+		parentKey : parentKey,
+		title : title,
+		weightage : weightage
+	};
+	var url = 'saveOrUpdateDomain';
 	$.ajax({
 		type : 'POST',
 		url : url,
 		data : data,
 		success : function(data) {
-			if(key == '0'){
-				row.attr("id",data);
+			if (key == '0') {
+				row.attr("id", data);
 			}
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
@@ -336,23 +365,31 @@ function saveDomain(key,parentKey,title,weightage,row) {
 	return data;
 }
 
-function deleteDomain(key,parentKey) {
-	
+function deleteDomain(key, parentKey, table, row) {
+
 	var data = {
-			key : key,
-			parentKey : parentKey
-		}
+		key : key,
+		parentKey : parentKey
+	}
 	
-	var url ='deleteDomain';
+	var url = 'deleteDomain';
 	$.ajax({
 		type : 'POST',
 		url : url,
 		data : data,
 		success : function(data) {
-
+			if (parentKey != '0') {
+				row.remove();
+				table.find("tr[pid='" + key + "']").remove();
+//				$(currentObj).attr("src", "images/collapse.png");
+//				$(currentObj).removeClass("expandDomain");
+//				$(currentObj).addClass("collapseDomain");
+			} else {
+				table.remove();
+			}
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-			// showErrorMessage(jqXHR.responseText, "450", "300");
+			alert(jqXHR.responseText);
 		},
 		dataType : 'text'
 	});

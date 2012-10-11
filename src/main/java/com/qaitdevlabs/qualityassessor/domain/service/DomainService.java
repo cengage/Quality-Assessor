@@ -79,4 +79,6 @@ public interface DomainService {
 			List<RadarChartInfo> extrmeChilds);
 
 	public List<DomainDTO> findDomainsWithProperty(String property, String value);
+
+	public boolean hasUpdateOrDeletePermission(String key, Long userId);
 }

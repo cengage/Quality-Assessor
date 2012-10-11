@@ -4,8 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.qaitdevlabs.qualityassessor.dto.AjaxResponse;
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
+
+import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -44,7 +48,6 @@ public class DomainController {
 		this.domainService = domainService;
 	}
 
-	
 	/**
 	 * This method handles update operation on domains
 	 * 
@@ -65,7 +68,7 @@ public class DomainController {
 	public @ResponseBody
 	String saveOrUpdateDomain(ModelMap model, @RequestParam String key,
 			@RequestParam String parentKey, @RequestParam String title,
-			@RequestParam String weightage,HttpServletRequest request) {
+			@RequestParam String weightage, HttpServletRequest request) {
 
 		System.out.println("Contoller" + key + " " + parentKey + " " + title
 				+ " " + weightage);
@@ -81,14 +84,13 @@ public class DomainController {
 		dto.setModificationDate(modificationDate);
 		dto.setCreationDate(modificationDate);
 		Long domainId = null;
-		domainId = domainService.updateDomain(dto,user);
-		if(domainId == null){
+		domainId = domainService.updateDomain(dto, user);
+		if (domainId == null) {
 			domainId = (long) 0;
 		}
 		return domainId.toString();
 	}
-	
-	
+
 	/**
 	 * This method handles delete operation on domains
 	 * 
@@ -104,87 +106,111 @@ public class DomainController {
 	@RequestMapping(value = "/deleteDomain", method = RequestMethod.POST)
 	public @ResponseBody
 	String deleteDomainMapping(ModelMap model, @RequestParam String key,
-			@RequestParam String parentKey) {
+			@RequestParam String parentKey, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		String message = "Deletion Successful";
+
 		boolean success = domainService.deleteDomain(parentKey, key);
-		return String.valueOf(success);
-	}
-	
-	
-	 /**
-		 * This method is used to get list of child domains corresponding to parent
-		 * key
-		 * 
-		 * @param key
-		 *            parent key
-		 * @return list of child domains
-		 */
-		@RequestMapping(value = "/domains")
-		public @ResponseBody
-		List<TreeNodeDTO> getDomainList(@RequestParam String key) {
-			List<TreeNodeDTO> list = domainService.getDomainList(key);
-			return list;
+		if (!success) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			message = "Deletion UnSuccessful";
 		}
-	
+
+		return String.valueOf(message);
+	}
+
+	@RequestMapping(value = "/hasUpdateOrDeletePermission", method = RequestMethod.POST)
+	public @ResponseBody
+	AjaxResponse hasDeletePermission(ModelMap model, @RequestParam String key,
+			HttpServletRequest request,	HttpServletResponse response) {
+
+		AjaxResponse ajaxResponse = new AjaxResponse();
+		ajaxResponse.setSuccess(false);
+		ajaxResponse.setMessage("You don't have update or delete permission for this domain");
 		
-		
-		
-//	@RequestMapping(value = "/domainSettings", method = RequestMethod.GET)
-//	public String domainSettingsPage(ModelMap model) {
-//
-//		return "domainSettings";
-//	}
+		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 
-	
+		boolean hasDeletePermission = domainService.hasUpdateOrDeletePermission(key,
+				userId);
+		System.out.println(hasDeletePermission);
+		if (hasDeletePermission) {
+			ajaxResponse.setSuccess(true);
+			ajaxResponse.setMessage("You have update or delete permission for this domain");
+		}
+		return ajaxResponse;
+	}
 
-//	/**
-//	 * This method handles save operation on domains
-//	 * 
-//	 * @param model
-//	 *            ModelMap
-//	 * @param parentKey
-//	 *            parent key of domain
-//	 * @param title
-//	 *            domain name
-//	 * @param weightage
-//	 *            weightage of domain
-//	 * @return data transfer object of saved domain
-//	 */
-//	@RequestMapping(value = "/saveDomain", method = RequestMethod.POST)
-//	public @ResponseBody
-//	TreeNodeDTO saveDomain(ModelMap model, @RequestParam String parentKey,
-//			@RequestParam String title, @RequestParam(required=false) String weightage,HttpServletRequest request) {
-//
-//		System.out.println("Contoller" + parentKey + " " + title + " "
-//				+ weightage);
-//		Long userId = (Long) request.getSession().getAttribute("USER_ID");
-//		User user = userService.getUser(userId);
-//		Date creationDate = new Date();
-//		TreeNodeDTO dto = new TreeNodeDTO();
-//		dto.setParentKey(parentKey);
-//		dto.setTitle(title);
-//		dto.setWeightage(weightage);
-//		dto.setCreationDate(creationDate);
-//
-//		dto = domainService.saveDomain(dto,user);
-//		System.out.println(dto);
-//		return dto;
-//	}
+	/**
+	 * This method is used to get list of child domains corresponding to parent
+	 * key
+	 * 
+	 * @param key
+	 *            parent key
+	 * @return list of child domains
+	 */
+	@RequestMapping(value = "/domains")
+	public @ResponseBody
+	List<TreeNodeDTO> getDomainList(@RequestParam String key) {
+		List<TreeNodeDTO> list = domainService.getDomainList(key);
+		return list;
+	}
 
-	
+	// @RequestMapping(value = "/domainSettings", method = RequestMethod.GET)
+	// public String domainSettingsPage(ModelMap model) {
+	//
+	// return "domainSettings";
+	// }
 
-//    @RequestMapping(value = "/getSubDomains", method = RequestMethod.GET)
-//    public @ResponseBody List<DomainDTO>getSubDomains(ModelMap model, @RequestParam String key) {
-//        List<DomainDTO> subDomains = domainService.getSubDomains(key);
-//        return subDomains;
-//    }
-    
-//    @RequestMapping(value = "/getDomain", method = RequestMethod.GET)
-//    public @ResponseBody List<DomainDTO> getExistingDomains(@RequestParam String name){
-//    	List<DomainDTO> listOfExistingDomains = domainService.findDomainsWithProperty("domainName", name);
-//    	//System.out.println("size "+listOfExistingDomains.size());
-//    		return listOfExistingDomains;
-//    }
-    
-    
-   
+	// /**
+	// * This method handles save operation on domains
+	// *
+	// * @param model
+	// * ModelMap
+	// * @param parentKey
+	// * parent key of domain
+	// * @param title
+	// * domain name
+	// * @param weightage
+	// * weightage of domain
+	// * @return data transfer object of saved domain
+	// */
+	// @RequestMapping(value = "/saveDomain", method = RequestMethod.POST)
+	// public @ResponseBody
+	// TreeNodeDTO saveDomain(ModelMap model, @RequestParam String parentKey,
+	// @RequestParam String title, @RequestParam(required=false) String
+	// weightage,HttpServletRequest request) {
+	//
+	// System.out.println("Contoller" + parentKey + " " + title + " "
+	// + weightage);
+	// Long userId = (Long) request.getSession().getAttribute("USER_ID");
+	// User user = userService.getUser(userId);
+	// Date creationDate = new Date();
+	// TreeNodeDTO dto = new TreeNodeDTO();
+	// dto.setParentKey(parentKey);
+	// dto.setTitle(title);
+	// dto.setWeightage(weightage);
+	// dto.setCreationDate(creationDate);
+	//
+	// dto = domainService.saveDomain(dto,user);
+	// System.out.println(dto);
+	// return dto;
+	// }
+
+	// @RequestMapping(value = "/getSubDomains", method = RequestMethod.GET)
+	// public @ResponseBody List<DomainDTO>getSubDomains(ModelMap model,
+	// @RequestParam String key) {
+	// List<DomainDTO> subDomains = domainService.getSubDomains(key);
+	// return subDomains;
+	// }
+
+	// @RequestMapping(value = "/getDomain", method = RequestMethod.GET)
+	// public @ResponseBody List<DomainDTO> getExistingDomains(@RequestParam
+	// String name){
+	// List<DomainDTO> listOfExistingDomains =
+	// domainService.findDomainsWithProperty("domainName", name);
+	// //System.out.println("size "+listOfExistingDomains.size());
+	// return listOfExistingDomains;
+	// }
+
 }

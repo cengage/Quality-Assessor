@@ -8,7 +8,7 @@
 <script src='js/jquery/jquery.min.js' type="text/javascript"></script>
 <!-- <script src='js/jquery/jquery-ui.custom.min.js' type="text/javascript"></script> -->
 <!-- <script src='js/jquery/jquery.cookie.js' type="text/javascript"></script> -->
-<script type="text/javascript" src="js/jquery/homePageScript.js"></script>
+<!-- <script type="text/javascript" src="js/jquery/homePageScript.js"></script> -->
 <link type='text/css' rel='stylesheet' href='css/button.css' />
 <link type='text/css' rel='stylesheet' href='css/style.css' />
 

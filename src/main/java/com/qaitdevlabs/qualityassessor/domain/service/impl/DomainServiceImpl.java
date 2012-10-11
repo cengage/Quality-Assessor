@@ -481,6 +481,19 @@ public class DomainServiceImpl implements DomainService {
 		}
 		return listOfDomainDTO;
 	}
+
+	@Override
+	public boolean hasUpdateOrDeletePermission(String key, Long userId) {
+		Long domainId = Long.valueOf(key);
+		Domain domain = domainDao.get(domainId);
+		Long creationUserId = domain.getCreationUser().getUserId(); 
+		System.out.println(creationUserId+" "+userId);
+		if (creationUserId.equals(userId))
+			return true;
+		else
+			return false;
+	}
+
 	// public void getExtremeChildDomains(Long id, User user, User assessor,
 	// List<TreeNodeDTO> extrmeChilds) {
 	// Domain domain = (Domain) domainDao.get(id);

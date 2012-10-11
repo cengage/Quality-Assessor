@@ -56,8 +56,8 @@
 
 
 
-		<div style="width: 150px; text-align: center; right: 50%; margin-top: 40px;margin-left:36%">
-			<a  class='button-default' href="javascript:sendInvitation();">Send Invitations</a>
+		<div style="width: 170px; text-align: center; right: 50%; margin-top: 40px;margin-left:36%">
+			<a  class='button-default' href="javascript:sendInvitation();">Request a Review</a>
 		</div></div>
 	</div>
 	<%@include file="/WEB-INF/pages/footer.jsp"%>
