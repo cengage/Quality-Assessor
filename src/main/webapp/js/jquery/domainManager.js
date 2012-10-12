@@ -394,3 +394,67 @@ function deleteDomain(key, parentKey, table, row) {
 		dataType : 'text'
 	});
 }
+
+
+function checkIfDomainAlreadyExist(domainName){
+	var data = {
+			name:domainName
+		}
+		
+		var url = 'getDomain';
+		$.ajax({
+			type : 'GET',
+			url : url,
+			data : data,
+			success : function(data) {
+				if(data == null)
+					return ;
+				
+				var existingDomainDiv = $("#existingDomainDiv");
+				var headerDiv = $("<div><span style='font-weight:bold'>Following Domains already exist with specified name." +
+						"</span><br><span style='font-weight:bold'>If you want to use existing one then select the checkbox infront of domain.</span>" +
+						"</div>");
+				existingDomainDiv.append(headerDiv);
+				var domainDiv = $("<div style='margin-top:10px' id ='domainDiv'></div>");
+				var orderList = $("<ol></ol>");
+				for(i=0;i<data.length;i++){
+					orderList.append("<li><input type='checkbox' value='"+data[i].id+"'>" +
+							"<span>"+data[i].name+"</span></li>");
+				}
+				domainDiv.append(orderList);
+				existingDomainDiv.append(domainDiv);
+				var buttonDiv = $("<div id ='buttonDiv'></div>");
+				buttonDiv.append("<br>");
+				buttonDiv.append("<input type=button value='Ok'>");
+				buttonDiv.append("<input type=button value='Cancel'>")
+				existingDomainDiv.append(buttonDiv);
+				showDomainInColorbox();
+				},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.responseText);
+			},
+			dataType : 'json'
+		});
+		
+}
+
+
+function showDomainInColorbox(){
+	$.colorbox({
+		href : '#existingDomainDiv',
+		open : true,
+		inline:true,
+		width : "600px",
+		height : "380px",
+		opacity : 0.9,
+		onOpen:function(){ //triggers a callback when the lightbox opens
+            $('#existingDomainDiv').show(); //when the lightbox opens, show the content div
+         },
+         onCleanup:function(){
+        	var existingDomainDiv = $('#existingDomainDiv');
+        	existingDomainDiv.children().remove();
+        	existingDomainDiv.hide(); //hides the content div when the lightbox closes
+        	
+         }
+		});
+}

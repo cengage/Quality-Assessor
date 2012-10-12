@@ -50,16 +50,17 @@ public class DomainHierarchyController {
 			domain = domainService.getDomain(key);
 		} catch (GenericException e) {
 			response.setStatus(500);
-			throw new GenericException("Requested url is not correct!!!");
+			throw new GenericException("Error occured while processing request!!!");
 		}
 		if (domain == null) {
 			response.setStatus(500);
 			throw new GenericException("Requested domain doesn't exist!!!");
-		} else if (!domain.getIsParent()) {
-			response.setStatus(500);
-			throw new GenericException(
-					"Requested domain is not a root domain!!!");
-		}
+		} 
+//			else if (!domain.getIsParent()) {
+//			response.setStatus(500);
+//			throw new GenericException(
+//					"Requested domain is not a root domain!!!");
+//		}
 
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User assessor = userService.getUser(userId);

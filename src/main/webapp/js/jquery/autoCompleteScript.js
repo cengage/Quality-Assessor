@@ -37,6 +37,7 @@ $(function() {
 				//alert('select');
 				title = ui.item.label.trim();
 				$(this).val(title);
+				checkIfDomainAlreadyExist(title);
 				
 			},
 			open: function() {

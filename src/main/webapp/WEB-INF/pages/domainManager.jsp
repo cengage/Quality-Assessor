@@ -65,6 +65,8 @@ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 		<p></p>
 		<!-- Add a <div> element where the tree should appear: -->
 		<div style="width:850px;margin:auto;" id="domainDivId"></div>
+		<div style="display:none;margin-top:25px;margin-left:15px" id="existingDomainDiv">
+		</div>
 	</div>
 	<%@include file="/WEB-INF/pages/footer.jsp"%>
 </body>
