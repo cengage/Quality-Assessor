@@ -15,7 +15,8 @@ $(function() {
 							data : {
 								key : key,
 								requestedUserId : requestedUserId,
-								mode : "all"
+								mode : "all",
+								
 							}
 						},
 

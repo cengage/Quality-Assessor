@@ -50,6 +50,9 @@ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     line-height: 18px;
 }
 
+a{
+color:black;
+}
 </style>
 </head>
 
@@ -58,9 +61,20 @@ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
 	<div class="background container">
 	<%@include file="/WEB-INF/pages/header.jsp"%>
-		<div style="background: white; margin: 20px">
-			<a style="margin: 0px 2px 0px; width: 130px" class='button-default'
-				href="javascript:showAddRootDomainView()">Add New Domain</a>
+	<div style="background: white; margin: 20px;">
+		<div style="display:inline">
+			<input class="btn primary" id="addMoreWorkExpbtn" type="button"
+					onclick="showAddRootDomainView()" value="Add Product Domain">
+				
+		</div>
+		<div style="display:inline">
+			<input class="btn primary" id="addMoreWorkExpbtn" type="button"
+					onclick="showAddRootDomainView()" value="Add Skill Domain">
+		</div>
+<!-- 		<div style="display:inline"> -->
+<!-- 			<a style="margin: 0px 2px 0px; width: 130px" class='button-default' -->
+<!-- 				href="javascript:showAddRootDomainView()">Add New Domain</a> -->
+<!-- 		</div> -->
 		</div>
 		<p></p>
 		<!-- Add a <div> element where the tree should appear: -->

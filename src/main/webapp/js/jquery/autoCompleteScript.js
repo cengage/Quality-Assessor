@@ -34,10 +34,10 @@ $(function() {
 			},
 			minLength: 2,
 			select: function( event, ui ) {
-				//alert('select');
+				var row = $(this).closest('tr');
 				title = ui.item.label.trim();
 				$(this).val(title);
-				checkIfDomainAlreadyExist(title);
+				checkIfDomainAlreadyExist( title, row);
 				
 			},
 			open: function() {

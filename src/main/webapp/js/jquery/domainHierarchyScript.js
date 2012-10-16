@@ -11,7 +11,7 @@ $(function() {
 	invitationId = getURLParameter("invitationId");
 	$.ajax({
 		type : 'GET',
-		url : '../domainHierarchy?key='+key+'&requestedUserId='+requestedUserId,
+		url : '../domainHierarchy?key='+key+'&requestedUserId='+requestedUserId+'&fetchAssessment=true',
 		success : function(data) {
 			var ul = "";
 			ul += '<table style="margin-top:15px;border-color: #999999;border-style: solid;" class="imagetable" id="excelId">';

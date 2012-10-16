@@ -41,6 +41,7 @@ public class DomainHierarchyController {
 	TreeNodeDTO getDomainHierarchy(
 			@RequestParam String key,
 			@RequestParam(value = "requestedUserId", required = false) String requestedUserId,
+			@RequestParam String fetchAssessment,
 			ModelMap map, HttpServletRequest request,
 			HttpServletResponse response) {
 
@@ -71,8 +72,9 @@ public class DomainHierarchyController {
 		} else {
 			user = assessor;
 		}
+		
 		TreeNodeDTO dto = domainService.getDomainHierarchy(Long.valueOf(key),
-				assessor, user);
+				assessor, user, Boolean.valueOf(fetchAssessment));
 		return dto;
 	}
 

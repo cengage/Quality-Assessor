@@ -23,7 +23,7 @@ public interface DomainService {
 	 *            parent key
 	 * @return domain list
 	 */
-	public List<TreeNodeDTO> getDomainList(String key);
+	public List<TreeNodeDTO> getDomainList(String key , User user);
 
 	/**
 	 * This method update domain
@@ -71,7 +71,7 @@ public interface DomainService {
 
 	public List<DomainDTO> getListOfRootDomains();
 
-	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user);
+	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user,boolean fetchAssessment);
 
 	public Domain getDomain(String key);
 
@@ -81,4 +81,6 @@ public interface DomainService {
 	public List<DomainDTO> findDomainsWithProperty(String property, String value);
 
 	public boolean hasUpdateOrDeletePermission(String key, Long userId);
+
+	public List<TreeNodeDTO> getExistingDomainHierarchy(String name);
 }

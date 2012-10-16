@@ -166,34 +166,79 @@
 
 					<tr style="background-color: #F9F9F9;">
 						<form:input type="hidden" path="socialNetworkId" />
-						<td class="span3"><strong>SocialNetwork</strong></td>
-						<td class="span3"><strong>SocialNetwork-Id</strong></td>
+						<td style="width:35%"><strong>SocialNetwork</strong></td>
+						<td style="width:35%"><strong>SocialNetwork-Id</strong></td>
+						<td ><a style="height:25px" class='btn primary invitationbtn'
+					
+					href='invitationlist'><span class='spanTitle'>Invite Application Colleagues</span></a></td>
 					</tr>
 					<tr>
-						<td class="span3"><input name="socialSiteName" type="hidden"
+						<td ><input name="socialSiteName" type="hidden"
 							value="LinkedIn" /><strong>LinkedIn</strong></td>
-						<td class="span3"><form:input path="linkedInId" /></td>
+						<td ><form:input path="linkedInId" /></td>
+						<td><a style="height:25px" class='btn primary invitationbtn'
+						href='invitationlist'><span class='spanTitle'>Invite LinkedIn Colleagues</span></a></td>
 					</tr>
 					<tr>
-						<td class="span3"><input name="socialSiteName" type="hidden"
+						<td ><input name="socialSiteName" type="hidden"
 							value="Facebook" /><strong>Facebook</strong></td>
-						<td class="span3"><form:input path="facebookId" /></td>
+						<td ><form:input path="facebookId" /></td>
+						<td><a style="height:25px" class='btn primary invitationbtn'
+						href='invitationlist'><span class='spanTitle'>Invite Facebook Colleagues</span></a></td>
 					</tr>
 					<tr>
-						<td class="span3"><input name="socialSiteName" type="hidden"
+						<td ><input name="socialSiteName" type="hidden"
 							value="Twitter" /><strong>Twitter</strong></td>
-						<td class="span3"><form:input path="twitterId" /></td>
+						<td ><form:input path="twitterId" /></td>
+						<td><a style="height:25px" class='btn primary invitationbtn'
+						href='invitationlist'><span class='spanTitle'>Invite Twitter Colleagues</span></a></td>
 					</tr>
 					<tr>
-						<td class="span3"><input name="socialSiteName" type="hidden"
+						<td ><input name="socialSiteName" type="hidden"
 							value="Googleplus" /><strong>Googleplus</strong></td>
-						<td class="span3"><form:input path="googleplusId" /></td>
+						<td ><form:input path="googleplusId" /></td>
+						<td><a style="height:25px" class='btn primary invitationbtn'
+					
+					href='invitationlist'><span class='spanTitle'>Invite Googleplus Colleagues</span></a></td>
 					</tr>
 					<!-- 					<tr id="socialButtonRow"> -->
 					<!-- 						<td style="border-top: none"><input id="addMoreSocialbtn" class="btn primary" -->
 					<!-- 							type="button" value="Add More Social Network"></td> -->
 					<!-- 					</tr> -->
 				</table>
+
+
+<!-- <table id="socialInvitation" class="zebra-striped" -->
+<!-- 					style="width: 80%; margin: 30px auto auto; border: 1px solid #CCCCCC;"> -->
+<!-- 			<tr> -->
+<!-- 				<td><a class='btn primary' -->
+<!-- 					style="margin: 0px 2px 0px; width: 100px; padding: 4px; text-align: center" -->
+<!-- 					href='invitationlist'><span class='spanTitle'>Invite Application Colleagues</span></a></td> -->
+<!-- 			</tr> -->
+<!-- 			<tr> -->
+<!-- 				<td><a class='btn primary' -->
+<!-- 					style="margin: 0px 2px 0px; width: 100px; padding: 4px; text-align: center" -->
+<!-- 					href='Invite Application Friends'><span class='spanTitle'>Invite LinkedIn Colleagues</span></a></td> -->
+<!-- 			</tr> -->
+<!-- 			<tr> -->
+<!-- 				<td><a class='btn primary' -->
+<!-- 					style="margin: 0px 2px 0px; width: 100px; padding: 4px; text-align: center" -->
+<!-- 					href='Invite Application Friends'><span class='spanTitle'>Invite Facebook Colleagues</span></a></td> -->
+<!-- 			</tr> -->
+<!-- 			<tr> -->
+<!-- 				<td><a class='btn primary' -->
+<!-- 					style="margin: 0px 2px 0px; width: 100px; padding: 4px; text-align: center" -->
+<!-- 					href='Invite Application Friends'><span class='spanTitle'>Invite Twitter Colleagues</span></a></td> -->
+<!-- 			</tr> -->
+<!-- 			<tr> -->
+<!-- 				<td><a class='btn primary' -->
+<!-- 					style="margin: 0px 2px 0px; width: 100px; padding: 4px; text-align: center" -->
+<!-- 					href='Invite Application Friends'>Invite Googleplus Colleagues</a></td> -->
+<!-- 			</tr> -->
+
+
+<!-- 		</table> -->
+
 
 				<div align="center">
 					<input style="margin-top: 20px; margin-bottom: 10px" type="submit"

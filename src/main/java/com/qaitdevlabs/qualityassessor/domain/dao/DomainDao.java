@@ -12,6 +12,7 @@ import java.util.List;
 import com.qaitdevlabs.qualityassessor.dao.GenericDao;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.DomainMapping;
+import com.qaitdevlabs.qualityassessor.model.User;
 
 public interface DomainDao extends GenericDao<Domain, Long> {
 
@@ -20,7 +21,7 @@ public interface DomainDao extends GenericDao<Domain, Long> {
 	 * 
 	 * @return
 	 */
-	public List<Domain> getDomainList();
+	public List<Domain> getRootDomainList();
 
 	/**
 	 * This method get list of child domains corresponding to parent id from
@@ -76,5 +77,7 @@ public interface DomainDao extends GenericDao<Domain, Long> {
 	public Domain saveOrUpdateDomain(Domain domain);
 
 	public List<Domain> findDomainsWithProperty(String property, String value);
+
+	List<Domain> getRootDomainListOnUserBasis(User user);
 
 }

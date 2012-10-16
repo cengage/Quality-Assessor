@@ -127,7 +127,7 @@ public class DomainController {
 
 		AjaxResponse ajaxResponse = new AjaxResponse();
 		ajaxResponse.setSuccess(false);
-		ajaxResponse.setMessage("You don't have update or delete permission for this domain");
+		ajaxResponse.setMessage("You are not the owner of this domain hierarchy");
 		
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 
@@ -136,7 +136,7 @@ public class DomainController {
 		System.out.println(hasUpdateOrDeletePermission);
 		if (hasUpdateOrDeletePermission) {
 			ajaxResponse.setSuccess(true);
-			ajaxResponse.setMessage("You have update or delete permission for this domain");
+			ajaxResponse.setMessage("You are the owner of this domain hierarchy");
 		}
 		return ajaxResponse;
 	}
@@ -151,19 +151,19 @@ public class DomainController {
 	 */
 	@RequestMapping(value = "/domains")
 	public @ResponseBody
-	List<TreeNodeDTO> getDomainList(@RequestParam String key) {
-		List<TreeNodeDTO> list = domainService.getDomainList(key);
+	List<TreeNodeDTO> getDomainList(@RequestParam String key , HttpServletRequest request) {
+		Long userId = (Long) request.getSession().getAttribute("USER_ID");
+		User user = userService.getUser(userId);
+		List<TreeNodeDTO> list = domainService.getDomainList(key, user);
 		return list;
 	}
 
 	
 	@RequestMapping(value = "/getDomain", method = RequestMethod.GET)
 	public @ResponseBody
-	List<DomainDTO> getExistingDomains(@RequestParam String name) {
-		List<DomainDTO> listOfExistingDomains = domainService
-				.findDomainsWithProperty("domainName", name);
-		// System.out.println("size "+listOfExistingDomains.size());
-		return listOfExistingDomains;
+	List<TreeNodeDTO> getExistingDomains(@RequestParam String name) {
+		List<TreeNodeDTO> listOfTreeNodeDTO = domainService.getExistingDomainHierarchy(name);
+		return listOfTreeNodeDTO;
 	}
 	
 	// @RequestMapping(value = "/domainSettings", method = RequestMethod.GET)

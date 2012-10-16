@@ -50,11 +50,11 @@ public class DomainServiceImpl implements DomainService {
 	}
 
 	@Override
-	public List<TreeNodeDTO> getDomainList(String key) {
+	public List<TreeNodeDTO> getDomainList(String key ,User user) {
 		Long id = Long.valueOf(key);
 		List<TreeNodeDTO> nodeList = null;
 		if (id == 0) {
-			nodeList = getTreeNodeDTO(domainDao.getDomainList());
+			nodeList = getTreeNodeDTO(domainDao.getRootDomainListOnUserBasis(user));
 		} else {
 			nodeList = getTreeNodeDTO(domainDao.getSubDomainList(id));
 		}
@@ -283,7 +283,7 @@ public class DomainServiceImpl implements DomainService {
 	@Override
 	public List<DomainDTO> getListOfRootDomains() {
 		List<DomainDTO> listOfRootDomains = null;
-		List<Domain> domains = domainDao.getDomainList();
+		List<Domain> domains = domainDao.getRootDomainList();
 		if (domains.size() > 0) {
 			listOfRootDomains = new ArrayList<DomainDTO>();
 			Iterator<Domain> domainList = domains.iterator();
@@ -299,14 +299,17 @@ public class DomainServiceImpl implements DomainService {
 		return listOfRootDomains;
 	}
 
-	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user) {
+	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user,
+			boolean fetchAssessment) {
 		Domain domain = (Domain) domainDao.get(id);
 		TreeNodeDTO node = getTreeNodeDTO(domain);
-		Assessment assessment = assessmentDao.getAssessment(assessor, user,
-				domain);
-		if (assessment != null) {
-			node.setScore(assessment.getScore());
-			node.setAssessmentId(assessment.getAssessmentId());
+		if (fetchAssessment) {
+			Assessment assessment = assessmentDao.getAssessment(assessor, user,
+					domain);
+			if (assessment != null) {
+				node.setScore(assessment.getScore());
+				node.setAssessmentId(assessment.getAssessmentId());
+			}
 		}
 		node.setExpand(true);
 		List<DomainMapping> subDomainMappingList = domainDao
@@ -318,7 +321,7 @@ public class DomainServiceImpl implements DomainService {
 		while (it.hasNext()) {
 			DomainMapping domainMapping = (DomainMapping) it.next();
 			TreeNodeDTO dto = getDomainHierarchy(domainMapping.getSubDomain()
-					.getDomainId(), assessor, user);
+					.getDomainId(), assessor, user, fetchAssessment);
 			Integer weightage = domainMapping.getWeightage();
 			float childScore = dto.getScore();
 			score1 += childScore * weightage / 100;
@@ -482,12 +485,32 @@ public class DomainServiceImpl implements DomainService {
 		return listOfDomainDTO;
 	}
 
+	public List<TreeNodeDTO> getExistingDomainHierarchy(String domainName) {
+		List<TreeNodeDTO> listOfDTO = null;
+		List<Domain> listOfDomains = domainDao.findDomainsWithProperty(
+				"domainName", domainName);
+		if(listOfDomains == null){
+			return null;
+		}
+		else{
+			listOfDTO = new ArrayList<TreeNodeDTO>();
+		}
+		Iterator<Domain> itr = listOfDomains.iterator();
+		while (itr.hasNext()) {
+			Domain domain = itr.next();
+			long domainId = domain.getDomainId();
+			TreeNodeDTO dto = getDomainHierarchy(domainId, null, null, false);
+			listOfDTO.add(dto);
+		}
+		return listOfDTO;
+	}
+
 	@Override
 	public boolean hasUpdateOrDeletePermission(String key, Long userId) {
 		Long domainId = Long.valueOf(key);
 		Domain domain = domainDao.get(domainId);
-		Long creationUserId = domain.getCreationUser().getUserId(); 
-		System.out.println(creationUserId+" "+userId);
+		Long creationUserId = domain.getCreationUser().getUserId();
+		System.out.println(creationUserId + " " + userId);
 		if (creationUserId.equals(userId))
 			return true;
 		else

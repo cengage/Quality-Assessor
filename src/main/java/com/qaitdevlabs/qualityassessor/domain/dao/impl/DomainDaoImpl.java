@@ -14,6 +14,7 @@ import com.qaitdevlabs.qualityassessor.dao.impl.GenericDaoImpl;
 import com.qaitdevlabs.qualityassessor.domain.dao.DomainDao;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.DomainMapping;
+import com.qaitdevlabs.qualityassessor.model.User;
 
 /**
  * 
@@ -30,7 +31,7 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Domain> getDomainList() {
+	public List<Domain> getRootDomainList() {
 		Session session = null;
 		List<Domain> domains = null;
 
@@ -48,6 +49,28 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 		return domains;
 	}
 
+	@Override
+	public List<Domain> getRootDomainListOnUserBasis(User user) {
+		Session session = null;
+		List<Domain> domains = null;
+
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(Domain.class);
+			criteria.add(Restrictions.eq("isParent", true));
+			criteria.add(Restrictions.eq("creationUser", user));
+			domains = criteria.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return domains;
+	}
+
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<DomainMapping> getSubDomainList(Long id) {

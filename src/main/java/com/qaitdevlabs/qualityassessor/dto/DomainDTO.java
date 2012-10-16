@@ -1,6 +1,6 @@
 package com.qaitdevlabs.qualityassessor.dto;
 
-import org.springframework.scheduling.quartz.SimpleTriggerBean;
+
 
 /**
  * Created with IntelliJ IDEA.
