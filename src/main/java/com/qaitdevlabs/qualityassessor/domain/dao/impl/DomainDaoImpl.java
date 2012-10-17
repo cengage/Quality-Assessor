@@ -198,6 +198,24 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 
 	}
 
+	@Override
+	public List<Domain> getMatchingDomain(String name) {
+		System.out.println("fdsdsdfsfasf");
+		Session session = null;
+		List<Domain> domains = null;
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(Domain.class);
+			criteria.add(Restrictions.like("domainName", name+"%"));
+			domains = criteria.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return domains;
+	}
+
 }
 
 // if(!lazyLoad) {

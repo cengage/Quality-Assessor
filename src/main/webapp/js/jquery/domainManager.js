@@ -1,3 +1,5 @@
+//fetching url parameter 
+
 function getURLParameter(name) {
 	return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [
 			, null ])[1]);
@@ -5,8 +7,36 @@ function getURLParameter(name) {
 
 var requestedUserId = "null";
 
+//Make new table for each root domain
+
+function makeTable(domain){
+	var table = "";
+	table += "<table style='margin-top:15px;width:100%;' class='imagetable' id='tableId"
+			+ i + "'>";
+	table += "<tr pid='0' id="
+			+ domain.key
+			+ "><td class='iconWidth'><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
+			+ domain.title
+			+ "'><img class='wikiLink' src='images/wiki.png'/></a></td>"
+			+ "<td class='iconWidth'><img class='newDomain' src='images/new.png'/></td>"
+			+ "<td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td>"
+			+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
+			+ "<td class='titleClass expandDomain' class='addBorder' ><input style='display:none' "
+			+ "class='autoCompleteWiki' type='text' value='"
+			+ domain.title + "'><span class='spanTitle rootTitle'>"+domain.title+"</span>"
+			+ "</td><td></td><td></td><td></td></tr>"
+	$('#domainDivId').append(table);
+}
+
 $(function() {
 
+//Show watermark on search text
+	
+	$("#searchDomain").watermark("Search Domain");
+	
+	
+//Get Root Domains
+	
 	$
 			.ajax({
 				type : 'GET',
@@ -14,24 +44,7 @@ $(function() {
 				success : function(data) {
 					data = JSON.parse(data);
 					for (i = 0; i < data.length; i++) {
-						var table = "";
-						table += "<table style='margin-top:15px;width:100%;' class='imagetable' id='tableId"
-								+ i + "'>";
-						table += "<tr pid='0' id="
-								+ data[i].key
-								+ "><td class='iconWidth'><img class='expandDomain' src='images/expand.png'/></td>"
-								+ "<td class='iconWidth'><img class='newDomain' src='images/new.png'/></td>"
-								+ "<td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td>"
-								+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
-								+ "<td class='titleClass' class='addBorder' ><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
-								+ data[i].title
-								+ "'><span class='spanTitle'>"
-								+ data[i].title
-								+ "</span></a><input style='display:none' "
-								+ "class='autoCompleteWiki' type='text' value='"
-								+ data[i].title + "'>"
-								+ "</td><td></td><td></td><td></td></tr>"
-						$('#domainDivId').append(table);
+						makeTable(data[i]);
 					}
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
@@ -40,6 +53,8 @@ $(function() {
 			});
 
 });
+
+//Get Domain child tree
 
 function showCompleteDomainTree(rootKey, table) {
 	$
@@ -66,18 +81,19 @@ function showCompleteDomainTree(rootKey, table) {
 							// Third Level
 							if (children != null) {
 
-								// alert(ratingStarHtml);
+							
 								ul += "<tr pid='"
 										+ rootKey
 										+ "' id='"
 										+ obj.key
 										+ "' "
-										+ "><td colspan='5' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td>"
-										+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
+										+ "><td colspan='5' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
 										+ obj.title
-										+ "'><span class='spanTitle'>"
+										+ "'><img class='wikiLink' src='images/wiki.png'/></a></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td>" +
+												"<td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td>"
+										+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'><span class='spanTitle'>"
 										+ obj.title
-										+ "</span></a>"
+										+ "</span>"
 										+ "<input style='display:none'  class='autoCompleteWiki' type='text' value='"
 										+ obj.title
 										+ "'></td><td><input  readonly='readonly' class='inputWeightage addBorder' type='text' value="
@@ -85,7 +101,7 @@ function showCompleteDomainTree(rootKey, table) {
 										+ "></td><td></td><td score="
 										+ obj.score + " id=p" + i + ">"
 										+ "</td></tr>";
-								// ul += "<tr></tr>";
+								
 								var arr1 = children;
 								for (j = 0; j < arr1.length; j++) {
 									obj1 = arr1[j];
@@ -98,33 +114,33 @@ function showCompleteDomainTree(rootKey, table) {
 											+ obj.key
 											+ "' id='"
 											+ obj1.key
-											+ "'><td colspan='11' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'  i="
+											+ "'><td colspan='11' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
+											+ obj1.title
+											+ "'><img class='wikiLink' src='images/wiki.png'/></a></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td><td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'  i="
 											+ i
 											+ " j="
 											+ j
-											+ "><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
+											+ "><span class='spanTitle'>"
 											+ obj1.title
-											+ "'><span class='spanTitle'>"
-											+ obj1.title
-											+ "</span></a><input style='display:none' class='autoCompleteWiki' type='text' value='"
+											+ "</span><input style='display:none' class='autoCompleteWiki' type='text' value='"
 											+ obj1.title
 											+ "'></td><td><input  readonly='readonly' class='addBorder inputWeightage' type='text' value="
 											+ obj1.weightage + "></td></tr>";
 
 								}
-								// ul += "<tr></tr>";
+							
 							} else {
 
 								ul += "<tr pid='"
 										+ rootKey
 										+ "' id='"
 										+ obj.key
-										+ "' childCount=0><td colspan='5' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td>"
-										+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
+										+ "' childCount=0><td colspan='5' style='border-top:none;border-bottom:none;'></td><td class='iconWidth'><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
 										+ obj.title
-										+ "'><span class='spanTitle'>"
+										+ "'><img class='wikiLink' src='images/wiki.png'/></a></td><td class='iconWidth'><img class='newDomain' src='images/new.png'/></td><td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td>"
+										+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td><td class='titleClass'><span class='spanTitle'>"
 										+ obj.title
-										+ "</span></a><input style='display:none' class='autoCompleteWiki' type='text' value='"
+										+ "</span><input style='display:none' class='autoCompleteWiki' type='text' value='"
 										+ obj.title
 										+ "'></td><td><input readonly='readonly'  class='inputWeightage addBorder'  type='text' value="
 										+ obj.weightage
@@ -148,6 +164,8 @@ function showCompleteDomainTree(rootKey, table) {
 
 $(function() {
 
+//Binding edit functionality on edit button click
+	
 	$(".editDomain").live('click', function() {
 
 		if (checkIfOperationPending() == true) {
@@ -192,6 +210,9 @@ $(function() {
 
 	});
 
+	
+//Binding save functionality on save button click
+	
 	$(".saveDomain")
 			.live(
 					'click',
@@ -236,13 +257,15 @@ $(function() {
 							return;
 						}
 
-						// row.find('input').attr('readonly',true);
 						var currentObj = this;
 						saveDomain(key, parentKey, title, weightage, row,
 								currentObj);
 
 					});
 
+
+//Binding expand functionality on expand button click
+	
 	$(".expandDomain").live('click', function() {
 		key = $(this).closest('tr').attr("id");
 		var table = $(this).closest('table');
@@ -252,6 +275,8 @@ $(function() {
 		$(this).addClass("collapseDomain");
 	});
 
+//Binding collapse functionality on collapse button click
+	
 	$(".collapseDomain").live('click', function() {
 		var table = $(this).closest('table');
 		table.find("tr:gt(0)").remove();
@@ -261,6 +286,8 @@ $(function() {
 
 	});
 
+//Binding adding new domain functionality on new button click
+	
 	$(".newDomain")
 			.live(
 					'click',
@@ -311,25 +338,28 @@ $(function() {
 															.addClass("collapseDomain");
 												}
 											}
-
-											var colspan = cell.prev().attr(
+											var cell = row.find('td').first();
+									
+											var colspan = cell.attr(
 													"colspan");
 											if (colspan == 5) {
 												var tr = "<tr class='currentSelectedRow' id='new' pid='"
 														+ pid
-														+ "'><td class='iconWidth' colspan='11'></td>"
+														+ "'><td class='iconWidth' colspan='11'></td><td><a style='display:none' class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
+														+ "'><img class='wikiLink' src='images/wiki.png'/></a></td>"
 														+ "<td class='iconWidth'><img class='saveDomain' src='images/save.png'></td>"
 														+ "<td  class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
-														+ "<td class='titleClass'><a class='wikiLink' target='_blank' href=''><span class='spanTitle'></a></span><input class='autoCompleteWiki' type='text'></td>"
+														+ "<td class='titleClass'><span class='spanTitle'></span><input class='autoCompleteWiki' type='text'></td>"
 														+ "<td><input class='inputWeightage' type='text'></td></tr>";
 												row.after(tr);
 											} else {
 												var tr = "<tr class='currentSelectedRow' id='new' pid='"
 														+ pid
-														+ "'><td colspan='5'></td><td  class='iconWidth'><img style='display:none'  class='newDomain' src='images/new.png'/></td>"
+														+ "'><td colspan='5'></td><td><a style='display:none' class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
+														+ "'><img class='wikiLink' src='images/wiki.png'/></a></td><td  class='iconWidth'><img style='display:none'  class='newDomain' src='images/new.png'/></td>"
 														+ "<td class='iconWidth'><img class='saveDomain' src='images/save.png'></td>"
 														+ "<td  class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
-														+ "<td class='titleClass'><a class='wikiLink' target='_blank' href=''><span class='spanTitle'></span></a><input class='autoCompleteWiki' type='text'></td>"
+														+ "<td class='titleClass'><span class='spanTitle'></span><input class='autoCompleteWiki' type='text'></td>"
 														+ "<td><input class='inputWeightage' type='text'></td></tr>";
 												row.after(tr);
 											}
@@ -344,6 +374,9 @@ $(function() {
 
 					});
 
+	
+//Binding delete functionality on delete button click	
+	
 	$(".deleteDomain").live('click', function() {
 
 		var row = $(this).closest('tr');
@@ -386,6 +419,9 @@ $(function() {
 
 	});
 
+	
+//Applying validaton check on input weightage like user can only enter numeric value
+	
 	$(".inputWeightage").live(
 			'keydown',
 			function(evt) {
@@ -405,11 +441,11 @@ $(function() {
 				}
 			});
 
-	// $("selectedDomainBtn").live('click', function() {
-	//		
-	// });
+	
 
 });
+
+//function for adding new root domain
 
 function showAddRootDomainView() {
 	var table = "";
@@ -422,6 +458,8 @@ function showAddRootDomainView() {
 			+ "<td></td><td></td><td></td></tr>"
 	$('#domainDivId').prepend(table);
 }
+
+//function for making ajax call on server to save or update domain
 
 function saveDomain(key, parentKey, title, weightage, row, currentObj) {
 	
@@ -448,6 +486,7 @@ function saveDomain(key, parentKey, title, weightage, row, currentObj) {
 			spanTitle.show();
 			wikiLink.attr("href", "http://en.wikipedia.org/wiki/"
 					+ title);
+			wikiLink.show();
 			var titleInput = row.find('.autoCompleteWiki');
 			titleInput.hide();
 			
@@ -468,12 +507,14 @@ function saveDomain(key, parentKey, title, weightage, row, currentObj) {
 
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-			// showErrorMessage(jqXHR.responseText, "450", "300");
+			
 		},
 		dataType : 'text'
 	});
 	return data;
 }
+
+//function for making ajax call for deleting domain
 
 function deleteDomain(key, parentKey, table, row) {
 
@@ -491,9 +532,6 @@ function deleteDomain(key, parentKey, table, row) {
 			if (parentKey != '0') {
 				row.remove();
 				table.find("tr[pid='" + key + "']").remove();
-				// $(currentObj).attr("src", "images/collapse.png");
-				// $(currentObj).removeClass("expandDomain");
-				// $(currentObj).addClass("collapseDomain");
 			} else {
 				table.remove();
 			}
@@ -506,12 +544,15 @@ function deleteDomain(key, parentKey, table, row) {
 	});
 }
 
+//function for check if domains having same name as user type already exist then
+//show the user option to select one of them or have their own 
+
 function checkIfDomainAlreadyExist(domainName, row) {
 	var data = {
 		name : domainName
 	}
 
-	var url = 'getDomain';
+	var url = 'getExistingDomainHierachy';
 	$
 			.ajax({
 				type : 'GET',
@@ -527,17 +568,11 @@ function checkIfDomainAlreadyExist(domainName, row) {
 							+ "</div>");
 					existingDomainDiv.append(headerDiv);
 					var domainDiv = $("<div style='margin-top:10px' id ='domainDiv'></div>");
-					// var orderList = $("<ol></ol>");
-					// for(i=0;i<data.length;i++){
-					// orderList.append("<li><input type='radio'
-					// name='selectedDomain' value='"+data[i].key+"'>" +
-					// "<span>"+data[i].title+"</span></li>");
-					// }
 
 					var html = "";
-					// alert(data.length);
+					
 					for ( var n = 0; n < data.length; n++) {
-						// alert(data[i].title);
+					
 						html += "<ol>";
 						html += "<li style='list-style:none'>";
 						html += "<input type='radio' name='selectedDomain' value='"
@@ -545,16 +580,16 @@ function checkIfDomainAlreadyExist(domainName, row) {
 						html += "<span>" + data[n].title + "</span>";
 						var children = data[n].children;
 						if (children != null) {
-							html += printValues(children, "");
+							html += getDomainChildTreeHtml(children, "");
 						}
 						html += "</li>";
 						html += "</ol>";
-						// alert("finished" + n + html);
+					
 					}
-					// alert(html);
+					
 					domainDiv.append(html);
 
-					// domainDiv.append(orderList);
+					
 					existingDomainDiv.append(domainDiv);
 					var buttonDiv = $("<div id ='buttonDiv'></div>");
 					buttonDiv.append("<br>");
@@ -562,7 +597,7 @@ function checkIfDomainAlreadyExist(domainName, row) {
 							.append("<input type='button' onclick='updateIdOfDomain()' id='selectedDomainBtn'  value='Ok'>");
 					buttonDiv.append("<input type='button' value='Cancel'>")
 					existingDomainDiv.append(buttonDiv);
-					showDomainInColorbox();
+					showExistingDomainTreeInColorbox();
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
 					alert(jqXHR.responseText);
@@ -572,28 +607,56 @@ function checkIfDomainAlreadyExist(domainName, row) {
 
 }
 
-function hello(row) {
-	alert('hello');
-}
 
-function updateIdOfDomain() {
-	var value = $('input:radio[name=selectedDomain]:checked').val();
-	$('.currentSelectedRow').attr('id', value);
-	$.fn.colorbox.close();
-	// row.attr();
-}
+//function addNewRows(row,id,pid){
+//	var cell = row.find('td').first();
+//	alert(cell);
+//	var colspan = cell.attr(
+//	"colspan");
+//	alert(colspan);
+//	if (colspan == 5) {
+//		var tr = "<tr class='currentSelectedRow' id='new' pid='"
+//				+ pid
+//				+ "'><td class='iconWidth' colspan='11'></td>"
+//				+ "<td class='iconWidth'><img class='saveDomain' src='images/save.png'></td>"
+//				+ "<td  class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
+//				+ "<td class='titleClass'><span class='spanTitle'></span><input class='autoCompleteWiki' type='text'></td>"
+//				+ "<td><input class='inputWeightage' type='text'></td></tr>";
+//		
+//	} else {
+//		var tr = "<tr class='currentSelectedRow' id='new' pid='"
+//				+ pid
+//				+ "'><td colspan='5'></td><td  class='iconWidth'><img style='display:none'  class='newDomain' src='images/new.png'/></td>"
+//				+ "<td class='iconWidth'><img class='saveDomain' src='images/save.png'></td>"
+//				+ "<td  class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
+//				+ "<td class='titleClass'><span class='spanTitle'></span><input class='autoCompleteWiki' type='text'></td>"
+//				+ "<td><input class='inputWeightage' type='text'></td></tr>";
+//		
+//	}
+//	row.after(tr);
+//}
 
-function printValues(data, html) {
+//function updateIdOfDomain() {
+//	var value = $('input:radio[name=selectedDomain]:checked').val();
+//	$('.currentSelectedRow').attr('id', value);
+//	$.fn.colorbox.close();
+//	var row = $('.currentSelectedRow');
+//	
+//	addNewRows(row,"new","new");
+//	// row.attr();
+//}
+
+// get domain child tree in form of html string
+
+function getDomainChildTreeHtml(data, html) {
 
 	for ( var j = 0; j < data.length; j++) {
 		html += "<ol>";
 		html += "<li style='list-style:none;margin-left:25px'>";
-		// alert(data[i].title);
-		// alert(data[i].children);
 		html += "<span>" + data[j].title + "</span>";
 
 		if (data[j].children != null) {
-			html = printValues(data[j].children, html);
+			html = getDomainChildTreeHtml(data[j].children, html);
 		} else {
 			html += "</li>";
 		}
@@ -603,7 +666,9 @@ function printValues(data, html) {
 	return html;
 }
 
-function showDomainInColorbox() {
+//show existing domain tree in colorbox
+
+function showExistingDomainTreeInColorbox() {
 	$.colorbox({
 		href : '#existingDomainDiv',
 		open : true,
@@ -624,6 +689,8 @@ function showDomainInColorbox() {
 		}
 	});
 }
+
+// check if user alreay has opened some domain then not allow him to another domain
 
 function checkIfOperationPending() {
 	if ($('.currentSelectedRow').length > 0) {

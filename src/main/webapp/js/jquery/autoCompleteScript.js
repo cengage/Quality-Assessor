@@ -1,5 +1,7 @@
 $(function() {
 	
+	//AutoComplete functionality for getting domains from wikipedia using jsonp response
+	
 	$(".autoCompleteWiki").live('click',function(){$(".autoCompleteWiki").autocomplete(autocomplete_opts)});
 	
 		function log( message ) {
@@ -47,4 +49,52 @@ $(function() {
 				$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
 			}
 		};
+		
+		//Making search domain textfield blank initially
+		
+		$("#searchDomain").val("");
+		
+		//AutoComplete functionality for search domains from application database and getting json response
+		
+		$("#searchDomain").live('click',function(){$("#searchDomain").autocomplete(search_opts)});
+		
+		var search_opts = {
+			source: function( request, response ) {
+				$.ajax({
+					url: "getMatchingDomains",
+					dataType: "json",
+					data: {
+						name: request.term
+					},
+					success: function( data ) {
+						
+						response( $.map(data, function( item ) {
+							return {
+								label: item.title,
+								value: item.title,
+								domain : item
+							}
+						}));
+					}
+				});
+			},
+			minLength: 2,
+			
+			select: function( event, ui ) {
+				var row = $(this).closest('tr');
+				title = ui.item.label.trim();
+				$(".imagetable").hide();
+				makeTable(ui.item.domain);
+				
+			},
+			open: function() {
+				$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+			},
+			close: function() {
+				$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+			}
+		};
+		
+		
+		
 	});

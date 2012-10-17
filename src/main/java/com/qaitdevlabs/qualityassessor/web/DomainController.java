@@ -159,13 +159,21 @@ public class DomainController {
 	}
 
 	
-	@RequestMapping(value = "/getDomain", method = RequestMethod.GET)
+	@RequestMapping(value = "/getExistingDomainHierachy", method = RequestMethod.GET)
 	public @ResponseBody
 	List<TreeNodeDTO> getExistingDomains(@RequestParam String name) {
 		List<TreeNodeDTO> listOfTreeNodeDTO = domainService.getExistingDomainHierarchy(name);
 		return listOfTreeNodeDTO;
 	}
 	
+	
+	@RequestMapping(value = "/getMatchingDomains", method = RequestMethod.GET)
+	public @ResponseBody
+	List<TreeNodeDTO> getMatchingDomains(@RequestParam String name) {
+		List<TreeNodeDTO> listOfDomain = domainService.getMatchingDomain(name);
+		System.out.println(listOfDomain.size());
+		return listOfDomain;
+	}
 	// @RequestMapping(value = "/domainSettings", method = RequestMethod.GET)
 	// public String domainSettingsPage(ModelMap model) {
 	//

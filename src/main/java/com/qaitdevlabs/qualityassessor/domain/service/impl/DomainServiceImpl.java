@@ -81,7 +81,7 @@ public class DomainServiceImpl implements DomainService {
 						+ domain.getDomainId() + " " + noOfChildren);
 
 				if (noOfChildren > 0) {
-					dto.setIsLazy("true");
+//					dto.setIsLazy("true");
 					System.out.println("lazy" + true);
 				}
 				domainsDto.add(dto);
@@ -106,7 +106,7 @@ public class DomainServiceImpl implements DomainService {
 						+ subDomain.getDomainId() + " " + noOfChildren);
 
 				if (noOfChildren > 0) {
-					dto.setIsLazy("true");
+//					dto.setIsLazy("true");
 					System.out.println("lazy" + true);
 				}
 
@@ -124,7 +124,7 @@ public class DomainServiceImpl implements DomainService {
 			TreeNodeDTO dto = new TreeNodeDTO();
 			dto.setKey(String.valueOf(domain.getDomainId()));
 			dto.setTitle(domain.getDomainName());
-			dto.setWikipediaLink(domain.getWikipediaLink());
+			//dto.setWikipediaLink(domain.getWikipediaLink());
 			dto.setCreationDate(domain.getCreationDate());
 			// dto.setCreationUserName(domain.getCreationUser().getUsername());
 			// dto.setModificationUserName(domain.getModificationUser().getUsername());
@@ -311,7 +311,7 @@ public class DomainServiceImpl implements DomainService {
 				node.setAssessmentId(assessment.getAssessmentId());
 			}
 		}
-		node.setExpand(true);
+		
 		List<DomainMapping> subDomainMappingList = domainDao
 				.getSubDomainList(id);
 		Iterator<DomainMapping> it = subDomainMappingList.iterator();
@@ -515,6 +515,22 @@ public class DomainServiceImpl implements DomainService {
 			return true;
 		else
 			return false;
+	}
+
+	@Override
+	public List<TreeNodeDTO> getMatchingDomain(String name) {
+		List<Domain> listOfDomains = domainDao.getMatchingDomain(name);
+		List<TreeNodeDTO> list = null;
+		if(listOfDomains!=null){
+		list = new ArrayList<TreeNodeDTO>();
+		}
+		Iterator<Domain> it = listOfDomains.iterator();
+		while(it.hasNext()){
+			Domain domain = it.next();
+			TreeNodeDTO dto =  getTreeNodeDTO(domain);
+			list.add(dto);
+		}
+		return list;
 	}
 
 	// public void getExtremeChildDomains(Long id, User user, User assessor,

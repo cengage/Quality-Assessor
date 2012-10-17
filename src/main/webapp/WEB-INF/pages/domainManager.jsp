@@ -13,6 +13,7 @@
 <!-- <script type="text/javascript" src="js/jquery/homePageScript.js"></script> -->
 <script src='js/json2/json2.js' type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery/domainManager.js"></script>
+<script src="js/jquery/jquery.watermark.min.js"></script>
 <link type='text/css' rel='stylesheet' href='css/colorbox.css' />
 <link type='text/css' rel='stylesheet' href='css/button.css' />
 <link type='text/css' rel='stylesheet' href='css/style.css' />
@@ -50,6 +51,14 @@ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     line-height: 18px;
 }
 
+.rootTitle:hover{
+color:black;
+text-decoration:underline;
+cursor:pointer;
+
+}
+
+
 a{
 color:black;
 }
@@ -61,7 +70,13 @@ color:black;
 	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
 	<div class="background container">
 	<%@include file="/WEB-INF/pages/header.jsp"%>
-	<div style="background: white; margin: 20px;">
+	<div style="background: white; margin: 20px auto auto;
+    width: 850px;">
+	<div style="display:inline">
+			<input class="btn primary" id="addMoreWorkExpbtn" type="button"
+					onclick="location.reload();" value="My Domains">
+				
+		</div>
 		<div style="display:inline">
 			<input class="btn primary" id="addMoreWorkExpbtn" type="button"
 					onclick="showAddRootDomainView()" value="Add Product Domain">
@@ -71,10 +86,10 @@ color:black;
 			<input class="btn primary" id="addMoreWorkExpbtn" type="button"
 					onclick="showAddRootDomainView()" value="Add Skill Domain">
 		</div>
-<!-- 		<div style="display:inline"> -->
-<!-- 			<a style="margin: 0px 2px 0px; width: 130px" class='button-default' -->
-<!-- 				href="javascript:showAddRootDomainView()">Add New Domain</a> -->
-<!-- 		</div> -->
+
+		<div  style="margin-right:10px;float:right;display:inline">
+			<input id="searchDomain" type="text" style="width:180px">
+		</div>
 		</div>
 		<p></p>
 		<!-- Add a <div> element where the tree should appear: -->
