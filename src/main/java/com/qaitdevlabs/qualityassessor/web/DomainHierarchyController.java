@@ -77,5 +77,16 @@ public class DomainHierarchyController {
 				assessor, user, Boolean.valueOf(fetchAssessment));
 		return dto;
 	}
+	
+	@RequestMapping(value = "/import", method = RequestMethod.GET)
+	public @ResponseBody
+	String importDomainHierarchy(@RequestParam String key, @RequestParam String parentKey,@RequestParam String weightage, ModelMap map,
+			HttpServletRequest request, HttpServletResponse response) {
+		Long userId = (Long) request.getSession().getAttribute("USER_ID");
+		User user = userService.getUser(userId);
+		domainService.importDomainHierarchy(key, parentKey, weightage, user);
+		return "success";
+	}
+
 
 }

@@ -371,6 +371,73 @@ public class DomainServiceImpl implements DomainService {
 		}
 	}
 
+	public Domain getCloneDomain(Domain domain, Date date, User user){
+		Domain cloneDomain = new Domain();
+		cloneDomain.setDomainName(domain.getDomainName());
+		cloneDomain.setIsParent(false);
+		cloneDomain.setIsActive(domain.getIsActive());
+		cloneDomain.setCreationDate(date);
+		cloneDomain.setModificationDate(date);
+		cloneDomain.setCreationUser(user);
+		return cloneDomain;
+	}
+	
+	public void copyDomainHierarchy(Long id, Domain cloneDomain, Date date,
+			User user, int orgCounter ,int counter) {
+		List<DomainMapping> domainMappings = domainDao.getSubDomainList(id);
+		if(domainMappings.size()==0){
+			counter = orgCounter;
+		}
+		Iterator<DomainMapping> itr = domainMappings.iterator();
+		while (itr.hasNext()) {
+			DomainMapping domainMapping = itr.next();
+			Domain subDomain = domainMapping.getSubDomain();
+			Domain cloneSubDomain = getCloneDomain(subDomain, date, user);
+			DomainMapping cloneDomainMapping = new DomainMapping();
+			cloneDomainMapping.setDomain(cloneDomain);
+			cloneDomainMapping.setSubDomain(cloneSubDomain);
+			cloneDomainMapping.setWeightage(domainMapping.getWeightage());
+			cloneDomainMapping.setCreationDate(date);
+			cloneDomainMapping.setModificationDate(date);
+			domainDao.saveOrUpdateDomainMapping(cloneDomainMapping);
+			System.out.println(cloneDomain.getDomainId() + " "
+					+ cloneSubDomain.getDomainId());
+			counter--;
+			if (counter > 0) {
+				copyDomainHierarchy(subDomain.getDomainId(), cloneSubDomain,
+						date, user, orgCounter, counter);
+			}
+		}
+
+	}
+
+	@Override
+	public void importDomainHierarchy(String key, String parentKey,
+			String weightage, User user) {
+		Long domainId = Long.valueOf(key);
+		Domain domain = domainDao.get(domainId);
+		Date date = new Date();
+		Domain cloneDomain = getCloneDomain(domain, date, user);
+		int counter = 2 ;
+		if (parentKey.equals("0")) {
+			cloneDomain.setIsParent(true);
+			domainDao.saveOrUpdateDomain(cloneDomain);
+			counter = 3;
+		} else {
+			Long parentDomainId = Long.valueOf(parentKey);
+			Domain parentDomain = domainDao.get(parentDomainId);
+			DomainMapping domainMapping = new DomainMapping();
+			domainMapping.setDomain(parentDomain);
+			domainMapping.setSubDomain(cloneDomain);
+			int weighage = Integer.valueOf(weightage);
+			domainMapping.setWeightage(weighage);
+			domainMapping.setCreationDate(date);
+			domainMapping.setModificationDate(date);
+			domainDao.saveOrUpdateDomainMapping(domainMapping);
+		}
+		copyDomainHierarchy(domainId, cloneDomain, date, user, counter ,counter);
+	}
+	
 	// public void getExtremeChildDomains(Long id, User user, User assessor,
 	// List<RadarChartInfo> extrmeChilds) {
 	// List<Domain> leafDomains = new ArrayList<Domain>();
@@ -533,6 +600,7 @@ public class DomainServiceImpl implements DomainService {
 		return list;
 	}
 
+	
 	// public void getExtremeChildDomains(Long id, User user, User assessor,
 	// List<TreeNodeDTO> extrmeChilds) {
 	// Domain domain = (Domain) domainDao.get(id);

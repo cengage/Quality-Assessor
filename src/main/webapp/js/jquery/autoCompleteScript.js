@@ -39,7 +39,7 @@ $(function() {
 				var row = $(this).closest('tr');
 				title = ui.item.label.trim();
 				$(this).val(title);
-				checkIfDomainAlreadyExist( title, row);
+				//checkIfDomainAlreadyExist( title, row);
 				
 			},
 			open: function() {

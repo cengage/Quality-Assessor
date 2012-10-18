@@ -257,10 +257,14 @@ $(function() {
 							return;
 						}
 
-						var currentObj = this;
-						saveDomain(key, parentKey, title, weightage, row,
+						if(row.find('.newDomain').length!=0){
+							checkIfDomainAlreadyExist(title, row, parentKey, weightage);
+						}
+						else{
+							var currentObj = this;
+							saveDomain(key, parentKey, title, weightage, row,
 								currentObj);
-
+						}
 					});
 
 
@@ -355,7 +359,7 @@ $(function() {
 											} else {
 												var tr = "<tr class='currentSelectedRow' id='new' pid='"
 														+ pid
-														+ "'><td colspan='5'></td><td><a style='display:none' class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
+														+ "'><td colspan='5'></td><td class='iconWidth'><a style='display:none' class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
 														+ "'><img class='wikiLink' src='images/wiki.png'/></a></td><td  class='iconWidth'><img style='display:none'  class='newDomain' src='images/new.png'/></td>"
 														+ "<td class='iconWidth'><img class='saveDomain' src='images/save.png'></td>"
 														+ "<td  class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
@@ -544,10 +548,45 @@ function deleteDomain(key, parentKey, table, row) {
 	});
 }
 
+
+
+function importHierarchy(parentKey, weightage){
+	var key = $('input:radio[name=selectedDomain]:checked').val();
+	alert(key);
+	var data = {
+			key : key,
+			parentKey : parentKey,
+			weightage : weightage
+		}
+
+		var url = 'domainHierarchy/import';
+		$.ajax({
+			type : 'GET',
+			url : url,
+			data : data,
+			success : function(data) {
+				if(data=="success"){
+					//location.reload();
+				}
+//				if (parentKey != '0') {
+//					row.remove();
+//					table.find("tr[pid='" + key + "']").remove();
+//				} else {
+//					table.remove();
+//				}
+//				row.removeClass("currentSelectedRow");
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.responseText);
+			},
+			dataType : 'text'
+		});
+}
+
 //function for check if domains having same name as user type already exist then
 //show the user option to select one of them or have their own 
 
-function checkIfDomainAlreadyExist(domainName, row) {
+function checkIfDomainAlreadyExist(domainName, row, parentKey, weightage) {
 	var data = {
 		name : domainName
 	}
@@ -594,8 +633,8 @@ function checkIfDomainAlreadyExist(domainName, row) {
 					var buttonDiv = $("<div id ='buttonDiv'></div>");
 					buttonDiv.append("<br>");
 					buttonDiv
-							.append("<input type='button' onclick='updateIdOfDomain()' id='selectedDomainBtn'  value='Ok'>");
-					buttonDiv.append("<input type='button' value='Cancel'>")
+							.append("<input type='button' onclick='importHierarchy("+parentKey+","+weightage+")' id='selectedDomainBtn'  value='Import'>");
+					buttonDiv.append("<input type='button' value='Cancel'>");
 					existingDomainDiv.append(buttonDiv);
 					showExistingDomainTreeInColorbox();
 				},
