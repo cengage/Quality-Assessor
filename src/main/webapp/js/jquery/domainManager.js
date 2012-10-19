@@ -7,25 +7,32 @@ function getURLParameter(name) {
 
 var requestedUserId = "null";
 
+function makeRootRow(domain){
+	var row = "<tr pid='0' id="
+		+ domain.key
+		+ "><td class='iconWidth'><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
+		+ domain.title
+		+ "'><img class='wikiLink' src='images/wiki.png'/></a></td>"
+		+ "<td class='iconWidth'><img class='newDomain' src='images/new.png'/></td>"
+		+ "<td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td>"
+		+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
+		+ "<td class='titleClass expandDomain' class='addBorder' ><input style='display:none' "
+		+ "class='autoCompleteWiki' type='text' value='"
+		+ domain.title + "'><span class='spanTitle rootTitle'>"+domain.title+"</span>"
+		+ "</td><td></td><td></td><td></td></tr>";
+	return row;
+}
+
+
 //Make new table for each root domain
 
 function makeTable(domain){
 	var table = "";
 	table += "<table style='margin-top:15px;width:100%;' class='imagetable' id='tableId"
 			+ i + "'>";
-	table += "<tr pid='0' id="
-			+ domain.key
-			+ "><td class='iconWidth'><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
-			+ domain.title
-			+ "'><img class='wikiLink' src='images/wiki.png'/></a></td>"
-			+ "<td class='iconWidth'><img class='newDomain' src='images/new.png'/></td>"
-			+ "<td class='iconWidth'><img class='editDomain' src='images/edit.png'/></td>"
-			+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
-			+ "<td class='titleClass expandDomain' class='addBorder' ><input style='display:none' "
-			+ "class='autoCompleteWiki' type='text' value='"
-			+ domain.title + "'><span class='spanTitle rootTitle'>"+domain.title+"</span>"
-			+ "</td><td></td><td></td><td></td></tr>"
+	table += makeRootRow(domain);
 	$('#domainDivId').append(table);
+	return table;
 }
 
 $(function() {
@@ -220,7 +227,7 @@ $(function() {
 						var row = $(this).closest('tr');
 						var titleInput = row.find('.autoCompleteWiki');
 						var title = titleInput.val();
-						
+						var currentObj = this;
 						var weightageInput = row.find('.inputWeightage');
 						var weightage = weightageInput.val();
 						if (weightage == undefined) {
@@ -256,12 +263,12 @@ $(function() {
 							alert("Total sum of subdomain's Weighing under a domain can't be greater than 100");
 							return;
 						}
-
-						if(row.find('.newDomain').length!=0){
-							checkIfDomainAlreadyExist(title, row, parentKey, weightage);
+					
+						if((row.attr('id')=="new")&&(row.find('.newDomain').length!=0)){
+							checkIfDomainAlreadyExist(title, row, parentKey, weightage, currentObj);
 						}
 						else{
-							var currentObj = this;
+							
 							saveDomain(key, parentKey, title, weightage, row,
 								currentObj);
 						}
@@ -454,7 +461,8 @@ $(function() {
 function showAddRootDomainView() {
 	var table = "";
 	table += "<table style='margin-top:15px;width:100%;' class='imagetable' id='tableId'>";
-	table += "<tr class='currentSelectedRow' id='new' pid='0'><td class='iconWidth'><img style='display:none' class='expandDomain' src='images/expand.png'/></td>"
+	table += "<tr class='currentSelectedRow' id='new' pid='0'><td class='iconWidth'><a style='display:none' class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/'"
+			+ "><img class='wikiLink' src='images/wiki.png'/></a></td>"
 			+ "<td class='iconWidth'><img style='display:none' class='newDomain' src='images/new.png'/></td>"
 			+ "<td class='iconWidth'><img class='saveDomain' src='images/save.png'/></td>"
 			+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
@@ -483,6 +491,7 @@ function saveDomain(key, parentKey, title, weightage, row, currentObj) {
 			if (key == '0') {
 				row.attr("id", data);
 			}
+			row.find('.newDomain').show();
 			
 			var spanTitle = row.find('.spanTitle');
 			var wikiLink = row.find('.wikiLink');
@@ -503,11 +512,11 @@ function saveDomain(key, parentKey, title, weightage, row, currentObj) {
 			$(currentObj).parent().prev().children().show();
 			$(currentObj).removeClass("saveDomain");
 
-			var expandImg = row.find('.expandDomain');
-
-			if (expandImg.is(":hidden")) {
-				expandImg.show(); // hide button
-			}
+//			var expandImg = row.find('.expandDomain');
+//
+//			if (expandImg.is(":hidden")) {
+//				expandImg.show(); // hide button
+//			}
 
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
@@ -552,7 +561,8 @@ function deleteDomain(key, parentKey, table, row) {
 
 function importHierarchy(parentKey, weightage){
 	var key = $('input:radio[name=selectedDomain]:checked').val();
-	alert(key);
+	var title = $('input:radio[name=selectedDomain]:checked').next().html();
+	//alert(title);
 	var data = {
 			key : key,
 			parentKey : parentKey,
@@ -564,9 +574,27 @@ function importHierarchy(parentKey, weightage){
 			type : 'GET',
 			url : url,
 			data : data,
-			success : function(data) {
-				if(data=="success"){
-					//location.reload();
+			success : function(rootKey) {
+				if(rootKey != null){
+					//alert(rootKey);
+					if(parentKey!="0"){
+						row = $("#"+parentKey);
+						table = row.closest('table');
+						table.find("tr:gt(0)").remove();
+						showCompleteDomainTree(parentKey, table);
+					}
+					else{
+						row = $("#new");
+						table = row.closest('table');
+						table.find("tr").remove();
+						var domain ={};
+						domain.key = rootKey;
+						domain.title = title;
+						var row = makeRootRow(domain);
+						table.append(row);
+						showCompleteDomainTree(key, table);
+					}
+					$.fn.colorbox.close();
 				}
 //				if (parentKey != '0') {
 //					row.remove();
@@ -583,10 +611,19 @@ function importHierarchy(parentKey, weightage){
 		});
 }
 
+
+
+function saveEnteredTitle(parentKey, domainName, weightage){
+	row = $("#new");
+	editLink = row.closest('editDomain');
+	saveDomain("0", parentKey, domainName, weightage, row, editLink);
+	$.fn.colorbox.close();
+}
+
 //function for check if domains having same name as user type already exist then
 //show the user option to select one of them or have their own 
 
-function checkIfDomainAlreadyExist(domainName, row, parentKey, weightage) {
+function checkIfDomainAlreadyExist(domainName, row, parentKey, weightage, currentObj) {
 	var data = {
 		name : domainName
 	}
@@ -598,9 +635,10 @@ function checkIfDomainAlreadyExist(domainName, row, parentKey, weightage) {
 				url : url,
 				data : data,
 				success : function(data) {
-					if (data == null || data.length == 0)
+					if (data == null || data.length == 0){
+						saveDomain("0", parentKey, domainName, weightage, row, currentObj)
 						return;
-
+					}
 					var existingDomainDiv = $("#existingDomainDiv");
 					var headerDiv = $("<div><span style='font-weight:bold'>Following Domains already exist with specified name."
 							+ "</span><br><span style='font-weight:bold'>If you want to use existing one then select the checkbox infront of domain.</span>"
@@ -633,8 +671,8 @@ function checkIfDomainAlreadyExist(domainName, row, parentKey, weightage) {
 					var buttonDiv = $("<div id ='buttonDiv'></div>");
 					buttonDiv.append("<br>");
 					buttonDiv
-							.append("<input type='button' onclick='importHierarchy("+parentKey+","+weightage+")' id='selectedDomainBtn'  value='Import'>");
-					buttonDiv.append("<input type='button' value='Cancel'>");
+							.append("<input type='button' class='btn primary' onclick='importHierarchy("+parentKey+","+weightage+")' id='selectedDomainBtn'  value='Import hierarchy'>");
+					buttonDiv.append('<input type="button" class="btn primary" onclick="saveEnteredTitle('+parentKey+',\'' + domainName +'\','+weightage+')"  value="Choose my own">');
 					existingDomainDiv.append(buttonDiv);
 					showExistingDomainTreeInColorbox();
 				},

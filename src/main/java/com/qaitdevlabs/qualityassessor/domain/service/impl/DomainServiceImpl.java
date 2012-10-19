@@ -412,8 +412,9 @@ public class DomainServiceImpl implements DomainService {
 	}
 
 	@Override
-	public void importDomainHierarchy(String key, String parentKey,
+	public Long importDomainHierarchy(String key, String parentKey,
 			String weightage, User user) {
+		Long rootDomainId = null;
 		Long domainId = Long.valueOf(key);
 		Domain domain = domainDao.get(domainId);
 		Date date = new Date();
@@ -423,6 +424,7 @@ public class DomainServiceImpl implements DomainService {
 			cloneDomain.setIsParent(true);
 			domainDao.saveOrUpdateDomain(cloneDomain);
 			counter = 3;
+	
 		} else {
 			Long parentDomainId = Long.valueOf(parentKey);
 			Domain parentDomain = domainDao.get(parentDomainId);
@@ -434,8 +436,12 @@ public class DomainServiceImpl implements DomainService {
 			domainMapping.setCreationDate(date);
 			domainMapping.setModificationDate(date);
 			domainDao.saveOrUpdateDomainMapping(domainMapping);
+			
 		}
+		rootDomainId = cloneDomain.getDomainId();
 		copyDomainHierarchy(domainId, cloneDomain, date, user, counter ,counter);
+		return rootDomainId;
+		
 	}
 	
 	// public void getExtremeChildDomains(Long id, User user, User assessor,
@@ -576,9 +582,13 @@ public class DomainServiceImpl implements DomainService {
 	public boolean hasUpdateOrDeletePermission(String key, Long userId) {
 		Long domainId = Long.valueOf(key);
 		Domain domain = domainDao.get(domainId);
-		Long creationUserId = domain.getCreationUser().getUserId();
+		User user = domain.getCreationUser();
+		Long creationUserId = null;
+		if(user != null){
+			creationUserId = domain.getCreationUser().getUserId();
+		}
 		System.out.println(creationUserId + " " + userId);
-		if (creationUserId.equals(userId))
+		if (creationUserId!=null && creationUserId.equals(userId))
 			return true;
 		else
 			return false;

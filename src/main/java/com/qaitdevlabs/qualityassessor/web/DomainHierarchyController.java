@@ -84,8 +84,14 @@ public class DomainHierarchyController {
 			HttpServletRequest request, HttpServletResponse response) {
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
-		domainService.importDomainHierarchy(key, parentKey, weightage, user);
-		return "success";
+		Long rootDomainId = domainService.importDomainHierarchy(key, parentKey, weightage, user);
+		if(rootDomainId!=null){
+			return String.valueOf(rootDomainId);	
+		}
+		else{
+			return null;
+		}
+		
 	}
 
 

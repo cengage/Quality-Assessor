@@ -27,5 +27,6 @@
 		<property name="modificationDate" type="java.util.Date">
 			<column name="modification_date" not-null="true" />
 		</property>
+		
 	</class>
 </hibernate-mapping>

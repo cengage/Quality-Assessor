@@ -86,5 +86,5 @@ public interface DomainService {
 
 	public List<TreeNodeDTO> getMatchingDomain(String name);
 
-	public void importDomainHierarchy(String key, String parentKey,String weightage, User user);
+	public Long importDomainHierarchy(String key, String parentKey,String weightage, User user);
 }
