@@ -78,17 +78,18 @@ color:black;
 				
 		</div>
 		<div style="display:inline">
-			<input class="btn primary" id="addMoreWorkExpbtn" type="button"
-					onclick="showAddRootDomainView()" value="Add Product Domain">
+			<input class="btn primary"  type="button"
+					onclick="showAddRootDomainView('product')" value="Add Product Domain">
 				
 		</div>
 		<div style="display:inline">
-			<input class="btn primary" id="addMoreWorkExpbtn" type="button"
-					onclick="showAddRootDomainView()" value="Add Skill Domain">
+			<input class="btn primary"  type="button"
+					onclick="showAddRootDomainView('skill')" value="Add Skill Domain">
 		</div>
 
 		<div  style="margin-right:10px;float:right;display:inline">
 			<input id="searchDomain" type="text" style="width:180px">
+			<select id="searchDomainType" style="margin:0px"><option>product</option><option>skill</option></select>
 		</div>
 		</div>
 		<p></p>

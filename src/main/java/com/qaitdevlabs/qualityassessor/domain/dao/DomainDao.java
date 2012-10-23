@@ -80,6 +80,8 @@ public interface DomainDao extends GenericDao<Domain, Long> {
 
 	List<Domain> getRootDomainListOnUserBasis(User user);
 
-	public List<Domain> getMatchingDomain(String name);
+	public List<Domain> getMatchingDomain(String name, String domainType);
+
+	List<Domain> getDomainByNameAndType(String name, String domainType);
 
 }

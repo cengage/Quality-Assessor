@@ -21,6 +21,8 @@ public class TreeNodeDTO {
 	// creation of children.
 	private float score;
 	private long assessmentId;
+	private String type;
+	private boolean root;
 	//private String tooltip; // default null, Show this popup text.
 	//private String href; // default null,Added to the generated <a> tag.
 	//private String icon; // default null, Use a custom image (filename relative
@@ -246,6 +248,22 @@ public class TreeNodeDTO {
 
 	public void setAssessmentId(long assessmentId) {
 		this.assessmentId = assessmentId;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public boolean isRoot() {
+		return root;
+	}
+
+	public void setRoot(boolean root) {
+		this.root = root;
 	}
 
 }

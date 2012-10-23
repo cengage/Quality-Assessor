@@ -57,14 +57,15 @@ $(function() {
 		//AutoComplete functionality for search domains from application database and getting json response
 		
 		$("#searchDomain").live('click',function(){$("#searchDomain").autocomplete(search_opts)});
-		
+	
 		var search_opts = {
 			source: function( request, response ) {
 				$.ajax({
 					url: "getMatchingDomains",
 					dataType: "json",
 					data: {
-						name: request.term
+						name : request.term,
+						domainType : $("#searchDomainType").val()
 					},
 					success: function( data ) {
 						

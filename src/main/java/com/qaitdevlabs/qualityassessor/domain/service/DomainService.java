@@ -82,9 +82,9 @@ public interface DomainService {
 
 	public boolean hasUpdateOrDeletePermission(String key, Long userId);
 
-	public List<TreeNodeDTO> getExistingDomainHierarchy(String name);
+	public List<TreeNodeDTO> getExistingDomainHierarchy(String name ,String domainType);
 
-	public List<TreeNodeDTO> getMatchingDomain(String name);
+	public List<TreeNodeDTO> getMatchingDomain(String name, String domainType);
 
 	public Long importDomainHierarchy(String key, String parentKey,String weightage, User user);
 }

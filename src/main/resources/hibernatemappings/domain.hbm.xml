@@ -20,6 +20,9 @@
 		<property name="isActive" type="boolean">
 			<column name="is_active"  />
 		</property>
+		<property name="type" type="string">
+			<column name="type"  />
+		</property>
 		<property name="creationDate" type="java.util.Date">
 			<column name="creation_date" />
 		</property>

@@ -9,8 +9,8 @@ var requestedUserId = "null";
 
 function makeRootRow(domain){
 	var row = "<tr pid='0' id="
-		+ domain.key
-		+ "><td class='iconWidth'><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
+		+ domain.key+" type='"+domain.type
+		+ "'><td class='iconWidth'><a class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/"
 		+ domain.title
 		+ "'><img class='wikiLink' src='images/wiki.png'/></a></td>"
 		+ "<td class='iconWidth'><img class='newDomain' src='images/new.png'/></td>"
@@ -250,6 +250,11 @@ $(function() {
 						var parentKey = row.attr("pid");
 
 						var table = $(this).closest('table');
+						
+						var rootRow = table.find('tr:first');
+						
+						var domainType = rootRow.attr('type');
+						
 						var rows = table.find("tr[pid='" + parentKey + "']");
 						sum = 0;
 
@@ -265,11 +270,11 @@ $(function() {
 						}
 					
 						if((row.attr('id')=="new")&&(row.find('.newDomain').length!=0)){
-							checkIfDomainAlreadyExist(title, row, parentKey, weightage, currentObj);
+							checkIfDomainAlreadyExist(title, row, parentKey, weightage, domainType, currentObj);
 						}
 						else{
 							
-							saveDomain(key, parentKey, title, weightage, row,
+							saveDomain(key, parentKey, title, weightage, domainType, row,
 								currentObj);
 						}
 					});
@@ -458,29 +463,30 @@ $(function() {
 
 //function for adding new root domain
 
-function showAddRootDomainView() {
+function showAddRootDomainView(type) {
 	var table = "";
 	table += "<table style='margin-top:15px;width:100%;' class='imagetable' id='tableId'>";
-	table += "<tr class='currentSelectedRow' id='new' pid='0'><td class='iconWidth'><a style='display:none' class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/'"
+	table += "<tr class='currentSelectedRow' type="+type+" id='new' pid='0'><td class='iconWidth'><a style='display:none' class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/'"
 			+ "><img class='wikiLink' src='images/wiki.png'/></a></td>"
 			+ "<td class='iconWidth'><img style='display:none' class='newDomain' src='images/new.png'/></td>"
 			+ "<td class='iconWidth'><img class='saveDomain' src='images/save.png'/></td>"
 			+ "<td class='iconWidth'><img class='deleteDomain' src='images/cross.png'/></td>"
-			+ "<td class='titleClass'><span class='spanTitle expandDomain'></span><input class='autoCompleteWiki' size='30' type='text'></td>"
+			+ "<td class='titleClass'><span class='spanTitle rootTitle expandDomain'></span><input class='autoCompleteWiki' size='30' type='text'></td>"
 			+ "<td></td><td></td><td></td></tr>"
 	$('#domainDivId').prepend(table);
 }
 
 //function for making ajax call on server to save or update domain
 
-function saveDomain(key, parentKey, title, weightage, row, currentObj) {
-	
+function saveDomain(key, parentKey, title, weightage, type, row, currentObj) {
+
 	data = '0';
 	var data = {
 		key : key,
 		parentKey : parentKey,
 		title : title,
-		weightage : weightage
+		weightage : weightage,
+		type : type
 	};
 	var url = 'saveOrUpdateDomain';
 	$.ajax({
@@ -615,17 +621,21 @@ function importHierarchy(parentKey, weightage){
 
 function saveEnteredTitle(parentKey, domainName, weightage){
 	row = $("#new");
-	editLink = row.closest('editDomain');
-	saveDomain("0", parentKey, domainName, weightage, row, editLink);
+	saveLink = row.find('.saveDomain');
+	var table = row.closest('table');
+	var rootRow = table.children('tr:first');
+	var domainType = rootRow.attr('type');
+	saveDomain("0", parentKey, domainName, weightage, domainType, row, saveLink);
 	$.fn.colorbox.close();
 }
 
 //function for check if domains having same name as user type already exist then
 //show the user option to select one of them or have their own 
 
-function checkIfDomainAlreadyExist(domainName, row, parentKey, weightage, currentObj) {
+function checkIfDomainAlreadyExist(domainName, row, parentKey, weightage, domainType, currentObj) {
 	var data = {
-		name : domainName
+		name : domainName,
+		domainType : domainType
 	}
 
 	var url = 'getExistingDomainHierachy';
@@ -636,7 +646,8 @@ function checkIfDomainAlreadyExist(domainName, row, parentKey, weightage, curren
 				data : data,
 				success : function(data) {
 					if (data == null || data.length == 0){
-						saveDomain("0", parentKey, domainName, weightage, row, currentObj)
+						
+						saveDomain("0", parentKey, domainName, weightage, domainType, row, currentObj)
 						return;
 					}
 					var existingDomainDiv = $("#existingDomainDiv");

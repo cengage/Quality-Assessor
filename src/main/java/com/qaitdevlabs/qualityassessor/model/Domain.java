@@ -11,6 +11,7 @@ public class Domain implements Serializable {
 	private Long domainId;
 	private String domainName;
 	private String wikipediaLink;
+	private String type;
 	private Boolean isParent;
 	private Boolean isActive;
 	private User creationUser;
@@ -88,5 +89,13 @@ public class Domain implements Serializable {
 
 	public void setModificationUser(User modificationUser) {
 		this.modificationUser = modificationUser;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

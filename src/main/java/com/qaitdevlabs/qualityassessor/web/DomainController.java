@@ -68,7 +68,7 @@ public class DomainController {
 	public @ResponseBody
 	String saveOrUpdateDomain(ModelMap model, @RequestParam String key,
 			@RequestParam String parentKey, @RequestParam String title,
-			@RequestParam String weightage, HttpServletRequest request) {
+			@RequestParam String weightage, @RequestParam String type, HttpServletRequest request) {
 
 		System.out.println("Contoller" + key + " " + parentKey + " " + title
 				+ " " + weightage);
@@ -83,6 +83,7 @@ public class DomainController {
 		dto.setWeightage(weightage);
 		dto.setModificationDate(modificationDate);
 		dto.setCreationDate(modificationDate);
+		dto.setType(type);
 		Long domainId = null;
 		domainId = domainService.updateDomain(dto, user);
 		if (domainId == null) {
@@ -161,16 +162,16 @@ public class DomainController {
 	
 	@RequestMapping(value = "/getExistingDomainHierachy", method = RequestMethod.GET)
 	public @ResponseBody
-	List<TreeNodeDTO> getExistingDomains(@RequestParam String name) {
-		List<TreeNodeDTO> listOfTreeNodeDTO = domainService.getExistingDomainHierarchy(name);
+	List<TreeNodeDTO> getExistingDomains(@RequestParam String name, @RequestParam String domainType) {
+		List<TreeNodeDTO> listOfTreeNodeDTO = domainService.getExistingDomainHierarchy(name, domainType);
 		return listOfTreeNodeDTO;
 	}
 	
 	
 	@RequestMapping(value = "/getMatchingDomains", method = RequestMethod.GET)
 	public @ResponseBody
-	List<TreeNodeDTO> getMatchingDomains(@RequestParam String name) {
-		List<TreeNodeDTO> listOfDomain = domainService.getMatchingDomain(name);
+	List<TreeNodeDTO> getMatchingDomains(@RequestParam String name, @RequestParam String domainType) {
+		List<TreeNodeDTO> listOfDomain = domainService.getMatchingDomain(name, domainType);
 		System.out.println(listOfDomain.size());
 		return listOfDomain;
 	}

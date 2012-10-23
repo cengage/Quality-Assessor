@@ -124,11 +124,13 @@ public class DomainServiceImpl implements DomainService {
 			TreeNodeDTO dto = new TreeNodeDTO();
 			dto.setKey(String.valueOf(domain.getDomainId()));
 			dto.setTitle(domain.getDomainName());
+			dto.setType(domain.getType());
 			//dto.setWikipediaLink(domain.getWikipediaLink());
 			dto.setCreationDate(domain.getCreationDate());
 			// dto.setCreationUserName(domain.getCreationUser().getUsername());
 			// dto.setModificationUserName(domain.getModificationUser().getUsername());
 			dto.setModificationDate(domain.getModificationDate());
+			dto.setRoot(domain.getIsParent());
 			return dto;
 		} else
 			return null;
@@ -147,11 +149,12 @@ public class DomainServiceImpl implements DomainService {
 				domain = new Domain();
 				domain.setCreationDate(dto.getModificationDate());
 				domain.setCreationUser(user);
+				domain.setType(dto.getType());
+				domain.setIsParent(true);
+				domain.setIsActive(true);
 			}
-			domain.setModificationDate(dto.getModificationDate());
 			domain.setDomainName(dto.getTitle());
-			domain.setIsParent(true);
-			domain.setIsActive(true);
+			domain.setModificationDate(dto.getModificationDate());
 			domainDao.saveOrUpdateDomain(domain);
 			domainId = domain.getDomainId();
 		} else {
@@ -173,6 +176,7 @@ public class DomainServiceImpl implements DomainService {
 				subDomain.setCreationUser(user);
 				subDomain.setIsActive(true);
 				subDomain.setIsParent(false);
+				subDomain.setType(dto.getType());
 				Domain domain = domainDao.get(parentKey);
 				domainMapping.setDomain(domain);
 				domainMapping.setSubDomain(subDomain);
@@ -403,7 +407,7 @@ public class DomainServiceImpl implements DomainService {
 			System.out.println(cloneDomain.getDomainId() + " "
 					+ cloneSubDomain.getDomainId());
 			counter--;
-			if (counter > 0) {
+			if (counter > 1) {
 				copyDomainHierarchy(subDomain.getDomainId(), cloneSubDomain,
 						date, user, orgCounter, counter);
 			}
@@ -558,10 +562,9 @@ public class DomainServiceImpl implements DomainService {
 		return listOfDomainDTO;
 	}
 
-	public List<TreeNodeDTO> getExistingDomainHierarchy(String domainName) {
+	public List<TreeNodeDTO> getExistingDomainHierarchy(String domainName, String domainType) {
 		List<TreeNodeDTO> listOfDTO = null;
-		List<Domain> listOfDomains = domainDao.findDomainsWithProperty(
-				"domainName", domainName);
+		List<Domain> listOfDomains = domainDao.getDomainByNameAndType(domainName, domainType);
 		if(listOfDomains == null){
 			return null;
 		}
@@ -595,8 +598,8 @@ public class DomainServiceImpl implements DomainService {
 	}
 
 	@Override
-	public List<TreeNodeDTO> getMatchingDomain(String name) {
-		List<Domain> listOfDomains = domainDao.getMatchingDomain(name);
+	public List<TreeNodeDTO> getMatchingDomain(String name ,String domainType) {
+		List<Domain> listOfDomains = domainDao.getMatchingDomain(name , domainType);
 		List<TreeNodeDTO> list = null;
 		if(listOfDomains!=null){
 		list = new ArrayList<TreeNodeDTO>();
