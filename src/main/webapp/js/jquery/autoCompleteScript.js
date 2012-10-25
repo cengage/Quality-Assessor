@@ -22,10 +22,8 @@ $(function() {
 						search: request.term
 					},
 					success: function( data ) {
-						dataStr = data.toString();
-						dataArr =dataStr.split(",");
-						dataArr.shift();
-						response( $.map(dataArr, function( item ) {
+						console.log(data[1]);
+						response( $.map(data[1], function( item ) {
 							return {
 								label: item,
 								value: item

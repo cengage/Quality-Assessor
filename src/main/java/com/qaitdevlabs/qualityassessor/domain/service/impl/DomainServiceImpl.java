@@ -380,6 +380,7 @@ public class DomainServiceImpl implements DomainService {
 		cloneDomain.setDomainName(domain.getDomainName());
 		cloneDomain.setIsParent(false);
 		cloneDomain.setIsActive(domain.getIsActive());
+		cloneDomain.setType(domain.getType());
 		cloneDomain.setCreationDate(date);
 		cloneDomain.setModificationDate(date);
 		cloneDomain.setCreationUser(user);
@@ -389,27 +390,31 @@ public class DomainServiceImpl implements DomainService {
 	public void copyDomainHierarchy(Long id, Domain cloneDomain, Date date,
 			User user, int orgCounter ,int counter) {
 		List<DomainMapping> domainMappings = domainDao.getSubDomainList(id);
-		if(domainMappings.size()==0){
+		if (domainMappings.size() == 0) {
 			counter = orgCounter;
-		}
-		Iterator<DomainMapping> itr = domainMappings.iterator();
-		while (itr.hasNext()) {
-			DomainMapping domainMapping = itr.next();
-			Domain subDomain = domainMapping.getSubDomain();
-			Domain cloneSubDomain = getCloneDomain(subDomain, date, user);
-			DomainMapping cloneDomainMapping = new DomainMapping();
-			cloneDomainMapping.setDomain(cloneDomain);
-			cloneDomainMapping.setSubDomain(cloneSubDomain);
-			cloneDomainMapping.setWeightage(domainMapping.getWeightage());
-			cloneDomainMapping.setCreationDate(date);
-			cloneDomainMapping.setModificationDate(date);
-			domainDao.saveOrUpdateDomainMapping(cloneDomainMapping);
-			System.out.println(cloneDomain.getDomainId() + " "
-					+ cloneSubDomain.getDomainId());
-			counter--;
-			if (counter > 1) {
-				copyDomainHierarchy(subDomain.getDomainId(), cloneSubDomain,
-						date, user, orgCounter, counter);
+		} else {
+			Iterator<DomainMapping> itr = domainMappings.iterator();
+			while (itr.hasNext()) {
+				DomainMapping domainMapping = itr.next();
+				Domain subDomain = domainMapping.getSubDomain();
+				Domain cloneSubDomain = getCloneDomain(subDomain, date, user);
+				DomainMapping cloneDomainMapping = new DomainMapping();
+				cloneDomainMapping.setDomain(cloneDomain);
+				cloneDomainMapping.setSubDomain(cloneSubDomain);
+				cloneDomainMapping.setWeightage(domainMapping.getWeightage());
+				cloneDomainMapping.setCreationDate(date);
+				cloneDomainMapping.setModificationDate(date);
+				domainDao.saveOrUpdateDomainMapping(cloneDomainMapping);
+				System.out.println(cloneDomain.getDomainId() + " "
+						+ cloneSubDomain.getDomainId());
+				counter--;
+				if (counter > 1) {
+					copyDomainHierarchy(subDomain.getDomainId(),
+							cloneSubDomain, date, user, orgCounter, counter);
+				}
+				else{
+					counter = orgCounter;
+				}
 			}
 		}
 

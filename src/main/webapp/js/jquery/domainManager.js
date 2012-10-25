@@ -582,7 +582,7 @@ function importHierarchy(parentKey, weightage){
 			data : data,
 			success : function(rootKey) {
 				if(rootKey != null){
-					//alert(rootKey);
+					alert(rootKey);
 					if(parentKey!="0"){
 						row = $("#"+parentKey);
 						table = row.closest('table');
@@ -591,14 +591,20 @@ function importHierarchy(parentKey, weightage){
 					}
 					else{
 						row = $("#new");
+						type = row.attr('type');
 						table = row.closest('table');
 						table.find("tr").remove();
 						var domain ={};
 						domain.key = rootKey;
 						domain.title = title;
+						domain.type = type;
 						var row = makeRootRow(domain);
 						table.append(row);
-						showCompleteDomainTree(key, table);
+						expandDomain = table.find(".expandDomain");
+						expandDomain.addClass("collapseDomain");
+						expandDomain.removeClass("expandDomain");
+						showCompleteDomainTree(rootKey, table);
+						
 					}
 					$.fn.colorbox.close();
 				}
@@ -620,10 +626,10 @@ function importHierarchy(parentKey, weightage){
 
 
 function saveEnteredTitle(parentKey, domainName, weightage){
-	row = $("#new");
+	row = $(".currentSelectedRow");
 	saveLink = row.find('.saveDomain');
 	var table = row.closest('table');
-	var rootRow = table.children('tr:first');
+	var rootRow = table.find('tr:first');
 	var domainType = rootRow.attr('type');
 	saveDomain("0", parentKey, domainName, weightage, domainType, row, saveLink);
 	$.fn.colorbox.close();
@@ -655,7 +661,7 @@ function checkIfDomainAlreadyExist(domainName, row, parentKey, weightage, domain
 							+ "</span><br><span style='font-weight:bold'>If you want to use existing one then select the checkbox infront of domain.</span>"
 							+ "</div>");
 					existingDomainDiv.append(headerDiv);
-					var domainDiv = $("<div style='margin-top:10px' id ='domainDiv'></div>");
+					var domainDiv = $("<div style='margin-top:10px;max-height:70%;overflow-y:auto' id ='domainDiv'></div>");
 
 					var html = "";
 					
