@@ -411,10 +411,8 @@ public class DomainServiceImpl implements DomainService {
 				if (counter > 1) {
 					copyDomainHierarchy(subDomain.getDomainId(),
 							cloneSubDomain, date, user, orgCounter, counter);
-				}
-				else{
 					counter = orgCounter;
-				}
+				} 
 			}
 		}
 

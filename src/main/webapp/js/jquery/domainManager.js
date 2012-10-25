@@ -661,7 +661,7 @@ function checkIfDomainAlreadyExist(domainName, row, parentKey, weightage, domain
 							+ "</span><br><span style='font-weight:bold'>If you want to use existing one then select the checkbox infront of domain.</span>"
 							+ "</div>");
 					existingDomainDiv.append(headerDiv);
-					var domainDiv = $("<div style='margin-top:10px;max-height:70%;overflow-y:auto' id ='domainDiv'></div>");
+					var domainDiv = $("<div style='margin-top:10px;max-height:380px;overflow-y:auto' id ='domainDiv'></div>");
 
 					var html = "";
 					
@@ -691,6 +691,8 @@ function checkIfDomainAlreadyExist(domainName, row, parentKey, weightage, domain
 							.append("<input type='button' class='btn primary' onclick='importHierarchy("+parentKey+","+weightage+")' id='selectedDomainBtn'  value='Import hierarchy'>");
 					buttonDiv.append('<input type="button" class="btn primary" onclick="saveEnteredTitle('+parentKey+',\'' + domainName +'\','+weightage+')"  value="Choose my own">');
 					existingDomainDiv.append(buttonDiv);
+					$("#domainDiv > ol:even").css("background","gray");
+					$("#domainDiv > ol:odd").css("background","yellowgreen");
 					showExistingDomainTreeInColorbox();
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
