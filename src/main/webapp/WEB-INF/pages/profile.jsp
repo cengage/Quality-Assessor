@@ -165,7 +165,7 @@
 					</thead>
 
 					<tr style="background-color: #F9F9F9;">
-						<form:input type="hidden" path="socialNetworkId" />
+						
 						<td style="width:35%"><strong>SocialNetwork</strong></td>
 						<td style="width:35%"><strong>SocialNetwork-Id</strong></td>
 						<td ><a style="height:25px" class='btn primary invitationbtn'

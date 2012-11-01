@@ -48,8 +48,18 @@ public class UserProfileDTO {
 	private String linkedInId;
 	private String twitterId;
 	private String googleplusId;
-	private Long socialNetworkId;
 
+	private String address;
+
+	private String education;
+	private List<String> title;
+	private List<String> areaOfExpertise;
+	private List<Date> fromDate;
+	private List<Date> toDate;
+
+	
+	private List<WorkExperience> workExperiences;
+	
 	public String getAddressLine1() {
 		return addressLine1;
 	}
@@ -66,17 +76,7 @@ public class UserProfileDTO {
 		this.addressLine2 = addressLine2;
 	}
 
-	private String address;
-
-	private String education;
-	private List<String> title;
-	private List<String> areaOfExpertise;
-	private List<Date> fromDate;
-	private List<Date> toDate;
-	private List<String> socialSiteName;
-	private List<String> socialSiteId;
-	private List<SocialNetwork> socialNetworks;
-	private List<WorkExperience> workExperiences;
+	
 
 	public String getUsername() {
 		return username;
@@ -198,30 +198,6 @@ public class UserProfileDTO {
 		this.toDate = toDate;
 	}
 
-	public List<String> getSocialSiteName() {
-		return socialSiteName;
-	}
-
-	public void setSocialSiteName(List<String> socialSiteName) {
-		this.socialSiteName = socialSiteName;
-	}
-
-	public List<String> getSocialSiteId() {
-		return socialSiteId;
-	}
-
-	public void setSocialSiteId(List<String> socialSiteId) {
-		this.socialSiteId = socialSiteId;
-	}
-
-	public List<SocialNetwork> getSocialNetworks() {
-		return socialNetworks;
-	}
-
-	public void setSocialNetworks(List<SocialNetwork> socialNetworks) {
-		this.socialNetworks = socialNetworks;
-	}
-
 	public List<WorkExperience> getWorkExperiences() {
 		return workExperiences;
 	}
@@ -268,14 +244,6 @@ public class UserProfileDTO {
 
 	public void setGoogleplusId(String googleplusId) {
 		this.googleplusId = googleplusId;
-	}
-
-	public Long getSocialNetworkId() {
-		return socialNetworkId;
-	}
-
-	public void setSocialNetworkId(Long socialNetworkId) {
-		this.socialNetworkId = socialNetworkId;
 	}
 
 	public String getConfirmPassword() {

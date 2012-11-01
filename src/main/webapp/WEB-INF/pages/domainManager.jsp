@@ -46,7 +46,7 @@ width:25%;
 
 .spanTitle{
 font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: normal;
     line-height: 18px;
 }
@@ -74,7 +74,7 @@ color:black;
 	<div class="background container">
 	<%@include file="/WEB-INF/pages/header.jsp"%>
 	<div style="background: white; margin: 20px auto auto;
-    width: 850px;">
+    width: 90%;">
 	<div style="display:inline">
 			<input class="btn primary" id="addMoreWorkExpbtn" type="button"
 					onclick="location.reload();" value="My Domains">
@@ -97,8 +97,8 @@ color:black;
 		</div>
 		<p></p>
 		<!-- Add a <div> element where the tree should appear: -->
-		<div style="width:850px;margin:auto;" id="domainDivId"></div>
-		<div style="display:none;margin-top:25px;margin-left:15px" id="existingDomainDiv">
+		<div style="width:90%;margin:auto;" id="domainDivId"></div>
+		<div style="display:none;margin-top:25px;margin-left:15px;margin-right:15px" id="existingDomainDiv">
 		</div>
 	</div>
 	<%@include file="/WEB-INF/pages/footer.jsp"%>

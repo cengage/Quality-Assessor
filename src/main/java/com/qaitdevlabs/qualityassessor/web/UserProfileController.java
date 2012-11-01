@@ -52,7 +52,7 @@ public class UserProfileController {
 		String twitterId = "";
 		String googleplusId = "";
 		String linkedInId = "";
-		Long socialNetworkId = null;
+	
 		List<SocialNetwork> socialNetworks = userService
 				.getSocialNetworks(user);
 		if (socialNetworks.size() > 0) {
@@ -61,17 +61,13 @@ public class UserProfileController {
 			twitterId = socialNetwork.getTwitterId();
 			googleplusId = socialNetwork.getGoogleplusId();
 			linkedInId = socialNetwork.getLinkedInId();
-			socialNetworkId = socialNetwork.getSocialNetworkId();
-			System.out.println(socialNetworkId);
-		}
-
 	
+		}
 
 		userProfileDTO.setFacebookId(facebookId);
 		userProfileDTO.setTwitterId(twitterId);
 		userProfileDTO.setLinkedInId(linkedInId);
 		userProfileDTO.setGoogleplusId(googleplusId);
-		userProfileDTO.setSocialNetworkId(socialNetworkId);
 		map.addAttribute("userProfileDTO", userProfileDTO);
 
 		return "profile";
@@ -123,9 +119,16 @@ public class UserProfileController {
 			}
 		}
 
-		SocialNetwork socialNetwork = new SocialNetwork();
-		socialNetwork.setSocialNetworkId(userProfileDTO.getSocialNetworkId());
-		System.out.println("sosocialNetwork"+userProfileDTO.getSocialNetworkId());
+		
+		List<SocialNetwork> socialNetworks = userService
+				.getSocialNetworks(user);
+		SocialNetwork socialNetwork = null;
+		if (socialNetworks.size() > 0) {
+			socialNetwork = socialNetworks.get(0);
+		}
+		else{
+			socialNetwork = new SocialNetwork();
+		}
 		socialNetwork.setUser(user);
 		socialNetwork.setFacebookId(userProfileDTO.getFacebookId());
 		socialNetwork.setTwitterId(userProfileDTO.getTwitterId());

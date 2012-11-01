@@ -526,7 +526,7 @@ function saveDomain(key, parentKey, title, weightage, type, row, currentObj) {
 
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-			
+			alert(jqXHR.responseText);
 		},
 		dataType : 'text'
 	});
@@ -582,7 +582,7 @@ function importHierarchy(parentKey, weightage){
 			data : data,
 			success : function(rootKey) {
 				if(rootKey != null){
-					alert(rootKey);
+					//alert(rootKey);
 					if(parentKey!="0"){
 						row = $("#"+parentKey);
 						table = row.closest('table');
