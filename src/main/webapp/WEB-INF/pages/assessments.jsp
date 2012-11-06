@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<title>Assessments</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <link href="css/table.css" type="text/css" rel="stylesheet">
@@ -52,7 +53,7 @@
 						href='assessments/${domain.id}'><span class='spanTitle'>Self Assessment</span></a></td>
 					<td><a class='button-default'
 						style="margin: auto; width: 130px; padding: 4px 13px; text-align: center"
-						href='assessments/${domain.id}/chart?domainName=${domain.name}'>
+						href='assessments/${domain.id}/chart'>
 						<span class='spanTitle'>View Assessment</span></a></td>
 				</tr>
 			</c:forEach>

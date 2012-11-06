@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<title>Domain Rating</title>
 <link href="../css/common.css" rel="Stylesheet" type="text/css" />
 <!-- Include the required JavaScript libraries: -->
 <script src='../js/jquery/jquery.min.js' type="text/javascript"></script>
@@ -21,6 +22,7 @@ td {
 	width: 130px;
 	height: 32px;
 }
+
 </style>
 </head>
 <body class="homeClass">
@@ -30,11 +32,14 @@ td {
 
 		<br>
 		
-		<div style="float:left;margin-left: 27px; margin-top: 20px;margin-right:30px;margin-bottom:30px" id="excelDivId">
-		<label ><strong>Click on the stars infront of domains to give rating of that domain</strong></label>
+		<div style="float:left;margin-left: 27px; margin-top: 20px;margin-right:30px;
+		margin-bottom:30px" id="excelDivId">
+		<label style="margin-left:10px" ><strong>Click on the stars infront of domains to give rating of that domain</strong></label>
+		<div style="background:url(../images/image-loader.gif) no-repeat center center;height:100px;margin-top:100px" id="backgroundImage"  ></div>
 		</div>
 		
 		<div id="explanationStarId" style="margin-top:20px">
+		
 		<label><strong>Star Explanations</strong></label>
 			<table style="margin-top:15px">
 				<tr title="Unquestioned competence in a skill.  Industry leaders recognize this person's competence.  Can explain underlying forces to others; you've practiced this skill along side other experts AND you are journeying and possibly innovating in the skill domain.">

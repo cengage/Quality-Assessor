@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Login Form</title>
+<title>Login</title>
 <script src="js/jquery/jquery.min.js"></script>
 <script src="js/jquery/jquery.validate.min.js"></script>
 <link href="css/common.css" rel="Stylesheet" type="text/css" />

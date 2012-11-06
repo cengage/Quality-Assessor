@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<title>Domain Manager</title>
 <link href="css/common.css" rel="Stylesheet" type="text/css" />
 <!-- Include the required JavaScript libraries: -->
 <script src='js/jquery/jquery.min.js' type="text/javascript"></script>
@@ -73,6 +74,7 @@ color:black;
 	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
 	<div class="background container">
 	<%@include file="/WEB-INF/pages/header.jsp"%>
+	<div id="backgroundImg"></div>
 	<div style="background: white; margin: 20px auto auto;
     width: 90%;">
 	<div style="display:inline">

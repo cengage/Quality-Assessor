@@ -12,11 +12,11 @@ $(document)
 										
 
 										var newrow=$("<tr class='cloneWorkExpTexts' id='workExpTexts"+num+"'>" +
-												"<td><input type='text' value='' class='title' name='workExperiences["+num+"].title' id='workExperiences["+num+"].title'></td>" +
-												"<td><input type='text' value='' class='areaOfExperience' name='workExperiences["+num+"].areaOfExpertise' ></td>" +
-												"<td><input type='text' value='' class='roleDescription' name='workExperiences["+num+"].roleDescription'></td>" +
-											    "<td style='width: 44%'><input type='text' value='' class='fromDatepicker' style='width: 100%' name='workExperiences["+num+"].fromDate' ></td> " +
-											    "<td style='width: 44%'><input type='text' value='' class='toDatepicker' style='width: 100%' name='workExperiences["+num+"].toDate' ></td>" +
+												"<td style='width:25%'><input style='width:90%'  type='text' value='' class='title' name='workExperiences["+num+"].title' id='workExperiences["+num+"].title'></td>" +
+												"<td style='width:25%'><input style='width:90%' type='text' value='' class='areaOfExperience' name='workExperiences["+num+"].areaOfExpertise' ></td>" +
+												"<td style='width:25%'><input style='width:90%' type='text' value='' class='roleDescription' name='workExperiences["+num+"].roleDescription'></td>" +
+											    "<td style='width:13%'><input style='width: 90%' type='text' value='' class='fromDatepicker'  name='workExperiences["+num+"].fromDate' ></td> " +
+											    "<td style='width:12%'><input style='width: 90%' type='text' value='' class='toDatepicker'  name='workExperiences["+num+"].toDate' ></td>" +
 											    "</tr>") ;
 										
 									

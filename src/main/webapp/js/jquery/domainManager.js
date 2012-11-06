@@ -36,6 +36,15 @@ function makeTable(domain){
 }
 
 $(function() {
+	
+	
+//	$("div").ajaxStart(function(){
+//	    $(this).html("<img src='images/demo_wait.gif' />");
+//	  });
+//	
+//	$("div").ajaxStop(function(){
+//	    $(this).html("");
+//	  });
 
 //Show watermark on search text
 	
@@ -285,10 +294,17 @@ $(function() {
 	$(".expandDomain").live('click', function() {
 		key = $(this).closest('tr').attr("id");
 		var table = $(this).closest('table');
-		showCompleteDomainTree(key, table);
+		$(this).append("<img id='loadingImg' style='width:20px' src='images/demo_wait.gif' />");
+		showCompleteDomainTree(key, table);		
 		$(this).attr("src", "images/collapse.png");
 		$(this).removeClass("expandDomain");
 		$(this).addClass("collapseDomain");
+		$(this).find("#loadingImg").remove();
+		
+		
+		
+
+		
 	});
 
 //Binding collapse functionality on collapse button click

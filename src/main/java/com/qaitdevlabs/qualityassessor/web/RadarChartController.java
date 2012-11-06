@@ -50,7 +50,7 @@ public class RadarChartController {
 	}
 
 	@RequestMapping(value = "assessments/{key}/chart", method = RequestMethod.GET)
-	public String showRadarChart(ModelMap model , @PathVariable String key) {
+	public String showRadarChart(ModelMap model , @PathVariable String key ,HttpServletRequest request) {
 		Domain domain = domainService.getDomain(key);
 		if(domain == null){
 			throw new GenericException("Requested domain doesn't exist!!!");
@@ -58,6 +58,7 @@ public class RadarChartController {
 		else if(!domain.getIsParent()){
 			throw new GenericException("Requested domain is not a root domain!!!");
 		}
+		request.setAttribute("domainName", domain.getDomainName());
 		return "radarChart";
 	}
 

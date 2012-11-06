@@ -6,39 +6,49 @@ function getURLParameter(name) {
 var domainName = '';
 $(function() {
 	var key = (window.location.pathname).split("/",4)[3];
-	var domainName = getURLParameter("domainName");
-	// $('#radarChartId').attr("src", "radarChart?key=" + key);
-	$('#headingMsg').html(
-			"Assessment for " + domainName);
-	var img = new Image();
+//	var domainName = getURLParameter("domainName");
+//	// $('#radarChartId').attr("src", "radarChart?key=" + key);
+//	$('#headingMsg').html(
+//			"Assessment for " + domainName);
 
+	$('#radarImage').attr('src','../../radarChart?key='+key);
 	// wrap our new image in jQuery, then:
-	$(img)
-	// once the image has loaded, execute this code
-	.load(function() {
-		// set the image hidden by default
-		$(this).hide();
-
-		// with the holding div #loader, apply:
-		$('#loader')
-		// remove the loading class (so no background spinner),
-		.removeClass('loading')
-		// then insert our image
-		.append(this);
-
-		// fade our image in to create a nice effect
-		$(this).fadeIn();
-	})
+//	$('#radarImage')
+//	// once the image has loaded, execute this code
+//	.load(function() {
+//		// set the image hidden by default
+//		$(this).hide();
+//
+//		// with the holding div #loader, apply:
+////		$('#loader')
+//		// remove the loading class (so no background spinner),
+//		$('#backgroundImage').hide();
+//		// then insert our image
+////		$('#loader').append(this);
+//
+//		// fade our image in to create a nice effect
+//		$(this).fadeIn();
+//	})
 
 	// if there was an error loading the image, react accordingly
-	.error(function() {
-			alert("image loading error occured");
-	})
+//	.error(function() {
+//			$('#backgroundImage').hide();
+//			alert("image loading error occured");
+//	})
 
 	// *finally*, set the src attribute of the new image to our image
-	.attr('src', "../../radarChart?key=" + key);
-	
-	
+
+//	$("#radarImage").load(function(){
+//        $("#backgroundImage").hide().fadeOut(function(){
+//        	alert('ds');
+//            $("#radarImage").fadeIn();
+//        });
+//    });
+	 function preloader(){
+         document.getElementById("radarImage").style.display = "block";
+         document.getElementById("radarImage").style.background = "none";
+     }//preloader
+     window.onload = preloader;
 	
 	
 });

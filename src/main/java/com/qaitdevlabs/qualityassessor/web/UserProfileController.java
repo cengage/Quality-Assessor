@@ -11,11 +11,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.qaitdevlabs.qualityassessor.common.exception.GenericException;
 import com.qaitdevlabs.qualityassessor.dto.UserProfileDTO;
 import com.qaitdevlabs.qualityassessor.model.SocialNetwork;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.model.WorkExperience;
+import com.qaitdevlabs.qualityassessor.service.SocialNetworkService;
 import com.qaitdevlabs.qualityassessor.service.UserService;
+import com.qaitdevlabs.qualityassessor.service.WorkExperienceService;
 
 @Controller
 public class UserProfileController {
@@ -27,14 +30,30 @@ public class UserProfileController {
 		this.userService = userService;
 	}
 
+	private WorkExperienceService workExperienceService;
+
+	@Autowired
+	public void setWorkExperienceService(
+			WorkExperienceService workExperienceService) {
+		this.workExperienceService = workExperienceService;
+	}
+
+	private SocialNetworkService socialNetworkService;
+
+	@Autowired
+	public void setSocialNetworkService(
+			SocialNetworkService socialNetworkService) {
+		this.socialNetworkService = socialNetworkService;
+	}
+
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String getProfilePage(HttpServletRequest request, ModelMap map) {
 
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
 
-		List<WorkExperience> workExperiences = userService
-				.getWorkExperiences(user);
+		List<WorkExperience> workExperiences = workExperienceService
+				.getWorkExperiencesByUser(user);
 		UserProfileDTO userProfileDTO = new UserProfileDTO();
 
 		userProfileDTO.setUsername(user.getUsername());
@@ -52,16 +71,16 @@ public class UserProfileController {
 		String twitterId = "";
 		String googleplusId = "";
 		String linkedInId = "";
-	
-		List<SocialNetwork> socialNetworks = userService
-				.getSocialNetworks(user);
-		if (socialNetworks.size() > 0) {
+
+		List<SocialNetwork> socialNetworks = socialNetworkService
+				.getSocialNetworksByUser(user);
+		if (socialNetworks!= null && socialNetworks.size() > 0) {
 			SocialNetwork socialNetwork = socialNetworks.get(0);
 			facebookId = socialNetwork.getFacebookId();
 			twitterId = socialNetwork.getTwitterId();
 			googleplusId = socialNetwork.getGoogleplusId();
 			linkedInId = socialNetwork.getLinkedInId();
-	
+
 		}
 
 		userProfileDTO.setFacebookId(facebookId);
@@ -73,21 +92,18 @@ public class UserProfileController {
 		return "profile";
 	}
 
-	
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public String updateUserProfile(@Valid UserProfileDTO userProfileDTO,
 			BindingResult result, ModelMap map, HttpServletRequest request) {
-		
+
 		if (result.hasErrors()) {
 			return "profile";
 		}
-		
-		
-		
+
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
-		
-		if(!userProfileDTO.getUsername().equals(user.getUsername())){
+
+		if (!userProfileDTO.getUsername().equals(user.getUsername())) {
 			User dbUser = userService.findUserWithProperty("username",
 					userProfileDTO.getUsername());
 			if (dbUser != null) {
@@ -96,7 +112,7 @@ public class UserProfileController {
 				return "profile";
 			}
 		}
-		
+
 		user.setUsername(userProfileDTO.getUsername());
 		user.setFirstName(userProfileDTO.getFirstName());
 		user.setLastName(userProfileDTO.getLastName());
@@ -114,19 +130,30 @@ public class UserProfileController {
 			Iterator<WorkExperience> it = workExperiences.iterator();
 			while (it.hasNext()) {
 				WorkExperience workExperience = (WorkExperience) it.next();
+				Long workExpId = workExperience.getWorkExperienceId();
+				if (workExpId != null) {
+					WorkExperience workExp = workExperienceService
+							.getWorkExperience(workExpId);
+					User actualUser = workExp.getUser();
+					
+					//check if work experience belongs to login user or other user
+					
+					if (actualUser== null || !actualUser.equals(user)) {
+						throw new GenericException(
+								"User have no right to update work experience of other person");
+					}
+				}
 				workExperience.setUser(user);
-				userService.saveWorkExperience(workExperience);
+				workExperienceService.saveWorkExperience(workExperience);
 			}
 		}
 
-		
-		List<SocialNetwork> socialNetworks = userService
-				.getSocialNetworks(user);
+		List<SocialNetwork> socialNetworks = socialNetworkService
+				.getSocialNetworksByUser(user);
 		SocialNetwork socialNetwork = null;
 		if (socialNetworks.size() > 0) {
 			socialNetwork = socialNetworks.get(0);
-		}
-		else{
+		} else {
 			socialNetwork = new SocialNetwork();
 		}
 		socialNetwork.setUser(user);
@@ -135,8 +162,9 @@ public class UserProfileController {
 		socialNetwork.setLinkedInId(userProfileDTO.getLinkedInId());
 		socialNetwork.setGoogleplusId(userProfileDTO.getGoogleplusId());
 		userService.saveSocialNetwork(socialNetwork);
-		
-		request.getSession(false).setAttribute("message","Your Profile has been updated successfully.");
+
+		request.getSession(false).setAttribute("message",
+				"Your Profile has been updated successfully.");
 		return "redirect:/home";
 	}
 }

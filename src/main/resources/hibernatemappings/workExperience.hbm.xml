@@ -3,7 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.qaitdevlabs.qualityassessor.model.WorkExperience" table="work_experience">
+    <class name="com.qaitdevlabs.qualityassessor.model.WorkExperience" table="work_experience" >
         <id name="workExperienceId" type="java.lang.Long">
             <column name="work_experience_id" />
             <generator class="native" />
@@ -23,7 +23,7 @@
         <property name="toDate" type="string" >
             <column name="to_date" />
         </property>
-        <many-to-one name="user" class="com.qaitdevlabs.qualityassessor.model.User">
+        <many-to-one name="user" class="com.qaitdevlabs.qualityassessor.model.User" lazy="false">
             <column name="user_id" not-null="true" />
         </many-to-one>
     </class>

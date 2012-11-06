@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
+<title>My Profile</title>
 <link href="css/profile.css" rel="Stylesheet" type="text/css" />
 <link href="css/common.css" rel="Stylesheet" type="text/css" />
 <link href="css/button.css" type="text/css" rel="stylesheet">

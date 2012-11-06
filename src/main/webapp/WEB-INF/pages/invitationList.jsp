@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Login Form</title>
+<title>Invite Friends For Assessment</title>
 <script src="js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery/invitationList.js"></script>
 <link href="css/common.css" rel="Stylesheet" type="text/css" />

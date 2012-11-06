@@ -14,7 +14,7 @@ $(function() {
 		url : '../domainHierarchy?key='+key+'&requestedUserId='+requestedUserId+'&fetchAssessment=true',
 		success : function(data) {
 			var ul = "";
-			ul += '<table style="margin-top:15px;border-color: #999999;border-style: solid;" class="imagetable" id="excelId">';
+			ul += '<table style="margin-left:10px;margin-top:15px;border-color: #999999;border-style: solid;" class="imagetable" id="excelId">';
 			data = JSON.parse(data);
 			ul += "<tr><td style='border-bottom:none'>" + data.title + "</td><td></td><td></td><td></td></tr>"
 			children = data.children;
@@ -71,8 +71,10 @@ $(function() {
 			}
 			ul += '</table>'
 			$('#excelDivId').append(ul);
+			$('#backgroundImage').hide();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
+			$('#backgroundImage').hide();
 			$('html').html(jqXHR.responseText);
 //			var win = window.open('', '_self');
 //			win.document.getElementsByTagName('Body')[0].innerText = jqXHR.responseText;
