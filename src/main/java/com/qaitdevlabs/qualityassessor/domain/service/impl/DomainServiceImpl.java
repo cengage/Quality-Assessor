@@ -50,11 +50,11 @@ public class DomainServiceImpl implements DomainService {
 	}
 
 	@Override
-	public List<TreeNodeDTO> getDomainList(String key ,User user) {
+	public List<TreeNodeDTO> getDomainList(String key ,User user ,String domainType) {
 		Long id = Long.valueOf(key);
 		List<TreeNodeDTO> nodeList = null;
 		if (id == 0) {
-			nodeList = getTreeNodeDTO(domainDao.getRootDomainListOnUserBasis(user));
+			nodeList = getTreeNodeDTO(domainDao.getRootDomainListOnUserBasis(user, domainType));
 		} else {
 			nodeList = getTreeNodeDTO(domainDao.getSubDomainList(id));
 		}
@@ -62,6 +62,7 @@ public class DomainServiceImpl implements DomainService {
 		return nodeList;
 	}
 
+		
 	@SuppressWarnings("rawtypes")
 	private List<TreeNodeDTO> getTreeNodeDTO(List object) {
 
@@ -75,15 +76,15 @@ public class DomainServiceImpl implements DomainService {
 
 				Domain domain = (Domain) it.next();
 				TreeNodeDTO dto = getTreeNodeDTO(domain);
-				int noOfChildren = domainDao.getSubDomainList(
-						domain.getDomainId()).size();
-				System.out.println("domainid and children"
-						+ domain.getDomainId() + " " + noOfChildren);
-
-				if (noOfChildren > 0) {
-//					dto.setIsLazy("true");
-					System.out.println("lazy" + true);
-				}
+//				int noOfChildren = domainDao.getSubDomainList(
+//						domain.getDomainId()).size();
+//				System.out.println("domainid and children"
+//						+ domain.getDomainId() + " " + noOfChildren);
+//
+//				if (noOfChildren > 0) {
+////					dto.setIsLazy("true");
+//					System.out.println("lazy" + true);
+//				}
 				domainsDto.add(dto);
 
 			}
@@ -124,7 +125,7 @@ public class DomainServiceImpl implements DomainService {
 			TreeNodeDTO dto = new TreeNodeDTO();
 			dto.setKey(String.valueOf(domain.getDomainId()));
 			dto.setTitle(domain.getDomainName());
-			dto.setType(domain.getType());
+			dto.setType(domain.getDomainType());
 			//dto.setWikipediaLink(domain.getWikipediaLink());
 			dto.setCreationDate(domain.getCreationDate());
 			// dto.setCreationUserName(domain.getCreationUser().getUsername());
@@ -149,7 +150,7 @@ public class DomainServiceImpl implements DomainService {
 				domain = new Domain();
 				domain.setCreationDate(dto.getModificationDate());
 				domain.setCreationUser(user);
-				domain.setType(dto.getType());
+				domain.setDomainType(dto.getType());
 				domain.setIsParent(true);
 				domain.setIsActive(true);
 			}
@@ -176,7 +177,7 @@ public class DomainServiceImpl implements DomainService {
 				subDomain.setCreationUser(user);
 				subDomain.setIsActive(true);
 				subDomain.setIsParent(false);
-				subDomain.setType(dto.getType());
+				subDomain.setDomainType(dto.getType());
 				Domain domain = domainDao.get(parentKey);
 				domainMapping.setDomain(domain);
 				domainMapping.setSubDomain(subDomain);
@@ -280,10 +281,12 @@ public class DomainServiceImpl implements DomainService {
 			dto.setWeightage(weightage);
 			list.add(dto);
 		}
-		return list; // To change body of implemented methods use File |
-						// Settings | File Templates.
+		return list; 
 	}
 
+	
+	//GET All root domains
+	
 	@Override
 	public List<DomainDTO> getListOfRootDomains() {
 		List<DomainDTO> listOfRootDomains = null;
@@ -380,7 +383,7 @@ public class DomainServiceImpl implements DomainService {
 		cloneDomain.setDomainName(domain.getDomainName());
 		cloneDomain.setIsParent(false);
 		cloneDomain.setIsActive(domain.getIsActive());
-		cloneDomain.setType(domain.getType());
+		cloneDomain.setDomainType(domain.getDomainType());
 		cloneDomain.setCreationDate(date);
 		cloneDomain.setModificationDate(date);
 		cloneDomain.setCreationUser(user);

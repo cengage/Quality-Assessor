@@ -23,7 +23,7 @@ public interface DomainService {
 	 *            parent key
 	 * @return domain list
 	 */
-	public List<TreeNodeDTO> getDomainList(String key , User user);
+	public List<TreeNodeDTO> getDomainList(String key , User user, String domainType);
 
 	/**
 	 * This method update domain

@@ -155,7 +155,8 @@ public class DomainController {
 	List<TreeNodeDTO> getDomainList(@RequestParam String key , HttpServletRequest request) {
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
-		List<TreeNodeDTO> list = domainService.getDomainList(key, user);
+		String type = "product";
+		List<TreeNodeDTO> list = domainService.getDomainList(key, user, type );
 		return list;
 	}
 

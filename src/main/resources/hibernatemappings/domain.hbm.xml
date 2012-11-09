@@ -30,10 +30,10 @@
 			<column name="modification_date" />
 		</property>
 		<many-to-one name="creationUser"
-			class="com.qaitdevlabs.qualityassessor.model.User" column="creation_user" lazy="false"
+			class="com.qaitdevlabs.qualityassessor.model.User" column="creation_user" 
 			 />
 		<many-to-one name="modificationUser"
-			class="com.qaitdevlabs.qualityassessor.model.User" column="modification_user" lazy="false"
+			class="com.qaitdevlabs.qualityassessor.model.User" column="modification_user" 
 			 />
 
 	</class>

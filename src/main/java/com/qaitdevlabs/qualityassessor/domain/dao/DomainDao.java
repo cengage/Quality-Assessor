@@ -78,7 +78,7 @@ public interface DomainDao extends GenericDao<Domain, Long> {
 
 	public List<Domain> findDomainsWithProperty(String property, String value);
 
-	List<Domain> getRootDomainListOnUserBasis(User user);
+	List<Domain> getRootDomainListOnUserBasis(User user, String domainType);
 
 	public List<Domain> getMatchingDomain(String name, String domainType);
 

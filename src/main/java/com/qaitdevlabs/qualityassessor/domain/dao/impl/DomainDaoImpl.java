@@ -3,6 +3,7 @@ package com.qaitdevlabs.qualityassessor.domain.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -50,7 +51,7 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 	}
 
 	@Override
-	public List<Domain> getRootDomainListOnUserBasis(User user) {
+	public List<Domain> getRootDomainListOnUserBasis(User user, String domainType) {
 		Session session = null;
 		List<Domain> domains = null;
 
@@ -59,6 +60,7 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 			Criteria criteria = session.createCriteria(Domain.class);
 			criteria.add(Restrictions.eq("isParent", true));
 			criteria.add(Restrictions.eq("creationUser", user));
+			criteria.add(Restrictions.eq("domainType", domainType));
 			domains = criteria.list();
 		} catch (HibernateException e) {
 			e.printStackTrace();
