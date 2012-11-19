@@ -32,9 +32,8 @@
 					style="color: windowtext; z-index: -1; padding: 7px; width: 750px; background: OliveDrab">${requestScope.message}</div>
 			</div>
 		</c:if>
-		<table
-			style="margin-top: 4%; width: 80%; margin-right: auto; margin-left: 80px; float: left;margin-bottom:20px"
-			class="imagetable">
+		<div style="margin:34px auto">
+		<table class="imagetable">
 <!-- 			<thead> -->
 <!-- 				<tr> -->
 <!-- 					<td -->
@@ -58,7 +57,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		
+		</div>
 
 		<div style="width: 500px; margin-left:80px">
 			<a  style="color:#30576E" href="assessmentRequests">Click here to assess others</a>
