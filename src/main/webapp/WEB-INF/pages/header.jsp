@@ -13,8 +13,8 @@
 			
 			
 				<c:if test="${sessionScope.group=='AdminGroup'}">
-					<li><a href='/qualityassessor/domainManager'><span>Product Management</span></a></li>
-					<li><a href='/qualityassessor/domainManager'><span>Colleague/Skill Management</span></a></li>
+					<li><a href='/qualityassessor/domainManagement?type=product'><span>Product Management</span></a></li>
+					<li><a href='/qualityassessor/domainManagement?type=skill'><span>Colleague/Skill Management</span></a></li>
 				</c:if>
 				
 		

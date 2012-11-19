@@ -37,15 +37,9 @@ function makeTable(domain){
 
 $(function() {
 	
+	var domainType = getURLParameter('type');
 	
-//	$("div").ajaxStart(function(){
-//	    $(this).html("<img src='images/demo_wait.gif' />");
-//	  });
-//	
-//	$("div").ajaxStop(function(){
-//	    $(this).html("");
-//	  });
-
+	
 //Show watermark on search text
 	
 	$("#searchDomain").watermark("Search Domain");
@@ -56,7 +50,7 @@ $(function() {
 	$
 			.ajax({
 				type : 'GET',
-				url : 'domains?key=0',
+				url : 'domains?key=0&domainType='+domainType,
 				success : function(data) {
 					data = JSON.parse(data);
 					for (i = 0; i < data.length; i++) {

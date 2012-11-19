@@ -152,11 +152,10 @@ public class DomainController {
 	 */
 	@RequestMapping(value = "/domains")
 	public @ResponseBody
-	List<TreeNodeDTO> getDomainList(@RequestParam String key , HttpServletRequest request) {
+	List<TreeNodeDTO> getDomainList(@RequestParam String key ,@RequestParam String domainType, HttpServletRequest request) {
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
-		String type = "product";
-		List<TreeNodeDTO> list = domainService.getDomainList(key, user, type );
+		List<TreeNodeDTO> list = domainService.getDomainList(key, user, domainType);
 		return list;
 	}
 

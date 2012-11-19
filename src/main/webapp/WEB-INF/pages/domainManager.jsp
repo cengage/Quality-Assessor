@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -82,19 +83,23 @@ color:black;
 					onclick="location.reload();" value="My Domains">
 				
 		</div>
-		<div style="display:inline">
-			<input class="btn primary"  type="button"
+		<c:choose>
+			<c:when test="${param.type=='product'}">
+				<div style="display:inline">
+					<input class="btn primary"  type="button"
 					onclick="showAddRootDomainView('product')" value="Add Product Domain">
-				
-		</div>
-		<div style="display:inline">
-			<input class="btn primary"  type="button"
-					onclick="showAddRootDomainView('skill')" value="Add Skill Domain">
-		</div>
-
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div style="display:inline">
+					<input class="btn primary"  type="button"
+						onclick="showAddRootDomainView('skill')" value="Add Skill Domain">
+				</div>
+			</c:otherwise>
+		</c:choose>
 		<div  style="margin-right:10px;float:right;display:inline">
 			<input id="searchDomain" type="text" style="width:180px">
-			<select id="searchDomainType" style="margin:0px"><option>product</option><option>skill</option></select>
+			<input id="searchDomainType" type="hidden" value="${param.type}">
 		</div>
 		</div>
 		<p></p>

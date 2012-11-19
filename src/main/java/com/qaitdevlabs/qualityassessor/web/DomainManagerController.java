@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class DomainManagerController {
 
-	@RequestMapping(value = "/domainManager", method = RequestMethod.GET)
+	@RequestMapping(value = "/domainManagement", method = RequestMethod.GET)
 	public String showDomainManagerPage() {
 		return "domainManager";
 
