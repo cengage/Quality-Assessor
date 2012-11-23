@@ -1,0 +1,16 @@
+package com.qaitdevlabs.qualityassessor.product.service;
+
+import java.util.List;
+
+import com.qaitdevlabs.qualityassessor.model.Product;
+import com.qaitdevlabs.qualityassessor.model.User;
+
+public interface ProductService {
+
+	/**
+	 *Get list of products created by user 
+	 * @param user user who creates the product
+	 * @return list of products
+	 */
+	public List<Product> getListOfProductsByUser(User user);
+}

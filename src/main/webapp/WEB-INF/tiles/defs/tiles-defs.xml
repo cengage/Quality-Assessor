@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="login" template="/WEB-INF/pages/login.jsp">
+	</definition>
+
+	<definition name="common-template" template="/WEB-INF/tiles/layout/common-layout.jsp">
+		<put-attribute name="main-header" value="//WEB-INF/pages/mainHeader.jsp" />
+		<put-attribute name="header" value="/WEB-INF/pages/header.jsp" />
+		<put-attribute name="topNavigation" value="/WEB-INF/pages/header.jsp" />
+		<put-attribute name="leftNavigation" value="/WEB-INF/pages/navigation/homeLeftNavigation.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/pages/footer.jsp" />
+	</definition>
+
+	<definition name="home" extends="common-template">
+		<put-attribute name="header" value="/WEB-INF/pages/home/homeHeader.jsp" />
+		<put-attribute name="leftNavigation" value="/WEB-INF/pages/home/homeLeftNavigation.jsp" />
+		<put-attribute name="content" value="/WEB-INF/pages/home/homeContent.jsp" />
+	</definition>
+
+	<definition name="domainManager" extends="common-template">
+		<put-attribute name="header" value="/WEB-INF/pages/productMgr/productMgrHeader.jsp" />
+		<put-attribute name="leftNavigation" value="/WEB-INF/pages/productMgr/productMgrLeftNavigation.jsp" />
+		<put-attribute name="content" value="/WEB-INF/pages/productMgr/productMgrContent.jsp" />
+	</definition>
+	
+	<definition name="myProductsView" extends="common-template">
+		<put-attribute name="header" value="/WEB-INF/pages/generalHeader.jsp" />
+		<put-attribute name="leftNavigation" value="/WEB-INF/pages/productMgr/productMgrLeftNavigation.jsp" />
+		<put-attribute name="content" value="/WEB-INF/pages/productMgr/myProductsView.jsp" />
+	</definition>
+
+	<definition name="profile" extends="common-template">
+		<put-attribute name="header" value="/WEB-INF/pages/profile/profileHeader.jsp" />
+		<put-attribute name="leftNavigation" value="/WEB-INF/pages/profile/profileLeftNavigation.jsp" />
+		<put-attribute name="content" value="/WEB-INF/pages/profile/profileContent.jsp" />
+	</definition>
+	
+	<definition name="assessmentRequests" extends="common-template">
+		<put-attribute name="header" value="/WEB-INF/pages/generalHeader.jsp" />
+		<put-attribute name="leftNavigation" value="/WEB-INF/pages/reviews/reviewLeftNavigation.jsp" />
+		<put-attribute name="content" value="/WEB-INF/pages/reviews/reviewContent.jsp" />
+	</definition>
+
+</tiles-definitions>

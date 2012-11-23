@@ -14,11 +14,13 @@
 
 	<import resource="classpath:/database/datasource.xml" />
 	<import resource="classpath:/database/hibernatesessionfactory.xml" />
+	<import resource="classpath:/spring/tiles.xml" />
 	<import resource="classpath:/spring/dao.xml" />
 	<import resource="classpath:/spring/service.xml" />
 	<import resource="classpath:/spring/security.xml" />
 	<import resource="classpath:/spring/exceptionResolver.xml" />
 	<import resource="classpath:/cache/cache-config.xml" />
+	
 	<!-- <import resource="classpath:/mail/spring-mail.xml" /> -->
 	<!-- <import resource="classpath:/mail/spring-velocity.xml" /> -->
 	<!-- <import resource="classpath:/spring/controller.xml" /> -->
@@ -57,18 +59,18 @@
 	<!-- <property name="order" value="0" /> -->
 	<!-- </bean> -->
 
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix">
-			<value>/WEB-INF/pages/</value>
-		</property>
-		<property name="suffix">
-			<value>.jsp</value>
-		</property>
-		<property name="order">
-			<value>1</value>
-		</property>
-	</bean>
+<!-- 	<bean -->
+<!-- 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
+<!-- 		<property name="prefix"> -->
+<!-- 			<value>/WEB-INF/pages/</value> -->
+<!-- 		</property> -->
+<!-- 		<property name="suffix"> -->
+<!-- 			<value>.jsp</value> -->
+<!-- 		</property> -->
+<!-- 		<property name="order"> -->
+<!-- 			<value>1</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -78,6 +80,6 @@
 			</list>
 		</property>
 	</bean>
-
+<mvc:view-controller path="/reviews" view-name="reviews"/>
 
 </beans>

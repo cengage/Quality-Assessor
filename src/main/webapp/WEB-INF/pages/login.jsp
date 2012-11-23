@@ -52,7 +52,7 @@
 		</form>
 
 	</div>
-	<%@include file="/WEB-INF/pages/footer.jsp"%>
+<%-- 	<%@include file="/WEB-INF/pages/footer.jsp"%> --%>
 
 </body>
 </html>

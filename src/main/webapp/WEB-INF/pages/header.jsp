@@ -19,7 +19,7 @@
 				
 		
 
-			<li><a href='/qualityassessor/assessments'><span>Assessments</span></a></li>
+			<li><a href='/qualityassessor/assessmentRequests'><span>Reviews</span></a></li>
 			<li><a href='/qualityassessor/profile'><span> My Profile</span></a></li>
 			<li><a href="<c:url value='/qualityassessor/j_spring_security_logout'/>"><span>Logout</span></a></li>
 		</ul>

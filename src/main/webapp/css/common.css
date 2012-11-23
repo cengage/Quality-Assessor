@@ -6,10 +6,11 @@
 }
 
 .container {
-    margin-left: auto;
+/*     margin-left: 9%; */
     margin-right: auto;
-    width: 70%;
-    min-height : 650px;
+/*     width: 70%; */
+/*     min-height : 650px; */
+height:100%;
     overflow: hidden;
 }
 body {
@@ -28,4 +29,12 @@ body {
     font-size: 13px;
     font-weight: normal;
     line-height: 18px;
+}
+
+.linkNavigation{
+	color:white;text-decoration:none;
+}
+
+.divNavigation{
+	margin:12%;
 }

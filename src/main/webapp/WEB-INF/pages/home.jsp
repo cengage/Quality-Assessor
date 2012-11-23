@@ -16,10 +16,10 @@
 </head>
 
 <body>
-	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
-	
+<%-- 	<%@include file="/WEB-INF/pages/mainHeader.jsp"%> --%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 	<div class="background container">
-	<%@include file="/WEB-INF/pages/header.jsp"%>
+<%-- 	<%@include file="/WEB-INF/pages/header.jsp"%> --%>
 		<div style="background: white; padding: 10px">
 			<c:if test="${not empty requestScope.message}">
 				<div id="messageDiv" style="padding: 11px 7px;">
@@ -27,15 +27,11 @@
 						style="color: windowtext; z-index: -1; padding: 7px; width: 750px; background: OliveDrab">${requestScope.message}</div>
 				</div>
 			</c:if>
-<%-- 			<div style="font-weight:bold;font-size:17px;margin-left:10px">Welcome ${sessionScope.userCompleteName}</div> --%>
-<!-- 			<div style='margin:10px'><a  style='color:#30576E;' href=''>View New Added Domains</a></div> -->
-<!-- 			<div style='margin:10px'><a  style='color:#30576E;' href='assessmentRequests'>Invitations For Assessment</a></div> -->
-<!-- 			<div style='margin:10px'><a  style='color:#30576E;' href='profile'>Manage Your Profile</a></div> -->
-<!-- 			<div style='margin:10px'><a  style='color:#30576E;' href=''>History</a></div> -->
+
 		</div>
 		<p style='margin-left:50px'><strong>Welcome ${sessionScope.userCompleteName}</strong></p>
 	
 	</div>
-	<%@include file="/WEB-INF/pages/footer.jsp"%>
+	
 </body>
 </html>

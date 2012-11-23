@@ -1,4 +1,12 @@
-<div class="header" style="width: 70%; margin: auto; height: 60px;">
-	<img src="/qualityassessor/images/2.png"
-		style="background: none repeat scroll 0% 0% white; border-top-left-radius: 5px; border-top-right-radius: 5px; margin-top: 10px; height: 50px;width:100%">
+<div  style="background: none repeat scroll 0 0 black;
+    height: 30px;
+    margin: auto;
+    width: 100%;">
+	<label style="color: white;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+    margin-left: 33px;
+    padding-top: 5px;
+    position: absolute;">Quality Assessor</label>
 </div>

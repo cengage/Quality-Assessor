@@ -28,6 +28,7 @@
 				<value>/hibernatemappings/urlRule.hbm.xml</value>
 				<value>/hibernatemappings/componentRule.hbm.xml</value>
 				<value>/hibernatemappings/domain.hbm.xml</value>
+				<value>/hibernatemappings/product.hbm.xml</value>
 				<value>/hibernatemappings/domainMapping.hbm.xml</value>
                 <value>/hibernatemappings/socialNetwork.hbm.xml</value>
                 <value>/hibernatemappings/workExperience.hbm.xml</value>
