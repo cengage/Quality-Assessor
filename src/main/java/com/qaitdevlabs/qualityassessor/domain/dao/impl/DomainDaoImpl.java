@@ -62,6 +62,7 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 			criteria.add(Restrictions.eq("creationUser", user));
 			criteria.add(Restrictions.eq("domainType", domainType));
 			domains = criteria.list();
+			System.out.println("DAO"+domains);
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {

@@ -45,15 +45,17 @@ font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 13px;
     font-weight: normal;
     line-height: 18px;
+
 }
 
 .rootTitle:hover{
 color:black;
 text-decoration:underline;
-cursor:pointer;
-
 }
 
+.rootTitle{
+cursor:pointer;
+}
 
 a{
 color:black;

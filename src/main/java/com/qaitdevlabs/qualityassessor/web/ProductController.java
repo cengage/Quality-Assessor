@@ -42,4 +42,8 @@ public class ProductController {
 		return "myProductsView";
 	}
 	
+	public List<Product> getMatchingProducts(){
+		
+	}
+	
 }

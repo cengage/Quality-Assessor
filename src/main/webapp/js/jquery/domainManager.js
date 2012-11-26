@@ -37,7 +37,7 @@ function makeTable(domain){
 
 $(function() {
 	
-	var domainType = getURLParameter('type');
+//	var domainType = getURLParameter('type');
 	
 	
 //Show watermark on search text
@@ -47,20 +47,20 @@ $(function() {
 	
 //Get Root Domains
 	
-	$
-			.ajax({
-				type : 'GET',
-				url : 'domains?key=0&domainType='+domainType,
-				success : function(data) {
-					data = JSON.parse(data);
-					for (i = 0; i < data.length; i++) {
-						makeTable(data[i]);
-					}
-				},
-				error : function(jqXHR, textStatus, errorThrown) {
-				},
-				dataType : 'text'
-			});
+//	$
+//			.ajax({
+//				type : 'GET',
+//				url : 'domains?key=0&domainType='+domainType,
+//				success : function(data) {
+//					data = JSON.parse(data);
+//					for (i = 0; i < data.length; i++) {
+//						makeTable(data[i]);
+//					}
+//				},
+//				error : function(jqXHR, textStatus, errorThrown) {
+//				},
+//				dataType : 'text'
+//			});
 
 });
 

@@ -55,16 +55,24 @@ public class DomainServiceImpl implements DomainService {
 		List<TreeNodeDTO> nodeList = null;
 		if (id == 0) {
 			nodeList = getTreeNodeDTO(domainDao.getRootDomainListOnUserBasis(user, domainType));
+			System.out.println("service"+nodeList);
 		} else {
 			nodeList = getTreeNodeDTO(domainDao.getSubDomainList(id));
 		}
-		Collections.sort(nodeList, new CustomDomainComparator());
+		if(nodeList !=null){
+			Collections.sort(nodeList, new CustomDomainComparator());
+		}
+		System.out.println("service"+nodeList);
 		return nodeList;
 	}
 
 		
 	@SuppressWarnings("rawtypes")
 	private List<TreeNodeDTO> getTreeNodeDTO(List object) {
+		
+		if(object == null || object.size()<1){
+			return null;
+		}
 
 		List<TreeNodeDTO> domainsDto = new ArrayList<TreeNodeDTO>();
 		if (object.get(0) instanceof Domain) {

@@ -151,12 +151,14 @@ public class DomainController {
 	 * @return list of child domains
 	 */
 	@RequestMapping(value = "/domains")
-	public @ResponseBody
-	List<TreeNodeDTO> getDomainList(@RequestParam String key ,@RequestParam String domainType, HttpServletRequest request) {
+	public String getDomainList(@RequestParam(defaultValue = "0") String key ,@RequestParam String domainType, ModelMap model, HttpServletRequest request) {
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
 		List<TreeNodeDTO> list = domainService.getDomainList(key, user, domainType);
-		return list;
+		System.out.println("controller"+list);
+		model.addAttribute("domainType", domainType);
+		model.addAttribute("rootDomainList", list);
+		return "commonDomainsView";
 	}
 
 	

@@ -1,12 +1,6 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<html>
-<head>
-<link href="/qualityassessor/css/header.css" type="text/css"
-	rel='stylesheet' />
-</head>
-<body>
 	<div id='cssmenu'>
 		<ul>
 
@@ -57,5 +51,3 @@
 		<label style="color:white;">Create Review</label></div>
 		<div style="position:absolute;color:white;right:10px;" id="search"><input size="30" type="text"></div>
 	</div>
-</body>
-</html>
