@@ -15,4 +15,8 @@ public interface ProductDao extends GenericDao<Product, Serializable> {
 	 * @return list of products
 	 */
 	public List<Product> getListOfProductsByUser(User user);
+
+	public void saveOrUpdateProduct(Product product);
+
+	public void deleteProduct(Product product);
 }

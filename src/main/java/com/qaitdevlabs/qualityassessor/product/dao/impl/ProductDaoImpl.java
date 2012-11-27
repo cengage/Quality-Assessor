@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import com.qaitdevlabs.qualityassessor.dao.impl.GenericDaoImpl;
@@ -15,6 +16,10 @@ import com.qaitdevlabs.qualityassessor.product.dao.ProductDao;
 @Repository
 public class ProductDaoImpl extends GenericDaoImpl<Product, Serializable>
 		implements ProductDao {
+	
+	public ProductDaoImpl() {
+		super(Product.class);
+	}
 
 	@Override
 	public List<Product> getListOfProductsByUser(User user) {
@@ -35,6 +40,48 @@ public class ProductDaoImpl extends GenericDaoImpl<Product, Serializable>
 			return null;
 		}
 		return listOfProducts;
+	}
+
+	@Override
+	public void saveOrUpdateProduct(Product product) {
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			System.out.println("dao");
+			session = getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(product);
+			transaction.commit();
+			System.out.println("commit");
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		
+	}
+
+	@Override
+	public void deleteProduct(Product product) {
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			System.out.println("dao");
+			session = getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			session.delete(product);
+			transaction.commit();
+			System.out.println("commit");
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		
 	}
 
 }

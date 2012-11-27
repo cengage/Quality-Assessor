@@ -13,4 +13,10 @@ public interface ProductService {
 	 * @return list of products
 	 */
 	public List<Product> getListOfProductsByUser(User user);
+
+	public void saveOrUpdateProduct(Product product);
+
+	public Product getProductById(Long id);
+
+	public void deleteProduct(Product product);
 }

@@ -23,4 +23,23 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.getListOfProductsByUser(user);
 	}
 
+	@Override
+	public void saveOrUpdateProduct(Product product) {
+		System.out.println("serv");
+		productDao.saveOrUpdateProduct(product);
+	}
+
+	@Override
+	public Product getProductById(Long id) {
+		return productDao.get(id);
+	}
+
+	@Override
+	public void deleteProduct(Product product) {
+		productDao.deleteProduct(product);
+		
+	}
+
+	
+
 }
