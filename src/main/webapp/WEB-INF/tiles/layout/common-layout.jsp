@@ -10,6 +10,9 @@
 
 	<tiles:insertAttribute name="main-header" />
 
+	<div id="tabName" style="display:none"><tiles:insertAttribute name="tabName" />
+	</div>
+
 	<div class="topNavigation">
 		<tiles:insertAttribute name="topNavigation" />
 	</div>

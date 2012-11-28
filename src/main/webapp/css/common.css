@@ -14,7 +14,7 @@ height:100%;
     overflow: hidden;
 }
 body {
-    background-color: DarkSlateGrey;
+    background-color: grey;
 /*     background-image: url("../images/bg.png"); */
     color: #404040;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -36,5 +36,16 @@ body {
 }
 
 .divNavigation{
-	margin:12%;
+	margin:3%;
+	padding:5%;
+	
 }
+
+.divNavigation:hover{
+	background:#333333
+}
+
+.activeLeftNavigation{
+	background:#333333
+}
+

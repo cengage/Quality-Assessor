@@ -17,11 +17,15 @@
 #cssmenu ul li > ul li{display:block; list-style:inside none; padding:0; margin:0; position:relative;} 
 #cssmenu ul li > ul li a{ outline:none; display:block; position:relative; margin:0; padding:6px 10px; font:10pt Arial, Helvetica, sans-serif; color:#fff; text-decoration:none; text-shadow:1px 1px 0 rgba(0,0,0, 0.5); } 
 
-#cssmenu, #cssmenu > ul > li > ul > li a:hover{ background:#30576E;background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#3e698c), color-stop(100%,#30576e)); background:-webkit-linear-gradient(top,  #3e698c 0%,#30576e 100%); background:-o-linear-gradient(top, #3e698c 0%,#30576e 100%); background:-ms-linear-gradient(top, #3e698c 0%,#30576e 100%); background:linear-gradient(top,  #3e698c 0%,#30576e 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e698c', endColorstr='#30576e',GradientType=0 ); } 
+/* #cssmenu, #cssmenu > ul > li > ul > li a:hover{ background: #30576e;background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#3e698c), color-stop(100%,#30576e)); background:-webkit-linear-gradient(top,  #3e698c 0%,#30576e 100%); background:-o-linear-gradient(top, #3e698c 0%,#30576e 100%); background:-ms-linear-gradient(top, #3e698c 0%,#30576e 100%); background:linear-gradient(top,  #3e698c 0%,#30576e 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e698c', endColorstr='#30576e',GradientType=0 ); }  */
+#cssmenu, #cssmenu > ul > li > ul > li a:hover{ background: #595959;background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#595959), color-stop(100%,#30576e)); background:-webkit-linear-gradient(top,  #595959 0%,#595959 100%); background:-o-linear-gradient(top, #3e698c 0%,#30576e 100%); background:-ms-linear-gradient(top, #3e698c 0%,#30576e 100%); background:linear-gradient(top,  #3e698c 0%,#30576e 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e698c', endColorstr='#30576e',GradientType=0 ); }  */
 #cssmenu{border-color:#1b313d;} 
-#cssmenu > ul > li > a{border-right:1px solid #1b313d; color:#fff;} 
+/* #cssmenu > ul > li > a{border-right:1px solid #1b313d; color:#fff;}  */
+#cssmenu > ul > li > a{ color:#fff;}
 #cssmenu > ul > li > a:after{border-color:#6696bd;} 
-#cssmenu > ul > li > a:hover{background:#436f93;}
+/* #cssmenu > ul > li > a:hover{background:#436f93;} */
+#cssmenu > ul > li > a:hover{background:#333333}
+#cssmenu > ul > li > a:active{background:#333333}
 #cssmenu > ul li:hover > ul {
 		display: block;
 	}

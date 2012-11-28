@@ -48,53 +48,93 @@ public class ProductController {
 	
 	@RequestMapping(value = "/saveOrUpdateProduct", method = RequestMethod.POST)
 	public @ResponseBody
-	Long saveOrUpdateProduct(HttpServletRequest request,
+	String saveOrUpdateProduct(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam String id, @RequestParam String productName,
 			@RequestParam String productDescription) {
 		System.out.println("contre");
+		String result = "Updation UnSuccessfull";
 		Long productId = null;
 		Product product = null;
+		Long userId = (Long) request.getSession().getAttribute(
+				"USER_ID");
+		User user = userService.getUser(userId);
+		
 		if (!id.equals("")) {
 			productId = Long.valueOf(id);
 			System.out.println("productId " + productId);
 			product = productService.getProductById(productId);
+			if( product == null){
+				response.setStatus(500);
+				return "Deletion Unsuccessfull ,Product doesn't exist in system";
+			}
+			if( !isProductBeUpdateable(product, user)){
+				response.setStatus(500);
+				return "You have no permission to Update this product";
+			}
 		}
-		if (product == null) {
+		else{
 			product = new Product();
+			product.setUser(user);
 		}
-		Long userId = (Long) request.getSession().getAttribute("USER_ID");
-		User user = userService.getUser(userId);
-		product.setUser(user);
+		
 		product.setProductId(productId);
 		product.setProductName(productName);
 		product.setProductDescription(productDescription);
 		productService.saveOrUpdateProduct(product);
-		return product.getProductId();
+		result = product.getProductId().toString(); 
+		return result;
 	}
 	
 	@RequestMapping(value = "/deleteProduct", method = RequestMethod.POST)
 	public @ResponseBody
-	AjaxResponse deleteProduct(HttpServletRequest request, HttpServletResponse response,
+	String deleteProduct(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam String id){
+		String result = "Deletion Unsuccessfull";
 		Long productId = null;
 		Product product = null;
-		AjaxResponse ajaxResponse = new AjaxResponse();
 		if(id.equals("")){
 			response.setStatus(500);
-			ajaxResponse.setSuccess(false);
-			ajaxResponse.setMessage("Deletion UnScuccessfull");
 		}
 		if (!id.equals("")) {
 			productId = Long.valueOf(id);
 			System.out.println("productId " + productId);
 			product = productService.getProductById(productId);
-			if(product != null){
-				productService.deleteProduct(product);
-				ajaxResponse.setSuccess(true);
-				ajaxResponse.setMessage("Deletion Scuccessfull");
+			if (product != null) {
+				Long userId = (Long) request.getSession().getAttribute(
+						"USER_ID");
+				User user = userService.getUser(userId);
+				if (isProductBeDeletable(product, user)) {
+					productService.deleteProduct(product);
+					result = "Deletion Successfull";
+				}
+				else{
+					response.setStatus(500);
+					result = "You have no permission to Delete this product";
+				}
+			}
+			else{
+				response.setStatus(500);
+				result = "Deletion Unsuccessfull ,Product doesn't exist in system";
 			}
 		}
-		return ajaxResponse;
+		return result;
+	}
+
+	private boolean isProductCorrespondToUser(Product product, User user) {
+		User productCreatedUse = product.getUser();
+		if (user.equals(productCreatedUse)) {
+			return true;
+		}
+		return false;
+
+	}
+	
+	private boolean isProductBeDeletable(Product product, User user) {
+		return isProductCorrespondToUser(product, user);
+	}
+	
+	private boolean isProductBeUpdateable(Product product, User user) {
+		return isProductCorrespondToUser(product, user);
 	}
 	
 }

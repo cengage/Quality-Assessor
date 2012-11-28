@@ -42,7 +42,7 @@ $(function() {
 	
 //Show watermark on search text
 	
-	$("#searchDomain").watermark("Search Domain");
+	//$("#searchDomain").watermark("Search Domain");
 	
 	
 //Get Root Domains

@@ -9,13 +9,13 @@
 					Management</span></a>
 
 			<ul>
-				<li><a href="domains?domainType=product"><span>Product
+				<li class="level-2"><a href="domains?domainType=product"><span>Product
 							Domains</span></a></li>
-				<li><a href="domains?domainType=skill"><span>Skill
+				<li class="level-2"><a href="domains?domainType=skill"><span>Skill
 							Domains</span></a></li>
-				<li><a href="domains?domainType=practice"><span>Practice
+				<li class="level-2"><a href="domains?domainType=practice"><span>Practice
 							Domains</span></a></li>
-				<li><a href="domains?domainType=environment"><span>Environment
+				<li class="level-2"><a href="domains?domainType=environment"><span>Environment
 							Domains</span></a></li>		
 			</ul></li>
 

@@ -18,7 +18,7 @@
 	<import resource="classpath:/spring/dao.xml" />
 	<import resource="classpath:/spring/service.xml" />
 	<import resource="classpath:/spring/security.xml" />
-	<import resource="classpath:/spring/exceptionResolver.xml" />
+<!-- 	<import resource="classpath:/spring/exceptionResolver.xml" /> -->
 	<import resource="classpath:/cache/cache-config.xml" />
 	
 	<!-- <import resource="classpath:/mail/spring-mail.xml" /> -->

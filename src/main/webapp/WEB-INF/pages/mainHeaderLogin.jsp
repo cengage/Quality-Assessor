@@ -1,4 +1,4 @@
-<div  style="background: none repeat scroll 0 0 black;
+<div  style="background: none repeat scroll 0 0 #333333;
     height: 30px;
     margin: auto;
     width: 100%;">
