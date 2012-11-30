@@ -15,10 +15,10 @@
 
 	<definition name="common-template" template="/WEB-INF/tiles/layout/common-layout.jsp">
 		<put-attribute name="main-header" value="/WEB-INF/pages/mainHeader.jsp" />
-		<put-attribute name="tabName" role="" type="object" value="home"/>
+		<put-attribute name="tabName"  type="string" value="home"/>
 		<put-attribute name="commonHeader" value="/WEB-INF/pages/commonHeader.jsp" />
 		<put-attribute name="topNavigation" value="/WEB-INF/pages/commonTopNavigation.jsp" />
-		<put-attribute name="leftNavigation" value="/WEB-INF/pages/navigation/homeLeftNavigation.jsp" />
+		<put-attribute name="leftNavigation" value="/WEB-INF/pages/commonLeftNavigation.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/pages/footer.jsp" />
 	</definition>
 
@@ -45,13 +45,13 @@
 	<definition name="home" extends="common-template">
 		<put-attribute name="header" value="/WEB-INF/pages/home/homeHeader.jsp" />
 		<put-attribute name="tabName" value="home"/>
-		<put-attribute name="leftNavigation" value="/WEB-INF/pages/home/homeLeftNavigation.jsp" />
+<!-- 		<put-attribute name="leftNavigation" value="/WEB-INF/pages/home/homeLeftNavigation.jsp" /> -->
 		<put-attribute name="content" value="/WEB-INF/pages/home/homeContent.jsp" />
 	</definition>
 
 	<definition name="commonDomainsView" extends="common-template">
 		<put-attribute name="header" value="/WEB-INF/pages/productMgr/productMgrHeader.jsp" />
-		<put-attribute name="leftNavigation" value="/WEB-INF/pages/productMgr/productMgrLeftNavigation.jsp" />
+<!-- 		<put-attribute name="leftNavigation" value="/WEB-INF/pages/productMgr/productMgrLeftNavigation.jsp" /> -->
 		<put-attribute name="content" value="/WEB-INF/pages/commonDomainsView.jsp" />
 	</definition>
 	
@@ -64,21 +64,26 @@
 	<definition name="myProductsView" extends="common-template">
 		<put-attribute name="tabName" value="myProducts"/>
 		<put-attribute name="header" value="/WEB-INF/pages/productMgr/myProductsHeader.jsp" />
-		<put-attribute name="leftNavigation" value="/WEB-INF/pages/productMgr/productMgrLeftNavigation.jsp" />
+<!-- 		<put-attribute name="leftNavigation" value="/WEB-INF/pages/productMgr/productMgrLeftNavigation.jsp" /> -->
 		<put-attribute name="content" value="/WEB-INF/pages/productMgr/myProductsView.jsp" />
 	</definition>
 
 	<definition name="profile" extends="common-template">
 		<put-attribute name="header" value="/WEB-INF/pages/profile/profileHeader.jsp" />
-		<put-attribute name="leftNavigation" value="/WEB-INF/pages/profile/profileLeftNavigation.jsp" />
+<!-- 		<put-attribute name="leftNavigation" value="/WEB-INF/pages/profile/profileLeftNavigation.jsp" /> -->
 		<put-attribute name="content" value="/WEB-INF/pages/profile/profileContent.jsp" />
 	</definition>
 	
 	<definition name="assessmentRequests" extends="common-template">
 		<put-attribute name="header" value="/WEB-INF/pages/generalHeader.jsp" />
 		<put-attribute name="tabName" value="reviewRequests"/>
-		<put-attribute name="leftNavigation" value="/WEB-INF/pages/reviews/reviewLeftNavigation.jsp" />
+<!-- 		<put-attribute name="leftNavigation" value="/WEB-INF/pages/reviews/reviewLeftNavigation.jsp" /> -->
 		<put-attribute name="content" value="/WEB-INF/pages/reviews/reviewContent.jsp" />
+	</definition>
+
+	<definition name="productReviews" extends="common-template">
+		<put-attribute name="header" value="/WEB-INF/pages/productReviewsHeader.jsp" />
+		<put-attribute name="content" value="/WEB-INF/pages/productReviews.jsp" />
 	</definition>
 
 </tiles-definitions>

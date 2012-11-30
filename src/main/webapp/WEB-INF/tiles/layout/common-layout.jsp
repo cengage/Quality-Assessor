@@ -3,14 +3,15 @@
 <html>
 <head>
 <title></title>
-<tiles:insertAttribute name="header" />
 <tiles:insertAttribute name="commonHeader" />
+<tiles:insertAttribute name="header" />
+
 </head>
 <body>
 
 	<tiles:insertAttribute name="main-header" />
 
-	<div id="tabName" style="display:none"><tiles:insertAttribute name="tabName" />
+	<div id="tabName" style="display:none"><tiles:getAsString  name="tabName" />
 	</div>
 
 	<div class="topNavigation">

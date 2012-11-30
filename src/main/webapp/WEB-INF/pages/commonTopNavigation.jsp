@@ -48,8 +48,8 @@
 		<li class="has-sub"><a href='/qualityassessor/assessmentRequests'><span>Reviews</span></a>
 
 			<ul>
-				<li><a href="#">Review Requests</a></li>
-				<li><a href="#">Product Reviews</a></li>
+				<li><a href="assessmentRequests">Review Requests</a></li>
+				<li><a href="productReviews">Product Reviews</a></li>
 				<li><a href="#">Colleague Reviews</a></li>
 				<li><a href="#">Environment Reviews</a></li>
 				<li><a href="#">Practice Reviews</a></li>

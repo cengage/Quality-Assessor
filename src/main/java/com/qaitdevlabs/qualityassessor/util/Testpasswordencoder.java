@@ -7,7 +7,7 @@ public class Testpasswordencoder {
 
 	public static void main(String arr[]) {
 		PasswordEncoder encoder = new ShaPasswordEncoder();
-		String result = encoder.encodePassword("anuj17", "eranuj17@gmail.com");
+		String result = encoder.encodePassword("viv123", "vivkumar@gab.com");
 		System.out.println(result);
 	}
 }
