@@ -5,18 +5,20 @@
 	<ul>
 
 		<li><a href='/qualityassessor/home'><span>Home</span></a></li>
-		<li class="has-sub"><a href='domains?domainType=product'><span>Domain
+		<li class="has-sub"><a href='domains?domainType=product'><span>Template
 					Management</span></a>
 
 			<ul>
+				<li class="level-2"><a href="domains?domainType=product"><span>My
+							Templates</span></a></li>
 				<li class="level-2"><a href="domains?domainType=product"><span>Product
-							Domains</span></a></li>
+							Templates</span></a></li>
 				<li class="level-2"><a href="domains?domainType=skill"><span>Skill
-							Domains</span></a></li>
+							Templates</span></a></li>
 				<li class="level-2"><a href="domains?domainType=practice"><span>Practice
-							Domains</span></a></li>
+							Templates</span></a></li>
 				<li class="level-2"><a href="domains?domainType=environment"><span>Environment
-							Domains</span></a></li>		
+							Templates</span></a></li>		
 			</ul></li>
 
 		<%-- 			<c:if test="${sessionScope.group=='AdminGroup'}"> --%>
@@ -24,11 +26,11 @@
 					Management</span></a>
 
 			<ul>
-				<li><a href="domains?domainType=product"><span>Product
-							Domains</span></a></li>
 				<li><a href="myProducts"><span>My Products</span></a></li>
+				<li><a href="domains?domainType=product"><span>Product
+							Templates</span></a></li>
 				<li><a href="domains?domainType=environment"><span>Environment
-							Domains</span></a></li>
+							Templates</span></a></li>
 				<li><a href="#"><span>Product Reviews</span></a></li>
 				<li><a href="#"><span>Environment Reviews</span></a></li>
 			</ul></li>
@@ -36,8 +38,8 @@
 					Management</span></a>
 
 			<ul>
-				<li><a href="domains?domainType=skill">Skill Domains</a></li>
-				<li><a href="domains?domainType=practice">Practice Domains</a></li>
+				<li><a href="domains?domainType=skill">Skill Templates</a></li>
+				<li><a href="domains?domainType=practice">Practice Templates</a></li>
 				<li><a href="#">Colleague Reviews</a></li>
 				<li><a href="#">My Colleagues</a></li>
 			</ul></li>

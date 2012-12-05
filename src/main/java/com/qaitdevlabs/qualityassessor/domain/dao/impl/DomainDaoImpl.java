@@ -225,7 +225,7 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 
 	
 	@Override
-	public List<Domain> getMatchingDomain(String name ,String domainType) {
+	public List<Domain> getMatchingDomain(String name) {
 		System.out.println("fdsdsdfsfasf");
 		Session session = null;
 		List<Domain> domains = null;
@@ -233,7 +233,6 @@ public class DomainDaoImpl extends GenericDaoImpl<Domain, Long> implements
 			session = getSessionFactory().openSession();
 			Criteria criteria = session.createCriteria(Domain.class);
 			criteria.add(Restrictions.like("domainName", name+"%"));
-			criteria.add(Restrictions.eq("domainType", domainType));
 			domains = criteria.list();
 		} catch (HibernateException e) {
 			e.printStackTrace();

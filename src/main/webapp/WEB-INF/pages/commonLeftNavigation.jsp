@@ -4,21 +4,22 @@
 <div class="divNavigation"><a class="linkNavigation"  href="New Feeds">New Feeds</a></div>
 </div>
 <div id="nav-2" class = "not-active">
-<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=product">Product Domains</a></div>
-<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=skill">Skill Domains</a></div>
-<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=practice">Practice Domains</a></div>
-<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=environment">Environment Domains</a></div>
+<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=product">My Templates</a></div>
+<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=product">Product Templates</a></div>
+<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=skill">Skill Templates</a></div>
+<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=practice">Practice Templates</a></div>
+<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=environment">Environment Templates</a></div>
 </div>
 <div id="nav-3" class = "not-active">
-<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=product">Product Domains</a></div>
 <div class="divNavigation"><a class="linkNavigation" href="myProducts">My Products</a></div>
-<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=environment">Environment Domains</a></div>
+<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=product">Product Templates</a></div>
+<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=environment">Environment Templates</a></div>
 <div class="divNavigation"><a class="linkNavigation" href="Add">Product Reviews</a></div>
 <div class="divNavigation"><a class="linkNavigation" href="Add">Environment Reviews</a></div>
 </div>
 <div id="nav-4" class = "not-active">
-<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=skill">Skill Domains</a></div>
-<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=practice">Practice Domains</a></div>
+<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=skill">Skill Templates</a></div>
+<div class="divNavigation"><a class="linkNavigation" href="domains?domainType=practice">Practice Templates</a></div>
 <div class="divNavigation"><a class="linkNavigation" href="Add">Colleague Reviews</a></div>
 <div class="divNavigation"><a class="linkNavigation" href="Add">My Colleagues</a></div>
 </div>

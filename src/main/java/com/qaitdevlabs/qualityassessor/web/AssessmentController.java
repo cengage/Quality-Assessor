@@ -101,7 +101,7 @@ public class AssessmentController {
 		Date assessmentDate = new Date();
 		Assessment assessment = new Assessment();
 		assessment.setAssessmentId(assessmentId);
-		assessment.setUser(user);
+	//	assessment.setUser(user);
 		assessment.setAssessor(assessor);
 		assessment.setDomain(domain);
 		assessment.setScore(Integer.valueOf(score));

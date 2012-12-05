@@ -20,7 +20,7 @@
 				</div>
 				<div
 					style="margin: 5px 5px 5px 247px; font-weight: bold; font-size: 14px; font-style: italic">
-					<a href="signUp"><font color="#3E698C"><u>SignUp!</u></font></a>
+					<a href="signUp"><font color="#333333"><u>SignUp!</u></font></a>
 				</div>
 			</fieldset>
 

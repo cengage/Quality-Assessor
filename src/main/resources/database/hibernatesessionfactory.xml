@@ -34,6 +34,7 @@
                 <value>/hibernatemappings/workExperience.hbm.xml</value>
                 <value>/hibernatemappings/assessment.hbm.xml</value>
                 <value>/hibernatemappings/assessmentInvitation.hbm.xml</value>
+                <value>/hibernatemappings/productTemplate.hbm.xml</value>
 			</list>
 		</property>
 

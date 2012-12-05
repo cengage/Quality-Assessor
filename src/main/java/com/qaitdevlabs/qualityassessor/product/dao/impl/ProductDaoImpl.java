@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import com.qaitdevlabs.qualityassessor.dao.impl.GenericDaoImpl;
+import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.product.dao.ProductDao;
@@ -82,6 +83,23 @@ public class ProductDaoImpl extends GenericDaoImpl<Product, Serializable>
 			session.close();
 		}
 		
+	}
+
+	@Override
+	public List<Product> getMatchingProducts(String name) {
+		Session session = null;
+		List<Product> products = null;
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(Product.class);
+			criteria.add(Restrictions.like("productName", name+"%"));
+			products = criteria.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return products;
 	}
 
 }

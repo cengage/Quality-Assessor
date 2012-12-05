@@ -23,6 +23,7 @@
 				<input class="productDescription" type = "text" readonly style="border:none"
 				value = "${product.productDescription}">
 				</td>
+				<td><a href ="templateSelectionView?productId=${product.productId}" >Get this product to be reviewed</a></td>
 			</tr>
 		</c:forEach>
 	</table>

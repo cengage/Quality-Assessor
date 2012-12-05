@@ -2,6 +2,7 @@ package com.qaitdevlabs.qualityassessor.product.service;
 
 import java.util.List;
 
+import com.qaitdevlabs.qualityassessor.dto.ProductDTO;
 import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.User;
 
@@ -19,6 +20,8 @@ public interface ProductService {
 	public Product getProductById(Long id);
 
 	public void deleteProduct(Product product);
+
+	public List<ProductDTO> getMatchingProducts(String term);
 
 	
 }

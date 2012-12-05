@@ -612,8 +612,8 @@ public class DomainServiceImpl implements DomainService {
 	}
 
 	@Override
-	public List<TreeNodeDTO> getMatchingDomain(String name ,String domainType) {
-		List<Domain> listOfDomains = domainDao.getMatchingDomain(name , domainType);
+	public List<TreeNodeDTO> getMatchingDomain(String name) {
+		List<Domain> listOfDomains = domainDao.getMatchingDomain(name);
 		List<TreeNodeDTO> list = null;
 		if(listOfDomains!=null){
 		list = new ArrayList<TreeNodeDTO>();

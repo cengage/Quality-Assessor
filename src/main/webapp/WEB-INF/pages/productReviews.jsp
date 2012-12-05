@@ -1,12 +1,14 @@
-<div style="font-size: 0.9em;" class="ui-widget">
-    <label for="tags">Select Product</label>
-    <input id="product" />
-</div>
-
-<div style="font-size: 0.9em;" class="ui-widget">
-    <label for="tags">Select Domains</label>
-    <input id="domainList" size="50" />
-</div>
-
-<div><input type = "button" value="Create Template" ></div>
-
+<%@include file="/WEB-INF/pages/common-taglibs.jsp"%>
+<table>
+<c:forEach items="${list}" var="item">
+			<tr>
+				
+				<td style="width:140px"><input class="productName" readonly style="border:none" type = "text"
+					value = "${item.product.productName}">
+				</td>
+				<td>
+				<input type ="button" value = "Self Review" />
+				</td>
+				<td><input type ="button" value = "Send Invitation" /></td>
+			</tr>
+		</c:forEach></table>

@@ -13,7 +13,6 @@
 <link type='text/css' rel='stylesheet' href='css/colorbox.css' />
 <link type='text/css' rel='stylesheet' href='css/button.css' />
 <link type='text/css' rel='stylesheet' href='css/style.css' />
-<link rel='stylesheet' type='text/css' href='css/skin/ui.dynatree.css'>
 <script src="js/jquery/jquery.ui.autocomplete.min.js"></script>
 <script src='js/jquery/autoCompleteScript.js'></script>
 <link rel="stylesheet" href="css/jquery.ui.autocomplete.css">

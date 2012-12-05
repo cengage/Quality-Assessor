@@ -19,4 +19,6 @@ public interface ProductDao extends GenericDao<Product, Serializable> {
 	public void saveOrUpdateProduct(Product product);
 
 	public void deleteProduct(Product product);
+
+	public List<Product> getMatchingProducts(String name);
 }

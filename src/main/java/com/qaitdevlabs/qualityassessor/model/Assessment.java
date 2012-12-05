@@ -10,7 +10,7 @@ public class Assessment implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long assessmentId;
-	private User user;
+	private Product product;
 	private User assessor;
 	private AssessmentInvitation invitation;
 	private Domain domain;
@@ -24,14 +24,15 @@ public class Assessment implements Serializable{
 	public void setAssessmentId(Long assessmentId) {
 		this.assessmentId = assessmentId;
 	}
+	
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 	public User getAssessor() {
 		return assessor;
@@ -71,6 +72,14 @@ public class Assessment implements Serializable{
 
 	public void setInvitation(AssessmentInvitation invitation) {
 		this.invitation = invitation;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	
