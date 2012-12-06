@@ -24,6 +24,7 @@ import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 import com.qaitdevlabs.qualityassessor.model.Assessment;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.DomainMapping;
+import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.util.CustomDomainComparator;
 
@@ -314,12 +315,12 @@ public class DomainServiceImpl implements DomainService {
 		return listOfRootDomains;
 	}
 
-	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, User user,
+	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, Product product,
 			boolean fetchAssessment) {
 		Domain domain = (Domain) domainDao.get(id);
 		TreeNodeDTO node = getTreeNodeDTO(domain);
 		if (fetchAssessment) {
-			Assessment assessment = assessmentDao.getAssessment(assessor, user,
+			Assessment assessment = assessmentDao.getAssessment(assessor, product,
 					domain);
 			if (assessment != null) {
 				node.setScore(assessment.getScore());
@@ -336,7 +337,7 @@ public class DomainServiceImpl implements DomainService {
 		while (it.hasNext()) {
 			DomainMapping domainMapping = (DomainMapping) it.next();
 			TreeNodeDTO dto = getDomainHierarchy(domainMapping.getSubDomain()
-					.getDomainId(), assessor, user, fetchAssessment);
+					.getDomainId(), assessor, product, fetchAssessment);
 			Integer weightage = domainMapping.getWeightage();
 			float childScore = dto.getScore();
 			score1 += childScore * weightage / 100;
@@ -497,7 +498,7 @@ public class DomainServiceImpl implements DomainService {
 	// }
 	// }
 
-	public void getExtremeChildDomains(Long id, User user, User assessor,
+	public void getExtremeChildDomains(Long id, Product product, User assessor,
 			List<RadarChartInfo> extrmeChilds) {
 		List<DomainMapping> domainMappings = domainDao.getSubDomainList(id);
 		for (int i = 0; i < domainMappings.size(); i++) {
@@ -508,12 +509,12 @@ public class DomainServiceImpl implements DomainService {
 			double selfScore = 0, combineScore = 0;
 			if (secondLevelDomainMappings.size() < 1) {
 				// int weightage = domainMapping.getWeightage();
-				Assessment assessment = assessmentDao.getAssessment(user, user,
+				Assessment assessment = assessmentDao.getAssessment(assessor, product,
 						domain);
 				if (assessment != null) {
 					selfScore = assessment.getScore();
 				}
-				combineScore = assessmentDao.getAverageAssessment(user,
+				combineScore = assessmentDao.getAverageAssessment(product,
 						assessor, domain);
 
 			} else {
@@ -523,8 +524,8 @@ public class DomainServiceImpl implements DomainService {
 					int weightage = thirdLeveldomainMapping.getWeightage();
 					Domain thirdLeveldomain = thirdLeveldomainMapping
 							.getSubDomain();
-					Assessment assessment = assessmentDao.getAssessment(user,
-							user, thirdLeveldomain);
+					Assessment assessment = assessmentDao.getAssessment(assessor,
+							product, thirdLeveldomain);
 					if (assessment != null) {
 						int score = assessment.getScore();
 						double actualScore = (float) score * weightage / 100;
@@ -533,7 +534,7 @@ public class DomainServiceImpl implements DomainService {
 								+ weightage + " " + selfScore + " "
 								+ thirdLeveldomain.getDomainName());
 					}
-					double avgScore = assessmentDao.getAverageAssessment(user,
+					double avgScore = assessmentDao.getAverageAssessment(product,
 							assessor, thirdLeveldomain);
 					avgScore = (float) avgScore * weightage / 100;
 					combineScore += avgScore;

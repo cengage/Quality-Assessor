@@ -14,6 +14,7 @@ import com.qaitdevlabs.qualityassessor.assessment.dao.AssessmentDao;
 import com.qaitdevlabs.qualityassessor.dao.impl.GenericDaoImpl;
 import com.qaitdevlabs.qualityassessor.model.Assessment;
 import com.qaitdevlabs.qualityassessor.model.Domain;
+import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.User;
 
 @Repository
@@ -22,15 +23,15 @@ public class AssessmentDaoImpl extends GenericDaoImpl<Assessment, Long>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Assessment getAssessment(User assessor, User user, Domain domain) {
+	public Assessment getAssessment(User assessor, Product product, Domain domain) {
 		Session session = null;
 		List<Assessment> assessments = null;
-		System.out.println(user.getUserId() + " " + assessor.getUserId());
+		System.out.println(product.getProductId() + " " + assessor.getUserId());
 		try {
 			session = getSessionFactory().openSession();
 			Criteria criteria = session.createCriteria(Assessment.class);
 			criteria.add(Restrictions.eq("assessor", assessor));
-			criteria.add(Restrictions.eq("user", user));
+			criteria.add(Restrictions.eq("product", product));
 			criteria.add(Restrictions.eq("domain", domain));
 			assessments = criteria.list();
 		} catch (HibernateException e) {
@@ -67,14 +68,14 @@ public class AssessmentDaoImpl extends GenericDaoImpl<Assessment, Long>
 	}
 
 	@Override
-	public Double getAverageAssessment(User user, User assessor, Domain domain) {
+	public Double getAverageAssessment(Product product, User assessor, Domain domain) {
 		Session session = null;
 		Double score = new Double(0);
 		try {
 			session = getSessionFactory().openSession();
-			String SQL_QUERY = "select avg(assessment.score) from Assessment assessment where assessment.user=:user and assessment.domain=:domain and assessment.assessor<>:assessor";
+			String SQL_QUERY = "select avg(assessment.score) from Assessment assessment where assessment.product=:product and assessment.domain=:domain and assessment.assessor<>:assessor";
 			Query query = session.createQuery(SQL_QUERY);
-			query.setParameter("user", user);
+			query.setParameter("product", product);
 			query.setParameter("domain", domain);
 			query.setParameter("assessor", assessor);
 			List results = query.list();

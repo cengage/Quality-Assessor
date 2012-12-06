@@ -4,89 +4,89 @@ function getURLParameter(name) {
 			, null ])[1]);
 }
 var requestedUserId = "null";
-$(function() {
-//	alert(window.location.pathname);
-	var key = (window.location.pathname).split("/",4)[3];
-	requestedUserId = getURLParameter("requestedUserId");
-	invitationId = getURLParameter("invitationId");
-	$.ajax({
-		type : 'GET',
-		url : '../domainHierarchy?key='+key+'&requestedUserId='+requestedUserId+'&fetchAssessment=true',
-		success : function(data) {
-			var ul = "";
-			ul += '<table style="margin-left:10px;margin-top:15px;border-color: #999999;border-style: solid;" class="imagetable" id="excelId">';
-			data = JSON.parse(data);
-			ul += "<tr><td style='border-bottom:none'>" + data.title + "</td><td></td><td></td><td></td></tr>"
-			children = data.children;
-
-			// Second Level
-			if (children != null) {
-
-				var arr = children;
-				for (i = 0; i < arr.length; i++) {
-					obj = arr[i];
-					
-					children = obj.children;
-
-					// Third Level
-					if (children != null) {
-
-						ratingStarHtml = getRatingStarHtml(obj.score, false);
-						//alert(ratingStarHtml);
-						ul += "<tr childCount=" + children.length
-								+ "><td style='border-top:none;border-bottom:none;'></td><td style='border-bottom:none'>" + obj.title
-								+ "</td><td></td><td score=" + obj.score
-								+ " id=p" + i + ">" + ratingStarHtml
-								+ "</td></tr>";
-						// ul += "<tr></tr>";
-						var arr1 = children;
-						for (j = 0; j < arr1.length; j++) {
-							obj1 = arr1[j];
-
-							score = obj1.score;
-							weightage = obj1.weightage;
-							key = obj1.key;
-							ratingStarHtml = getRatingStarHtml(score, true);
-							
-							ul += "<tr><td style='border-top:none;border-bottom:none;'></td><td style='border-top:none;border-bottom:none;'></td><td  i=" + i + " j="
-									+ j + ">" + obj1.title
-									+ "</td><td  assessmentId="
-									+ obj1.assessmentId + " id=" + key
-									+ " parentId=p" + i + " weightage="
-									+ weightage + " score=" + score + ">"
-									+ ratingStarHtml + "</td></tr>";
-
-						}
-						// ul += "<tr></tr>";
-					} else {
-						ratingStarHtml = getRatingStarHtml(obj.score, true);
-						ul += "<tr childCount=0><td style='border-top:none;border-bottom:none;'></td><td>" + obj.title
-								+ "</td><td></td><td assessmentId="
-								+ obj.assessmentId + " id=" + obj.key + ">"
-								+ ratingStarHtml + "</td></tr>";
-					}
-
-				}
-
-			}
-			ul += '</table>'
-			$('#excelDivId').append(ul);
-			$('#backgroundImage').hide();
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			$('#backgroundImage').hide();
-			$('html').html(jqXHR.responseText);
-//			var win = window.open('', '_self');
-//			win.document.getElementsByTagName('Body')[0].innerText = jqXHR.responseText;
-
-	},
-		dataType : 'text'
-	});
-
-	
-
-	
-});
+//$(function() {
+////	alert(window.location.pathname);
+//	var key = (window.location.pathname).split("/",4)[3];
+//	requestedUserId = getURLParameter("requestedUserId");
+//	invitationId = getURLParameter("invitationId");
+//	$.ajax({
+//		type : 'GET',
+//		url : '../domainHierarchy?key='+key+'&requestedUserId='+requestedUserId+'&fetchAssessment=true',
+//		success : function(data) {
+//			var ul = "";
+//			ul += '<table style="margin-left:10px;margin-top:15px;border-color: #999999;border-style: solid;" class="imagetable" id="excelId">';
+//			data = JSON.parse(data);
+//			ul += "<tr><td style='border-bottom:none'>" + data.title + "</td><td></td><td></td><td></td></tr>"
+//			children = data.children;
+//
+//			// Second Level
+//			if (children != null) {
+//
+//				var arr = children;
+//				for (i = 0; i < arr.length; i++) {
+//					obj = arr[i];
+//					
+//					children = obj.children;
+//
+//					// Third Level
+//					if (children != null) {
+//
+//						ratingStarHtml = getRatingStarHtml(obj.score, false);
+//						//alert(ratingStarHtml);
+//						ul += "<tr childCount=" + children.length
+//								+ "><td style='border-top:none;border-bottom:none;'></td><td style='border-bottom:none'>" + obj.title
+//								+ "</td><td></td><td score=" + obj.score
+//								+ " id=p" + i + ">" + ratingStarHtml
+//								+ "</td></tr>";
+//						// ul += "<tr></tr>";
+//						var arr1 = children;
+//						for (j = 0; j < arr1.length; j++) {
+//							obj1 = arr1[j];
+//
+//							score = obj1.score;
+//							weightage = obj1.weightage;
+//							key = obj1.key;
+//							ratingStarHtml = getRatingStarHtml(score, true);
+//							
+//							ul += "<tr><td style='border-top:none;border-bottom:none;'></td><td style='border-top:none;border-bottom:none;'></td><td  i=" + i + " j="
+//									+ j + ">" + obj1.title
+//									+ "</td><td  assessmentId="
+//									+ obj1.assessmentId + " id=" + key
+//									+ " parentId=p" + i + " weightage="
+//									+ weightage + " score=" + score + ">"
+//									+ ratingStarHtml + "</td></tr>";
+//
+//						}
+//						// ul += "<tr></tr>";
+//					} else {
+//						ratingStarHtml = getRatingStarHtml(obj.score, true);
+//						ul += "<tr childCount=0><td style='border-top:none;border-bottom:none;'></td><td>" + obj.title
+//								+ "</td><td></td><td assessmentId="
+//								+ obj.assessmentId + " id=" + obj.key + ">"
+//								+ ratingStarHtml + "</td></tr>";
+//					}
+//
+//				}
+//
+//			}
+//			ul += '</table>'
+//			$('#excelDivId').append(ul);
+//			$('#backgroundImage').hide();
+//		},
+//		error : function(jqXHR, textStatus, errorThrown) {
+//			$('#backgroundImage').hide();
+//			$('html').html(jqXHR.responseText);
+////			var win = window.open('', '_self');
+////			win.document.getElementsByTagName('Body')[0].innerText = jqXHR.responseText;
+//
+//	},
+//		dataType : 'text'
+//	});
+//
+//	
+//
+//	
+//});
 
 function getRatingStarHtml(score, editable) {
 	// alert("rating score" + score);
@@ -122,15 +122,15 @@ $(".toggle").live('click', function() {
 	previousScore = $(this).parent().attr("score");
 	score = previousScore;
 	//alert("yellow" + score);
-	if ($(this).attr('src') == '../images/whitestar.gif') {
-		$(this).attr('src', "../images/yellowstar.png");
-		$(this).prevAll().attr('src', "../images/yellowstar.png");
+	if ($(this).attr('src') == 'images/whitestar.gif') {
+		$(this).attr('src', "images/yellowstar.png");
+		$(this).prevAll().attr('src', "images/yellowstar.png");
 		score = $(this).index() + 1;
 		
 	} else {
 		// alert($(this).index());
-		$(this).attr('src', "../images/whitestar.gif");
-		$(this).nextAll().attr('src', "../images/whitestar.gif");
+		$(this).attr('src', "images/whitestar.gif");
+		$(this).nextAll().attr('src', "images/whitestar.gif");
 		score = $(this).index() ;
 
 
@@ -149,7 +149,7 @@ $(".toggle").live('click', function() {
 		$('#' + parentId).html(getRatingStarHtml(updatedScore, false));
 		// alert(score);
 	}
-	saveRating(id, assessmentId, score, requestedUserId, invitationId);
+	saveRating(id, assessmentId, score, requestedUserId, "null");
 	
 });
 
@@ -173,7 +173,7 @@ function saveRating(id, assessmentId, updatedScore, requestedUserId, invitationI
 		requestedUserId : requestedUserId,
 		invitationId : invitationId
 	};
-	var url = 'save';
+	var url = 'assessments/save';
 	$.ajax({
 		type : 'POST',
 		url : url,

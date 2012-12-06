@@ -86,5 +86,9 @@
 		<put-attribute name="content" value="/WEB-INF/pages/productReviews.jsp" />
 	</definition>
 	
+	<definition name="reviewPage" extends="common-template">
+		<put-attribute name="header" value="/WEB-INF/pages/generalHeader.jsp" />
+		<put-attribute name="content" value="/WEB-INF/pages/reviewPageContent.jsp" />
+	</definition>
 
 </tiles-definitions>

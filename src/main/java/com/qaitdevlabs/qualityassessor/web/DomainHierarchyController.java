@@ -74,7 +74,7 @@ public class DomainHierarchyController {
 		}
 		
 		TreeNodeDTO dto = domainService.getDomainHierarchy(Long.valueOf(key),
-				assessor, user, Boolean.valueOf(fetchAssessment));
+				assessor, null, Boolean.valueOf(fetchAssessment));
 		return dto;
 	}
 	

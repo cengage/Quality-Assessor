@@ -61,9 +61,9 @@
 		
 		</div>
 <div>
-<div style = "display:inline"><input type = "button" value = "Self Review"></div>
-<div style = "display:inline"><input type = "button" value = "Send Invitation"></div>
-<div style = "display:inline"><input type = "button" value = "Save & Review Later"></div>
+<div style = "display:inline"><input type = "submit" name ="selfReview" value = "Self Review"></div>
+<div style = "display:inline"><input type = "submit" name ="sendInvitation" value = "Send Invitation"></div>
+<div style = "display:inline"><input type = "submit" name ="save&ReviewLater" value = "Save & Review Later"></div>
 </div>
 	</form:form>
 </div>

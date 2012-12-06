@@ -71,7 +71,7 @@ public class RadarChartController {
 		User user = userService.getUser(userId);
 		User assessor = userService.getUser(userId);
 		List<RadarChartInfo> extremeChilds = new ArrayList<RadarChartInfo>();
-		domainService.getExtremeChildDomains(id, user, assessor, extremeChilds);
+//		domainService.getExtremeChildDomains(id, user, assessor, extremeChilds);
 
 		BufferedImage bufferImage = radarChartService
 				.getBufferedImage(extremeChilds);
