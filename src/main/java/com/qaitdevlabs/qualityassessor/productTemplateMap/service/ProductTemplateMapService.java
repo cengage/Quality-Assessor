@@ -9,4 +9,6 @@ public interface ProductTemplateMapService {
 	void saveOrUpdateProductTemplateMap(ProductTemplateMap productTemplateMap);
 
 	List<ProductTemplateMap> getProductsToBeReviewed();
+
+	ProductTemplateMap getProductTemplateMapById(Long Id);
 }

@@ -1,11 +1,11 @@
- <link rel="stylesheet" href="css/jquery-ui.css" />
- <link type='text/css' rel='stylesheet' href='css/button.css' />
-<link type='text/css' rel='stylesheet' href='css/style.css' />
-<link href="css/common.css" rel="Stylesheet" type="text/css" />
-<script type = "text/javascript" src = "js/jquery/domainManager.js"></script>
-<script type="text/javascript" src="js/jquery/jquery.colorbox-min.js"></script>
-<script src="js/jquery/jquery.ui.autocomplete.min.js"></script>
-<script src='js/jquery/autoCompleteScript.js'></script>
+ <link rel="stylesheet" href="/qualityassessor/css/jquery-ui.css" />
+ <link type='text/css' rel='stylesheet' href='/qualityassessor/css/button.css' />
+<link type='text/css' rel='stylesheet' href='/qualityassessor/css/style.css' />
+<link href="/qualityassessor/css/common.css" rel="stylesheet" type="text/css" />
+<script type = "text/javascript" src = "/qualityassessor/js/jquery/domainManager.js"></script>
+<script type="text/javascript" src="/qualityassessor/js/jquery/jquery.colorbox-min.js"></script>
+<script src="/qualityassessor/js/jquery/jquery.ui.autocomplete.min.js"></script>
+<script src='/qualityassessor/js/jquery/autoCompleteScript.js'></script>
 <style>
 .ui-autocomplete {
         max-height: 100px;
@@ -19,6 +19,8 @@
     <script type="text/javascript">
     $(function() {
        
+    	$("#exist-radio-button").attr('checked', true);
+    	
         var search_opts = {
     			source: function( request, response ) {
     				$.ajax({
@@ -89,7 +91,7 @@
     			//	title = ui.item.label.trim();
     				//$(".imagetable").hide();
     			//	makeTable(ui.item.domain);
-    			alert(ui.item.key);
+    			//alert(ui.item.key);
     				$("#domainId").val(ui.item.key);
     			},
     			open: function() {
@@ -187,3 +189,14 @@ color:black;
 }
 
 </style>
+
+<script>
+function checkChooseTemplate(){
+	if($('#new_radio_button').is(':checked')){
+		newDomainId = $("#newTempId").find('tr').attr("id");
+		alert($("#newTempId").find('tr').attr("id"));
+		$("#domainId").val(newDomainId);
+	}
+}
+
+</script>

@@ -9,6 +9,7 @@ import com.qaitdevlabs.qualityassessor.assessment.dao.AssessmentDao;
 import com.qaitdevlabs.qualityassessor.assessment.service.AssessmentService;
 import com.qaitdevlabs.qualityassessor.model.Assessment;
 import com.qaitdevlabs.qualityassessor.model.Domain;
+import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.User;
 
 @Service
@@ -26,8 +27,8 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 	@Override
-	public Assessment getAssessment(User assessor, User user, Domain domain) {
-		return assessmentDao.getAssessment(assessor,user,domain);
+	public Assessment getAssessment(User assessor, Product product, Domain domain) {
+		return assessmentDao.getAssessment(assessor,product,domain);
 	}
 
 	@Override

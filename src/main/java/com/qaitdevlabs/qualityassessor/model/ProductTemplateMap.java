@@ -1,7 +1,13 @@
 package com.qaitdevlabs.qualityassessor.model;
 
-public class ProductTemplateMap {
+import java.io.Serializable;
+
+public class ProductTemplateMap implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Long productTemplateMapId;
 	private Product product;
 	private Domain domain;

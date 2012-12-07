@@ -32,4 +32,9 @@ public class ProductTemplateMapServiceImpl implements ProductTemplateMapService{
 	
 	}
 
+	@Override
+	public ProductTemplateMap getProductTemplateMapById(Long id) {
+		return productTemplateMapDao.get(id);
+	}
+
 }

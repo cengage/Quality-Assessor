@@ -16,10 +16,15 @@ import com.qaitdevlabs.qualityassessor.assessmentinvitation.service.AssessmentIn
 import com.qaitdevlabs.qualityassessor.common.exception.GenericException;
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
+import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 import com.qaitdevlabs.qualityassessor.model.Assessment;
 import com.qaitdevlabs.qualityassessor.model.AssessmentInvitation;
 import com.qaitdevlabs.qualityassessor.model.Domain;
+import com.qaitdevlabs.qualityassessor.model.Product;
+import com.qaitdevlabs.qualityassessor.model.ProductTemplateMap;
 import com.qaitdevlabs.qualityassessor.model.User;
+import com.qaitdevlabs.qualityassessor.product.service.ProductService;
+import com.qaitdevlabs.qualityassessor.productTemplateMap.service.ProductTemplateMapService;
 import com.qaitdevlabs.qualityassessor.service.UserService;
 
 @Controller
@@ -55,6 +60,22 @@ public class AssessmentController {
 		this.assessmentInvitationService = assessmentInvitationService;
 	}
 
+	private ProductTemplateMapService productTemplateMapService;
+
+	@Autowired
+	public void setProductTemplateMapService(
+			ProductTemplateMapService productTemplateMapService) {
+		this.productTemplateMapService = productTemplateMapService;
+	}
+	
+	private ProductService productService;
+
+	@Autowired
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
+	}
+	
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getListOfRootDomains(ModelMap map) {
 		List<DomainDTO> listOfRootDomains = domainService
@@ -65,10 +86,25 @@ public class AssessmentController {
 
 	
 
-	@RequestMapping(value = "/{key}", method = RequestMethod.GET)
-	public String showDomainPage(ModelMap map, @PathVariable String key) {
-		System.out.println("key"+key);
-		return "assessmentPage";
+	@RequestMapping(value = "/{productTemplateKey}", method = RequestMethod.GET)
+	public String showDomainPage(ModelMap map, @PathVariable String productTemplateKey, HttpServletRequest request) {
+		System.out.println("key"+productTemplateKey);
+		Long productTemplateMapId = Long.valueOf(productTemplateKey);
+		
+		ProductTemplateMap productTemplateMap = productTemplateMapService.getProductTemplateMapById(productTemplateMapId);
+		
+		Product product = productTemplateMap.getProduct();
+		Domain domain = productTemplateMap.getDomain();
+		
+		Long userId = (Long) request.getSession().getAttribute("USER_ID");
+		User user = userService.getUser(userId);
+		
+		TreeNodeDTO dto = domainService.getDomainHierarchy(
+				domain.getDomainId(), user, product, true);
+		System.out.println(dto.getTitle());
+		request.setAttribute("productId", product.getProductId());
+		request.setAttribute("templateDTO",dto);
+		return "reviewPage";
 	}
 
 	
@@ -77,6 +113,7 @@ public class AssessmentController {
 	long saveRating(
 			@RequestParam String key,
 			@RequestParam String id,
+			@RequestParam String productId,
 			@RequestParam(value = "requestedUserId", required = false) String requestedUserId,
 			@RequestParam(value = "invitationId", required = false) String invitationId,
 			@RequestParam String score, ModelMap map, HttpServletRequest request) {
@@ -98,6 +135,8 @@ public class AssessmentController {
 		if (assessmentId == 0) {
 			assessmentId = null;
 		}
+		
+		Product product = productService.getProductById(Long.valueOf(productId));
 		Date assessmentDate = new Date();
 		Assessment assessment = new Assessment();
 		assessment.setAssessmentId(assessmentId);
@@ -107,6 +146,7 @@ public class AssessmentController {
 		assessment.setScore(Integer.valueOf(score));
 		assessment.setAssessmentDate(assessmentDate);
 		assessment.setInvitation(invitation);
+		assessment.setProduct(product);
 		assessment = assessmentService.saveAssessment(assessment);
 		assessmentId = assessment.getAssessmentId();
 		return assessmentId;

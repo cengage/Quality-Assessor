@@ -20,7 +20,11 @@ import com.qaitdevlabs.qualityassessor.common.exception.GenericException;
 import com.qaitdevlabs.qualityassessor.domain.service.DomainService;
 import com.qaitdevlabs.qualityassessor.dto.RadarChartInfo;
 import com.qaitdevlabs.qualityassessor.model.Domain;
+import com.qaitdevlabs.qualityassessor.model.Product;
+import com.qaitdevlabs.qualityassessor.model.ProductTemplateMap;
 import com.qaitdevlabs.qualityassessor.model.User;
+import com.qaitdevlabs.qualityassessor.product.service.ProductService;
+import com.qaitdevlabs.qualityassessor.productTemplateMap.service.ProductTemplateMapService;
 import com.qaitdevlabs.qualityassessor.radarchart.service.RadarChartService;
 import com.qaitdevlabs.qualityassessor.service.UserService;
 
@@ -48,30 +52,42 @@ public class RadarChartController {
 	public void setRadarChartService(RadarChartService radarChartService) {
 		this.radarChartService = radarChartService;
 	}
+	
+	private ProductTemplateMapService productTemplateMapService;
 
-	@RequestMapping(value = "assessments/{key}/chart", method = RequestMethod.GET)
-	public String showRadarChart(ModelMap model , @PathVariable String key ,HttpServletRequest request) {
-		Domain domain = domainService.getDomain(key);
-		if(domain == null){
+	@Autowired
+	public void setProductTemplateMapService(
+			ProductTemplateMapService productTemplateMapService) {
+		this.productTemplateMapService = productTemplateMapService;
+	}
+	
+
+	@RequestMapping(value = "assessments/{productTemplateKey}/chart", method = RequestMethod.GET)
+	public String showRadarChart(ModelMap model , @PathVariable String productTemplateKey ,HttpServletRequest request) {
+		Long productTemplateMapId = Long.valueOf(productTemplateKey);
+		ProductTemplateMap productTemplateMap = productTemplateMapService.getProductTemplateMapById(productTemplateMapId);
+	
+		if(productTemplateMap == null){
 			throw new GenericException("Requested domain doesn't exist!!!");
 		}
-		else if(!domain.getIsParent()){
-			throw new GenericException("Requested domain is not a root domain!!!");
-		}
-		request.setAttribute("domainName", domain.getDomainName());
+		
+		//request.setAttribute("domainName", domain.getDomainName());
 		return "radarChart";
 	}
 
-	@RequestMapping(value = "/radarChart", method = RequestMethod.GET)
-	public String showRadarChart(@RequestParam String key, ModelMap model,
+	@RequestMapping(value = "/radarChart/{productTemplateKey}", method = RequestMethod.GET)
+	public String showRadarChart(@PathVariable String productTemplateKey, ModelMap model,
 			HttpServletRequest request, HttpServletResponse response) {
-	
-		Long id = Long.valueOf(key);
+		Long productTemplateMapId = Long.valueOf(productTemplateKey);
+		ProductTemplateMap productTemplateMap = productTemplateMapService.getProductTemplateMapById(productTemplateMapId);
+		Product product = productTemplateMap.getProduct();
+		Domain domain = productTemplateMap.getDomain();
+		Long domainId = Long.valueOf(domain.getDomainId());
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
-		User user = userService.getUser(userId);
 		User assessor = userService.getUser(userId);
 		List<RadarChartInfo> extremeChilds = new ArrayList<RadarChartInfo>();
-//		domainService.getExtremeChildDomains(id, user, assessor, extremeChilds);
+	
+		domainService.getExtremeChildDomains(domainId, product, assessor, extremeChilds);
 
 		BufferedImage bufferImage = radarChartService
 				.getBufferedImage(extremeChilds);

@@ -95,24 +95,24 @@ function getRatingStarHtml(score, editable) {
 	if (editable == true) {
 		for (k = 0; k < score; k++) {
 			ratingStarHtml = ratingStarHtml
-					+ "<img class='toggle'  src='../images/yellowstar.png'></img>";
+					+ "<img hspace='2' style='border:none' class='toggle'  src='/qualityassessor/images/yellowstar.png'></img>";
 		}
 
 		var noOfWhiteStars = 5 - score;
 		for (m = 0; m < noOfWhiteStars; m++) {
 			ratingStarHtml = ratingStarHtml
-					+ "<img class='toggle'  src='../images/whitestar.gif'></img>";
+					+ "<img hspace='2' style='border:none' class='toggle'  src='/qualityassessor/images/whitestar.gif'></img>";
 		}
 	} else {
 		for (k = 0; k < score; k++) {
 			ratingStarHtml = ratingStarHtml
-					+ "<img   src='../images/greenstar.png'></img>";
+					+ "<img hspace='2'  style='border:none' src='/qualityassessor/images/greenstar.png'></img>";
 		}
 
 		var noOfWhiteStars = 5 - score;
 		for (m = 0; m < noOfWhiteStars; m++) {
 			ratingStarHtml = ratingStarHtml
-					+ "<img   src='../images/whitestar.gif'></img>";
+					+ "<img hspace='2' style='border:none'  src='/qualityassessor/images/whitestar.gif'></img>";
 		}
 	}
 	return ratingStarHtml;
@@ -122,15 +122,15 @@ $(".toggle").live('click', function() {
 	previousScore = $(this).parent().attr("score");
 	score = previousScore;
 	//alert("yellow" + score);
-	if ($(this).attr('src') == 'images/whitestar.gif') {
-		$(this).attr('src', "images/yellowstar.png");
-		$(this).prevAll().attr('src', "images/yellowstar.png");
+	if ($(this).attr('src') == '/qualityassessor/images/whitestar.gif') {
+		$(this).attr('src', "/qualityassessor/images/yellowstar.png");
+		$(this).prevAll().attr('src', "/qualityassessor/images/yellowstar.png");
 		score = $(this).index() + 1;
 		
 	} else {
 		// alert($(this).index());
-		$(this).attr('src', "images/whitestar.gif");
-		$(this).nextAll().attr('src', "images/whitestar.gif");
+		$(this).attr('src', "/qualityassessor/images/whitestar.gif");
+		$(this).nextAll().attr('src', "/qualityassessor/images/whitestar.gif");
 		score = $(this).index() ;
 
 
@@ -142,11 +142,11 @@ $(".toggle").live('click', function() {
 	if (parentId != null) {
 		weightage = $(this).parent().attr("weightage");
 		parentScore = (score - previousScore) * weightage / 100;
-		parentPrevScore = $('#' + parentId).attr("score");
+		parentPrevScore = $('.' + parentId).attr("score");
 		updatedScore = parseFloat(parentPrevScore) + parentScore;
 		//alert(updatedScore);
-		$('#' + parentId).attr("score", updatedScore);
-		$('#' + parentId).html(getRatingStarHtml(updatedScore, false));
+		$('.' + parentId).attr("score", updatedScore);
+		$('.' + parentId).html(getRatingStarHtml(updatedScore, false));
 		// alert(score);
 	}
 	saveRating(id, assessmentId, score, requestedUserId, "null");
@@ -165,15 +165,16 @@ $(function() {
 });
 
 function saveRating(id, assessmentId, updatedScore, requestedUserId, invitationId) {
-	// alert(score);
+	var productId = $("#productId").val();
 	var data = {
 		key : id,
 		score : updatedScore,
 		id : assessmentId,
 		requestedUserId : requestedUserId,
-		invitationId : invitationId
+		invitationId : invitationId,
+		productId : productId
 	};
-	var url = 'assessments/save';
+	var url = 'save';
 	$.ajax({
 		type : 'POST',
 		url : url,

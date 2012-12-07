@@ -17,6 +17,10 @@ import com.qaitdevlabs.qualityassessor.productTemplateMap.dao.ProductTemplateMap
 @Repository
 public class ProductTemplateMapDaoImpl extends GenericDaoImpl<ProductTemplateMap, Serializable> implements ProductTemplateMapDao {
 
+	public ProductTemplateMapDaoImpl(){
+		super(ProductTemplateMap.class);
+	}
+	
 	@Override
 	public void saveOrUpdateProductTemplateMap(ProductTemplateMap productTemplateMap) {
 		Session session = null;
@@ -56,5 +60,7 @@ public class ProductTemplateMapDaoImpl extends GenericDaoImpl<ProductTemplateMap
 
 		return domains;
 	}
+
+
 	
 }

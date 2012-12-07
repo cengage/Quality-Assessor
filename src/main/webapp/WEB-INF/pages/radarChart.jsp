@@ -24,15 +24,15 @@
 </head>
 
 <body>
-	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
-	<div class="background container">
-	<%@include file="/WEB-INF/pages/header.jsp"%>
+	
+	
+
 	
 	<div align="center" style="font-size:18px;padding:43px"><label><strong id="headingMsg">Assessment for ${requestScope.domainName}</strong></label></div>
 	<div align="center" id="loader" class="loading"  >
 		<img  id='radarImage' >
 		</div>
-	</div>
-	<%@include file="/WEB-INF/pages/footer.jsp"%>
+
+	
 </body>
 </html>

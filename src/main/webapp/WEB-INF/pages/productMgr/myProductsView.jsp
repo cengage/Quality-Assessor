@@ -10,7 +10,7 @@
 		<tr id = "productTableHeadId">
 			<th ><img src="images/new.png" id="addNewProductDomain"></th><th></th>
 			<th style="width:140px;text-align:left">Product Name</th>
-			<th>Product Description</th>
+			<th style="width:200px;text-align: left;">Product Description</th>
 		</tr>
 		<c:forEach items="${productList}" var="product">
 			<tr>
@@ -19,11 +19,11 @@
 				<td style="width:140px"><input class="productName" readonly style="border:none" type = "text"
 					value = "${product.productName}">
 				</td>
-				<td>
-				<input class="productDescription" type = "text" readonly style="border:none"
+				<td style="width:200px">
+				<input   class="productDescription" type = "text" readonly style="border:none;width: 100%"
 				value = "${product.productDescription}">
 				</td>
-				<td><a href ="templateSelectionView?productId=${product.productId}" >Get this product to be reviewed</a></td>
+				<td><a class = "button-default" style = "padding:3px 13px;" href ="templateSelectionView?productId=${product.productId}" >Get this product to be reviewed</a></td>
 			</tr>
 		</c:forEach>
 	</table>

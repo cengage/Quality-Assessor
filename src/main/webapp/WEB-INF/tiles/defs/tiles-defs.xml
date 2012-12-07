@@ -55,6 +55,11 @@
 		<put-attribute name="content" value="/WEB-INF/pages/commonDomainsView.jsp" />
 	</definition>
 	
+	<definition name="myTemplates" extends="common-template">
+		<put-attribute name="header" value="/WEB-INF/pages/productMgr/productMgrHeader.jsp" />
+<!-- 		<put-attribute name="leftNavigation" value="/WEB-INF/pages/productMgr/productMgrLeftNavigation.jsp" /> -->
+		<put-attribute name="content" value="/WEB-INF/pages/myTemplatesView.jsp" />
+	</definition>
 
 	<definition name="myProductsView" extends="common-template">
 		<put-attribute name="tabName" value="myProducts"/>
@@ -73,7 +78,7 @@
 		<put-attribute name="header" value="/WEB-INF/pages/generalHeader.jsp" />
 		<put-attribute name="tabName" value="reviewRequests"/>
 <!-- 		<put-attribute name="leftNavigation" value="/WEB-INF/pages/reviews/reviewLeftNavigation.jsp" /> -->
-		<put-attribute name="content" value="/WEB-INF/pages/reviews/reviewContent.jsp" />
+		<put-attribute name="content" value="/WEB-INF/pages/assessmentRequestsContent.jsp" />
 	</definition>
 
 	<definition name="templateSelectionView" extends="common-template">
@@ -87,8 +92,13 @@
 	</definition>
 	
 	<definition name="reviewPage" extends="common-template">
-		<put-attribute name="header" value="/WEB-INF/pages/generalHeader.jsp" />
+		<put-attribute name="header" value="/WEB-INF/pages/reviewPageHeader.jsp" />
 		<put-attribute name="content" value="/WEB-INF/pages/reviewPageContent.jsp" />
+	</definition>
+	
+	<definition name="radarChart" extends="common-template">
+		<put-attribute name="header" value="/WEB-INF/pages/generalHeader.jsp" />
+		<put-attribute name="content" value="/WEB-INF/pages/radarChart.jsp" />
 	</definition>
 
 </tiles-definitions>

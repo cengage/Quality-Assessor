@@ -2,16 +2,17 @@
 <div style="margin: 3%">
 
 
-<table>
+		<table>
 			<tbody><tr>
-				<th class="iconwidth"><img onclick="showAddRootDomainView('${domainType}')"  src="images/new.png"></th>
 				<th class="iconwidth"></th>
 				<th class="iconwidth"></th>
 				<th class="iconwidth"></th>
 				<th class="iconwidth"></th>
-				<th style="text-align:left;text-transform: capitalize;">${domainType} Templates</th>
+				<th class="iconwidth"></th>
+				<th style="text-align:left;text-transform: capitalize;">My Templates</th>
 			</tr>
-		</tbody></table>
+		</tbody>
+		</table>
 
 
 <div id="domainDivId">

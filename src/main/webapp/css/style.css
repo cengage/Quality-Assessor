@@ -6,7 +6,7 @@
 }
 
 .button-default:hover {
-	background: black;
+	background: #333333;
 }
 
 .button-default {
@@ -14,11 +14,16 @@
 /* 	height: 21px; */
 	padding: 5px 11px 0 15px;
 	margin-right: 3px;
-	background:#333333;
+	background:#595959;
 /* 	background: #3E698C; */
 	text-decoration: none;
 	color: white;
-	border-radius:3px;
+/* 	border-radius:3px; */
+	 border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    font-size:13px;
 }
 
 .button-domain-default {
@@ -40,4 +45,12 @@
 .domainlink {
 	text-decoration: none;
 	color: black;
+}
+
+.topLabel{
+	 background: none repeat scroll 0 0 #595959;
+/*     border-radius: 3px 3px 3px 3px; */
+    color: white;
+    padding: 2px 30% 3px 2%;
+    font-family: caption;
 }

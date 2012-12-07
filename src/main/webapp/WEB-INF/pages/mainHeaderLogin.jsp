@@ -8,6 +8,6 @@
     font-weight: bold;
     margin-left: 33px;
     padding-top: 5px;
-    position: absolute;">Quality Assessor</label>
+    position: absolute; font-family: caption;">Quality Assessor</label>
    
 </div>

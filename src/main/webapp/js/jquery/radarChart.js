@@ -5,13 +5,14 @@ function getURLParameter(name) {
 
 var domainName = '';
 $(function() {
-	var key = (window.location.pathname).split("/",4)[3];
+	var productTemplateKey = (window.location.pathname).split("/",4)[3];
+//	var domainKey = getURLParameter("domainKey");
 //	var domainName = getURLParameter("domainName");
 //	// $('#radarChartId').attr("src", "radarChart?key=" + key);
 //	$('#headingMsg').html(
 //			"Assessment for " + domainName);
 
-	$('#radarImage').attr('src','../../radarChart?key='+key);
+	$('#radarImage').attr('src','/qualityassessor/radarChart/'+productTemplateKey);
 	// wrap our new image in jQuery, then:
 //	$('#radarImage')
 //	// once the image has loaded, execute this code

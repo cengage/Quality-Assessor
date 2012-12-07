@@ -151,7 +151,7 @@ public class DomainController {
 	 * @return list of child domains
 	 */
 	@RequestMapping(value = "/domains")
-	public String getDomainList(@RequestParam(defaultValue = "0") String key ,@RequestParam String domainType, ModelMap model, HttpServletRequest request) {
+	public String getDomainList(@RequestParam(defaultValue = "0") String key ,@RequestParam(required = false) String domainType, ModelMap model, HttpServletRequest request) {
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
 		List<TreeNodeDTO> list = domainService.getDomainList(key, user, domainType);
@@ -161,6 +161,16 @@ public class DomainController {
 		return "commonDomainsView";
 	}
 
+	
+	@RequestMapping(value = "/myTemplates")
+	public String getMyDomainList(ModelMap model, HttpServletRequest request) {
+		Long userId = (Long) request.getSession().getAttribute("USER_ID");
+		User user = userService.getUser(userId);
+		List<TreeNodeDTO> list = domainService.getDomainList("0", user, null);
+		System.out.println("controller"+list);
+		model.addAttribute("rootDomainList", list);
+		return "myTemplates";
+	}
 	
 	@RequestMapping(value = "/getExistingDomainHierachy", method = RequestMethod.GET)
 	public @ResponseBody

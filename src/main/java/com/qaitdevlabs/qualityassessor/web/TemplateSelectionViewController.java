@@ -98,16 +98,16 @@ public class TemplateSelectionViewController {
 			HttpServletRequest request, HttpServletResponse response) {
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		Long domainId = form.getDomainId();
+		System.out.println("domainId-"+domainId);
 		User user = userService.getUser(userId);
 		Long productId = form.getProductId();
 		Product product = productService.getProductById(productId);
 		Domain domain = domainService.getDomain(domainId.toString());
 		if (isProductCorrespondToUser(product, user)) {
-			saveProductTemplateMap(domain, product);
-			TreeNodeDTO dto = domainService.getDomainHierarchy(
-					form.getDomainId(), user, product, true);
-			System.out.println(dto.getTitle());
-			request.setAttribute("templateDTO",dto);
+			ProductTemplateMap productTemplateMap = saveProductTemplateMap(domain, product);
+			Long productTemplateMapId = productTemplateMap.getProductTemplateMapId();
+			return "redirect:/assessments/"+productTemplateMapId;
+			
 		} else {
 			response.setStatus(500);
 			System.out.println("Product doesn't correspond to user");
@@ -115,11 +115,12 @@ public class TemplateSelectionViewController {
 		return "reviewPage";
 	}
 
-	public void saveProductTemplateMap(Domain domain, Product product) {
+	public ProductTemplateMap saveProductTemplateMap(Domain domain, Product product) {
 		ProductTemplateMap map = new ProductTemplateMap();
 		map.setDomain(domain);
 		map.setProduct(product);
 		productTemplateMapService.saveOrUpdateProductTemplateMap(map);
+		return map;
 	}
 
 	private boolean isProductCorrespondToUser(Product product, User user) {
