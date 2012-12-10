@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,22 +62,31 @@ public class TemplateSelectionViewController {
 	}
 
 	@RequestMapping(value = "/templateSelectionView", method = RequestMethod.GET)
-	public ModelAndView getTemplateSelectionView(@RequestParam Long productId,
-			HttpServletRequest request) {
+	public String getTemplateSelectionView(@RequestParam Long productId,
+			HttpServletRequest request, ModelMap model) {
 		Product product = productService.getProductById(productId);
 		TemplateSelectionForm form = new TemplateSelectionForm();
 		if (product != null) {
 			form.setProductName(product.getProductName());
 			form.setProductId(product.getProductId());
+			saveReferenceDataForTemplateSelectionInRequestScope(product, request);
+			
 		} else {
 			System.out.println("Product not found in system");
 		}
-		return new ModelAndView("templateSelectionView", "command", form);
+		model.addAttribute("templateSelectionForm", form);
+		return "templateSelectionView";
 	}
 
+	public void saveReferenceDataForTemplateSelectionInRequestScope(Product product, HttpServletRequest request){
+		List<ProductTemplateMap> productTemplateMapList = productTemplateMapService.getListOfProductTemplateMapByProduct(product);
+		request.setAttribute("productTemplateMapList", productTemplateMapList);
+		request.setAttribute("productName", product.getProductName());
+	}
+	
 	@RequestMapping(value = "/templateSelectionView", method = RequestMethod.POST, params = "save&ReviewLater")
 	public String submitTemplateSelectionView(
-			@ModelAttribute TemplateSelectionForm form,
+			@ModelAttribute TemplateSelectionForm form, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response) {
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
@@ -84,6 +95,18 @@ public class TemplateSelectionViewController {
 		Long productId = form.getProductId();
 		Product product = productService.getProductById(productId);
 		if (isProductCorrespondToUser(product, user)) {
+			
+			if (isProductTemplateMapAlreadyExist(product, domain)) {
+
+				System.out
+						.println("This product already correspond to specified template");
+				result.rejectValue("domainName", "product.already.map", new Object[]{form.getProductName(), form.getDomainName()},
+						"This product already belongs to specified template");
+				saveReferenceDataForTemplateSelectionInRequestScope(product, request);
+				request.setAttribute("productName", product.getProductName());
+				return "templateSelectionView";
+			}
+			
 			saveProductTemplateMap(domain, product);
 		} else {
 			response.setStatus(500);
@@ -94,7 +117,7 @@ public class TemplateSelectionViewController {
 
 	@RequestMapping(value = "/templateSelectionView", method = RequestMethod.POST, params = "selfReview")
 	public String submitAndSelfReview(
-			@ModelAttribute TemplateSelectionForm form,
+			@ModelAttribute("templateSelectionForm") TemplateSelectionForm form,BindingResult result, ModelMap model,
 			HttpServletRequest request, HttpServletResponse response) {
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		Long domainId = form.getDomainId();
@@ -103,11 +126,29 @@ public class TemplateSelectionViewController {
 		Long productId = form.getProductId();
 		Product product = productService.getProductById(productId);
 		Domain domain = domainService.getDomain(domainId.toString());
+		
 		if (isProductCorrespondToUser(product, user)) {
-			ProductTemplateMap productTemplateMap = saveProductTemplateMap(domain, product);
-			Long productTemplateMapId = productTemplateMap.getProductTemplateMapId();
-			return "redirect:/assessments/"+productTemplateMapId;
-			
+
+			if (isProductTemplateMapAlreadyExist(product, domain)) {
+
+				System.out
+						.println("This product already correspond to specified template");
+				result.rejectValue("domainName", "product.already.map", new Object[]{form.getProductName(), form.getDomainName()},
+						"This product already belongs to specified template");
+				saveReferenceDataForTemplateSelectionInRequestScope(product, request);
+				request.setAttribute("productName", product.getProductName());
+				return "templateSelectionView";
+			}
+
+			else {
+
+				ProductTemplateMap productTemplateMap = saveProductTemplateMap(
+						domain, product);
+				Long productTemplateMapId = productTemplateMap
+						.getProductTemplateMapId();
+				return "redirect:/assessments/" + productTemplateMapId;
+
+			}
 		} else {
 			response.setStatus(500);
 			System.out.println("Product doesn't correspond to user");
@@ -115,6 +156,11 @@ public class TemplateSelectionViewController {
 		return "reviewPage";
 	}
 
+		
+	public boolean isProductTemplateMapAlreadyExist(Product product, Domain domain){
+		return productTemplateMapService.isProductTemplateMapAlreadyExist(product, domain);
+	}
+	
 	public ProductTemplateMap saveProductTemplateMap(Domain domain, Product product) {
 		ProductTemplateMap map = new ProductTemplateMap();
 		map.setDomain(domain);
@@ -132,23 +178,15 @@ public class TemplateSelectionViewController {
 
 	}
 
-	@RequestMapping(value = "/getMatchingProducts", method = RequestMethod.GET)
-	public @ResponseBody
-	List<ProductDTO> getMatchingProducts(@RequestParam String term) {
-		System.out.println("controller");
-		List<ProductDTO> matchingProductList = productService
-				.getMatchingProducts(term);
-		System.out.println(matchingProductList);
-		return matchingProductList;
-	}
+//	@RequestMapping(value = "/getMatchingProducts", method = RequestMethod.GET)
+//	public @ResponseBody
+//	List<ProductDTO> getMatchingProducts(@RequestParam String term) {
+//		System.out.println("controller");
+//		List<ProductDTO> matchingProductList = productService
+//				.getMatchingProducts(term);
+//		System.out.println(matchingProductList);
+//		return matchingProductList;
+//	}
 
-	@RequestMapping(value = "/productReviews", method = RequestMethod.GET)
-	public String getProductsToBeReviewed(HttpServletRequest request) {
-		System.out.println("controller");
-		List<ProductTemplateMap> matchingProductList = productTemplateMapService
-				.getProductsToBeReviewed();
-		System.out.println(matchingProductList);
-		request.setAttribute("list", matchingProductList);
-		return "productReviews";
-	}
+	
 }

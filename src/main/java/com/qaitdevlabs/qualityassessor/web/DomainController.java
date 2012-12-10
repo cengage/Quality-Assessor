@@ -180,10 +180,10 @@ public class DomainController {
 	}
 	
 	
-	@RequestMapping(value = "/getMatchingDomains", method = RequestMethod.GET)
+	@RequestMapping(value = "/getMatchingRootDomains", method = RequestMethod.GET)
 	public @ResponseBody
 	List<TreeNodeDTO> getMatchingDomains(@RequestParam String name) {
-		List<TreeNodeDTO> listOfDomain = domainService.getMatchingDomain(name);
+		List<TreeNodeDTO> listOfDomain = domainService.getMatchingRootDomains(name);
 		System.out.println(listOfDomain.size());
 		return listOfDomain;
 	}

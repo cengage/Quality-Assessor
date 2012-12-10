@@ -48,9 +48,17 @@
 }
 
 .topLabel{
-	 background: none repeat scroll 0 0 #595959;
-/*     border-radius: 3px 3px 3px 3px; */
+	
+    
+    
+}
+
+.topDivLabel{
+	padding : 5px;
+	margin-top:20px;
+	margin-left:20px;
+	background: none repeat scroll 0 0 #595959;
     color: white;
-    padding: 2px 30% 3px 2%;
     font-family: caption;
+    width:468px;
 }

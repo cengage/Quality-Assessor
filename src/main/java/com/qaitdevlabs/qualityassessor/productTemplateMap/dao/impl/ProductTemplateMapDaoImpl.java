@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.qaitdevlabs.qualityassessor.dao.impl.GenericDaoImpl;
 import com.qaitdevlabs.qualityassessor.model.Domain;
+import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.ProductTemplateMap;
 import com.qaitdevlabs.qualityassessor.productTemplateMap.dao.ProductTemplateMapDao;
 
@@ -59,6 +60,53 @@ public class ProductTemplateMapDaoImpl extends GenericDaoImpl<ProductTemplateMap
 		}
 
 		return domains;
+	}
+
+	@Override
+	public List<ProductTemplateMap> getListOfProductTemplateMapByProduct(Product product) {
+		Session session = null;
+		List<ProductTemplateMap> productTemplateMaps = null;
+
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session.createCriteria(ProductTemplateMap.class);
+			criteria.add(Restrictions.eq("product", product));
+			productTemplateMaps = criteria.list();
+			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return productTemplateMaps;
+	}
+
+	@Override
+	public boolean isProductTemplateMapAlreadyExist(Product product,
+			Domain domain) {
+
+		Session session = null;
+		List<ProductTemplateMap> productTemplateMaps = null;
+
+		try {
+			session = getSessionFactory().openSession();
+			Criteria criteria = session
+					.createCriteria(ProductTemplateMap.class);
+			criteria.add(Restrictions.eq("product", product));
+			criteria.add(Restrictions.eq("domain", domain));
+			productTemplateMaps = criteria.list();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		if (productTemplateMaps != null && productTemplateMaps.size() > 0) {
+			return true;
+		}
+		return false;
 	}
 
 

@@ -1,5 +1,5 @@
 <%@include file="/WEB-INF/pages/common/common-taglibs.jsp"%>
-<div style="font-size: 17px; padding-left: 20px; padding-top: 20px;margin-bottom:35px">
+<div class = "topDivLabel" style="font-size: 17px; ">
 		<label class = "topLabel"><strong>Product Reviews</strong></label>
 	</div>
 <div style="padding-left: 20px;width:450px;margin-bottom:50px">

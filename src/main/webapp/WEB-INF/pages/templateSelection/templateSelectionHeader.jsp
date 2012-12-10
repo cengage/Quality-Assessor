@@ -66,7 +66,7 @@
         var search_opts1 = {
     			source: function( request, response ) {
     				$.ajax({
-    					url: "getMatchingDomains",
+    					url: "getMatchingRootDomains",
     					dataType: "json",
     					data: {
 //     						name : request.term,

@@ -1,6 +1,6 @@
 <%@include file="/WEB-INF/pages/common/common-taglibs.jsp"%>
 <div>
-	<div style="font-size: 17px; padding-left: 20px; padding-top: 20px">
+	<div class="topDivLabel" style="font-size: 17px;">
 		<label class = "topLabel"><strong>Requests For Assessments</strong></label>
 	</div>
 	<div id='viewIgnoreRequestDiv' align = 'right' style="margin-right: 100px;margin-top:18px;">
