@@ -99,8 +99,8 @@ public class AssessmentController {
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
 		
-		TreeNodeDTO dto = domainService.getDomainHierarchy(
-				domain.getDomainId(), user, product, true);
+		TreeNodeDTO dto = domainService.getDomainHierarchyWithAssessment(
+				domain.getDomainId(), user, product);
 		System.out.println(dto.getTitle());
 		request.setAttribute("productId", product.getProductId());
 		request.setAttribute("templateDTO",dto);

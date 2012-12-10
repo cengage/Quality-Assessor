@@ -9,10 +9,10 @@
 </head>
 
 <body>
-	<%@include file="/WEB-INF/pages/mainHeader.jsp"%>
+	<%@include file="/WEB-INF/pages/common/commonMainHeader.jsp"%>
 	<div class="background container"
 		style="background: white; width: 70%;">
-		<%@include file="/WEB-INF/pages/header.jsp"%>
+<%-- 		<%@include file="/WEB-INF/pages/header.jsp"%> --%>
 		<div style="margin-left:50px">
 		<div style="font-size:18px;margin-bottom:30px;margin-top:30px"><label><strong>Select Domain to Assess</strong></label></div>
 		<table style='width: 68%; margin-left: 10%'>
@@ -60,6 +60,6 @@
 			<a  class='button-default' href="javascript:sendInvitation();">Request a Review</a>
 		</div></div>
 	</div>
-	<%@include file="/WEB-INF/pages/footer.jsp"%>
+	<%@include file="/WEB-INF/pages/common/footer.jsp"%>
 </body>
 </html>

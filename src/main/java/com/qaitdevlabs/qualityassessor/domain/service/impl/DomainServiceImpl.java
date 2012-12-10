@@ -315,18 +315,9 @@ public class DomainServiceImpl implements DomainService {
 		return listOfRootDomains;
 	}
 
-	public TreeNodeDTO getDomainHierarchy(Long id, User assessor, Product product,
-			boolean fetchAssessment) {
+	public TreeNodeDTO getDomainHierarchy(Long id ) {
 		Domain domain = (Domain) domainDao.get(id);
 		TreeNodeDTO node = getTreeNodeDTO(domain);
-		if (fetchAssessment) {
-			Assessment assessment = assessmentDao.getAssessment(assessor, product,
-					domain);
-			if (assessment != null) {
-				node.setScore(assessment.getScore());
-				node.setAssessmentId(assessment.getAssessmentId());
-			}
-		}
 		
 		List<DomainMapping> subDomainMappingList = domainDao
 				.getSubDomainList(id);
@@ -337,7 +328,7 @@ public class DomainServiceImpl implements DomainService {
 		while (it.hasNext()) {
 			DomainMapping domainMapping = (DomainMapping) it.next();
 			TreeNodeDTO dto = getDomainHierarchy(domainMapping.getSubDomain()
-					.getDomainId(), assessor, product, fetchAssessment);
+					.getDomainId());
 			Integer weightage = domainMapping.getWeightage();
 			float childScore = dto.getScore();
 			score1 += childScore * weightage / 100;
@@ -356,6 +347,49 @@ public class DomainServiceImpl implements DomainService {
 		return node;
 	}
 
+	
+	public TreeNodeDTO getDomainHierarchyWithAssessment(Long id, User assessor, Product product) {
+		Domain domain = (Domain) domainDao.get(id);
+		TreeNodeDTO node = getTreeNodeDTO(domain);
+		
+			Assessment assessment = assessmentDao.getAssessment(assessor, product,
+					domain);
+			if (assessment != null) {
+				node.setScore(assessment.getScore());
+				node.setAssessmentId(assessment.getAssessmentId());
+			}
+		
+		
+		List<DomainMapping> subDomainMappingList = domainDao
+				.getSubDomainList(id);
+		Iterator<DomainMapping> it = subDomainMappingList.iterator();
+		List<TreeNodeDTO> childList = new ArrayList<TreeNodeDTO>();
+
+		float score1 = 0;
+		while (it.hasNext()) {
+			DomainMapping domainMapping = (DomainMapping) it.next();
+			TreeNodeDTO dto = getDomainHierarchyWithAssessment(domainMapping.getSubDomain()
+					.getDomainId(), assessor, product );
+			Integer weightage = domainMapping.getWeightage();
+			float childScore = dto.getScore();
+			score1 += childScore * weightage / 100;
+			System.out.println("childScore " + childScore + "score" + score1
+					+ dto.getTitle() + "we" + weightage);
+			dto.setWeightage(weightage.toString());
+			childList.add(dto);
+		}
+		if (childList.size() > 0) {
+			Collections.sort(childList, new CustomDomainComparator());
+			node.setChildren(childList);
+			node.setScore(score1);
+			System.out.println(node.getTitle() + " " + score1);
+			score1 = 0;
+		}
+		return node;
+	}
+
+	
+	
 	@Override
 	public Domain getDomain(String key) {
 		Long id = null;
@@ -590,7 +624,7 @@ public class DomainServiceImpl implements DomainService {
 		while (itr.hasNext()) {
 			Domain domain = itr.next();
 			long domainId = domain.getDomainId();
-			TreeNodeDTO dto = getDomainHierarchy(domainId, null, null, false);
+			TreeNodeDTO dto = getDomainHierarchy(domainId );
 			listOfDTO.add(dto);
 		}
 		return listOfDTO;

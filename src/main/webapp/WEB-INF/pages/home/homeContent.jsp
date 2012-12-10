@@ -1,4 +1,4 @@
-<%@include file="/WEB-INF/pages/common-taglibs.jsp"%>
+<%@include file="/WEB-INF/pages/common/common-taglibs.jsp"%>
 
 <c:if test="${not empty requestScope.message}">
 	<div id="messageDiv" style="padding: 11px 7px;">

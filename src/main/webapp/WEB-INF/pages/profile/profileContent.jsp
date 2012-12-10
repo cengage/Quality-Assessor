@@ -1,5 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@include file="/WEB-INF/pages/common-taglibs.jsp"%>
+<%@include file="/WEB-INF/pages/common/common-taglibs.jsp"%>
 
 	<div >
 

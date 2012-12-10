@@ -1,4 +1,4 @@
-<%@include file="/WEB-INF/pages/common-taglibs.jsp"%>
+<%@include file="/WEB-INF/pages/common/common-taglibs.jsp"%>
 <div>
 	<!-- Add a <div> element where the tree should appear: -->
 	<div style="margin:3%;width: 90%;" id="domainDivId">

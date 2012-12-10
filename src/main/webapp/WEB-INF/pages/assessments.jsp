@@ -22,7 +22,7 @@
 </script>
 </head>
 <body>
-	<%@include file="/WEB-INF/pages/header.jsp"%>
+<%-- 	<%@include file="/WEB-INF/pages/header.jsp"%> --%>
 <%-- 	<%@include file="/WEB-INF/pages/mainHeader.jsp"%> --%>
 
 <div>
@@ -71,6 +71,6 @@
 	</div>
 	<div style='float:left;color:white'>users</div>
 	</div>
-	<%@include file="/WEB-INF/pages/footer.jsp"%>
+	<%@include file="/WEB-INF/pages/common/footer.jsp"%>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<%@include file="/WEB-INF/pages/common-taglibs.jsp"%>
+<%@include file="/WEB-INF/pages/common/common-taglibs.jsp"%>
 <div>
 	<div style="font-size: 17px; padding-left: 20px; padding-top: 20px">
 		<label class = "topLabel"><strong>Requests For Assessments</strong></label>

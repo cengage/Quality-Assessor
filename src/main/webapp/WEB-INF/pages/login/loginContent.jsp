@@ -1,4 +1,4 @@
-<%@include file="/WEB-INF/pages/common-taglibs.jsp"%>
+<%@include file="/WEB-INF/pages/common/common-taglibs.jsp"%>
 
 <div style="background: white; margin: auto;">
 		

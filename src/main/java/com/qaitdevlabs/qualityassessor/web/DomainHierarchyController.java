@@ -47,36 +47,30 @@ public class DomainHierarchyController {
 
 		Domain domain = null;
 
-		try {
-			domain = domainService.getDomain(key);
-		} catch (GenericException e) {
-			response.setStatus(500);
-			throw new GenericException("Error occured while processing request!!!");
-		}
+		domain = domainService.getDomain(key);
+		
 		if (domain == null) {
 			response.setStatus(500);
 			throw new GenericException("Requested domain doesn't exist!!!");
 		} 
-//			else if (!domain.getIsParent()) {
-//			response.setStatus(500);
-//			throw new GenericException(
-//					"Requested domain is not a root domain!!!");
-//		}
 
-		Long userId = (Long) request.getSession().getAttribute("USER_ID");
-		User assessor = userService.getUser(userId);
-		System.out.println("requestedUserId" + requestedUserId);
-		User user = null;
-		if (!requestedUserId.equals("null")) {
-			user = userService.getUser(Long.valueOf(requestedUserId));
-		} else {
-			user = assessor;
-		}
+//		Long userId = (Long) request.getSession().getAttribute("USER_ID");
+//		User assessor = userService.getUser(userId);
+//		System.out.println("requestedUserId" + requestedUserId);
+//		User user = null;
+//		if (!requestedUserId.equals("null")) {
+//			user = userService.getUser(Long.valueOf(requestedUserId));
+//		} else {
+//			user = assessor;
+//		}
 		
-		TreeNodeDTO dto = domainService.getDomainHierarchy(Long.valueOf(key),
-				assessor, null, Boolean.valueOf(fetchAssessment));
+		TreeNodeDTO dto = domainService.getDomainHierarchy(Long.valueOf(key));
 		return dto;
 	}
+	
+	
+	
+	
 	
 	@RequestMapping(value = "/import", method = RequestMethod.GET)
 	public @ResponseBody
