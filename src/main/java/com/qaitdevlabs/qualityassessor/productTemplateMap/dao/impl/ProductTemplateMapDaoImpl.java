@@ -13,6 +13,7 @@ import com.qaitdevlabs.qualityassessor.dao.impl.GenericDaoImpl;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.ProductTemplateMap;
+import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.productTemplateMap.dao.ProductTemplateMapDao;
 
 @Repository
@@ -44,13 +45,15 @@ public class ProductTemplateMapDaoImpl extends GenericDaoImpl<ProductTemplateMap
 	}
 
 	@Override
-	public List<ProductTemplateMap> getProductsToBeReviewed() {
+	public List<ProductTemplateMap> getProductsToBeReviewed(User user) {
 		Session session = null;
 		List<ProductTemplateMap> domains = null;
 
 		try {
 			session = getSessionFactory().openSession();
-			Criteria criteria = session.createCriteria(ProductTemplateMap.class);
+			Criteria criteria = session.createCriteria(ProductTemplateMap.class ,"productTemplateMap");
+			criteria.createAlias("productTemplateMap.product", "product", Criteria.LEFT_JOIN);
+			criteria.add(Restrictions.eq("product.user", user));
 			domains = criteria.list();
 			System.out.println("DAO"+domains);
 		} catch (HibernateException e) {

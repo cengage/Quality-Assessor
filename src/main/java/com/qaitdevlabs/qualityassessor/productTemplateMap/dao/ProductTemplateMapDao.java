@@ -7,12 +7,13 @@ import com.qaitdevlabs.qualityassessor.dao.GenericDao;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.ProductTemplateMap;
+import com.qaitdevlabs.qualityassessor.model.User;
 
 public interface ProductTemplateMapDao extends GenericDao<ProductTemplateMap, Serializable>{
 
 	public void saveOrUpdateProductTemplateMap(ProductTemplateMap productTemplateMap) ;
 
-	public List<ProductTemplateMap> getProductsToBeReviewed();
+	public List<ProductTemplateMap> getProductsToBeReviewed(User user);
 
 	public List<ProductTemplateMap> getListOfProductTemplateMapByProduct(Product product);
 

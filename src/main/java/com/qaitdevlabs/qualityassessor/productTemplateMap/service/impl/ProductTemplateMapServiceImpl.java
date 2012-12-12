@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.ProductTemplateMap;
+import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.productTemplateMap.dao.ProductTemplateMapDao;
 import com.qaitdevlabs.qualityassessor.productTemplateMap.service.ProductTemplateMapService;
 
@@ -29,8 +30,8 @@ public class ProductTemplateMapServiceImpl implements ProductTemplateMapService{
 	}
 
 	@Override
-	public List<ProductTemplateMap> getProductsToBeReviewed() {
-		return productTemplateMapDao.getProductsToBeReviewed();
+	public List<ProductTemplateMap> getProductsToBeReviewed(User user) {
+		return productTemplateMapDao.getProductsToBeReviewed(user);
 	
 	}
 

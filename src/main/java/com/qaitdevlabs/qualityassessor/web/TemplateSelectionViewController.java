@@ -112,7 +112,9 @@ public class TemplateSelectionViewController {
 			response.setStatus(500);
 			System.out.println("Product doesn't correspond to user");
 		}
-		return "redirect:/productReviews";
+			saveReferenceDataForTemplateSelectionInRequestScope(product, request);
+			request.setAttribute("productName", product.getProductName());
+		return "templateSelectionView";
 	}
 
 	@RequestMapping(value = "/templateSelectionView", method = RequestMethod.POST, params = "selfReview")
@@ -156,7 +158,49 @@ public class TemplateSelectionViewController {
 		return "reviewPage";
 	}
 
+
+	@RequestMapping(value = "/templateSelectionView", method = RequestMethod.POST, params = "sendInvitation")
+	public String submitAndSendInvitation(
+			@ModelAttribute("templateSelectionForm") TemplateSelectionForm form,BindingResult result, ModelMap model,
+			HttpServletRequest request, HttpServletResponse response) {
+		Long userId = (Long) request.getSession().getAttribute("USER_ID");
+		Long domainId = form.getDomainId();
+		System.out.println("domainId-"+domainId);
+		User user = userService.getUser(userId);
+		Long productId = form.getProductId();
+		Product product = productService.getProductById(productId);
+		Domain domain = domainService.getDomain(domainId.toString());
 		
+		if (isProductCorrespondToUser(product, user)) {
+
+			if (isProductTemplateMapAlreadyExist(product, domain)) {
+
+				System.out
+						.println("This product already correspond to specified template");
+				result.rejectValue("domainName", "product.already.map", new Object[]{form.getProductName(), form.getDomainName()},
+						"This product already belongs to specified template");
+				saveReferenceDataForTemplateSelectionInRequestScope(product, request);
+				request.setAttribute("productName", product.getProductName());
+				return "templateSelectionView";
+			}
+
+			else {
+
+				ProductTemplateMap productTemplateMap = saveProductTemplateMap(
+						domain, product);
+				Long productTemplateMapId = productTemplateMap
+						.getProductTemplateMapId();
+				return "redirect:/assessments/" + productTemplateMapId+"/invitation";
+
+			}
+		} else {
+			response.setStatus(500);
+			System.out.println("Product doesn't correspond to user");
+		}
+		return "reviewPage";
+	}
+
+	
 	public boolean isProductTemplateMapAlreadyExist(Product product, Domain domain){
 		return productTemplateMapService.isProductTemplateMapAlreadyExist(product, domain);
 	}

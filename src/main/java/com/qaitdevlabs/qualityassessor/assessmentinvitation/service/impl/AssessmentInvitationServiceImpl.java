@@ -49,17 +49,15 @@ public class AssessmentInvitationServiceImpl implements
 			while (it.hasNext()) {
 				AssessmentInvitation invitation = it.next();
 				AssessmentRequestDTO dto = new AssessmentRequestDTO();
-				dto.setDomainName(invitation.getDomain().getDomainName());
-				dto.setUserCompleteName(invitation.getUser().getFirstName()
-						+ " " + invitation.getUser().getLastName());
+				dto.setDomainName(invitation.getProductTemplateMap().getDomain().getDomainName());
+				dto.setProductName(invitation.getProductTemplateMap().getProduct().getProductName());
 				Date invitationDate = invitation.getInvitationDate();
 				SimpleDateFormat dateFormat = new SimpleDateFormat(
 						"EEE, MMM d, yyyy");
 				String invitationFormatedDate = dateFormat
 						.format(invitationDate);
 				dto.setInvitationDate(invitationFormatedDate);
-				dto.setDomainId(invitation.getDomain().getDomainId());
-				dto.setUserId(invitation.getUser().getUserId());
+				dto.setProductTemplateMapId(invitation.getProductTemplateMap().getProductTemplateMapId());
 				dto.setInvitationId(invitation.getAssessmentInvitationId());
 				listOfAssessmentRequests.add(dto);
 			}
@@ -68,12 +66,9 @@ public class AssessmentInvitationServiceImpl implements
 	}
 
 	@Override
-	public AssessmentInvitation getAssessmentInvitation(String invitationKey) {
-		if (invitationKey != null) {
-			Long invitationId = Long.valueOf(invitationKey);
-			return assessmentInvitationDao.get(invitationId);
-		}
-		return null;
+	public AssessmentInvitation getAssessmentInvitation(Long invitationKey) {
+			return assessmentInvitationDao.get(invitationKey);
+		
 	}
 
 }

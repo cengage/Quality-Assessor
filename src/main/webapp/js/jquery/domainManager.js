@@ -28,7 +28,7 @@ function makeRootRow(domain){
 
 function makeTable(domain){
 	var table = "";
-	table += "<table style='margin-top:15px;width:100%;' class='imagetable' id='tableId"
+	table += "<table style='margin-top:15px;width:100%;'  id='tableId"
 			+ i + "'>";
 	table += makeRootRow(domain);
 	$('#domainDivId').append(table);
@@ -475,7 +475,7 @@ $(function() {
 
 function showAddRootDomainView(type) {
 	var table = "";
-	table += "<table style='margin-top:15px;width:100%;' class='imagetable' id='tableId'>";
+	table += "<table style='margin-top:15px;width:100%;'  id='tableId'>";
 	table += "<tr class='currentSelectedRow' type="+type+" id='new' pid='0'><td class='iconWidth'><a style='display:none' class='wikiLink' target='_blank' href='http://en.wikipedia.org/wiki/'"
 			+ "><img class='wikiLink' src='images/wiki.png'/></a></td>"
 			+ "<td class='iconWidth'><img style='display:none' class='newDomain' src='images/new.png'/></td>"

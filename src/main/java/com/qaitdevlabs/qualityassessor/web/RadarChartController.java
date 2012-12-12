@@ -71,7 +71,8 @@ public class RadarChartController {
 			throw new GenericException("Requested domain doesn't exist!!!");
 		}
 		
-		//request.setAttribute("domainName", domain.getDomainName());
+		request.setAttribute("productName",productTemplateMap.getProduct().getProductName());
+		request.setAttribute("domainName", productTemplateMap.getDomain().getDomainName());
 		return "radarChart";
 	}
 

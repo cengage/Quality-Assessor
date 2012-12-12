@@ -14,13 +14,13 @@
 				<div
 					style='margin-bottom: 12px; margin-top: 6px; font-weight: bold; font-size: 13px'>
 					<div>${assessment.invitationDate}</div>
-					<div>${assessment.userCompleteName} on
+					<div>${assessment.productName} on
 						${assessment.domainName}</div>
 				</div>
 				<div style='display: inline;'>
 					<a style='display: inline; padding: 3px 13px'
 						class='button-default'
-						href="assessments/${assessment.domainId}?requestedUserId=${assessment.userId}&invitationId=${assessment.invitationId}">Assess
+						href="assessments/${assessment.productTemplateMapId}?invitationId=${assessment.invitationId}">Assess
 						Now</a>
 				</div>
 				<div style='display: inline;'>

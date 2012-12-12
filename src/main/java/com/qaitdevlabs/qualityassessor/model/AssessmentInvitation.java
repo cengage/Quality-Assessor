@@ -4,19 +4,12 @@ import java.util.Date;
 
 public class AssessmentInvitation {
 	private Long assessmentInvitationId;
-	private User user;
 	private User assessor;
-	private Domain domain;
+	private ProductTemplateMap productTemplateMap;
 	private Date invitationDate;
 	private Boolean ignoreInvitation = false;
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+	
 
 	public User getAssessor() {
 		return assessor;
@@ -24,14 +17,6 @@ public class AssessmentInvitation {
 
 	public void setAssessor(User assessor) {
 		this.assessor = assessor;
-	}
-
-	public Domain getDomain() {
-		return domain;
-	}
-
-	public void setDomain(Domain domain) {
-		this.domain = domain;
 	}
 
 	public Long getAssessmentInvitationId() {
@@ -56,6 +41,14 @@ public class AssessmentInvitation {
 
 	public void setIgnoreInvitation(Boolean ignoreInvitation) {
 		this.ignoreInvitation = ignoreInvitation;
+	}
+
+	public ProductTemplateMap getProductTemplateMap() {
+		return productTemplateMap;
+	}
+
+	public void setProductTemplateMap(ProductTemplateMap productTemplateMap) {
+		this.productTemplateMap = productTemplateMap;
 	}
 
 }

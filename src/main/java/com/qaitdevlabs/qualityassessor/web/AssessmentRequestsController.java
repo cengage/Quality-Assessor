@@ -45,7 +45,7 @@ public class AssessmentRequestsController {
 
 	@RequestMapping(value = "/ignoreInvitation", method = RequestMethod.GET)
 	public String ignoreRequest(HttpServletRequest request,
-			@RequestParam String invitationId) {
+			@RequestParam Long invitationId) {
 		AssessmentInvitation assessmentInvitation = assessmentInvitationService
 				.getAssessmentInvitation(invitationId);
 		if (assessmentInvitation != null) {

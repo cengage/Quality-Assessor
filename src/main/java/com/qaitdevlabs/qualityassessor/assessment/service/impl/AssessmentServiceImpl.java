@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.qaitdevlabs.qualityassessor.assessment.dao.AssessmentDao;
 import com.qaitdevlabs.qualityassessor.assessment.service.AssessmentService;
 import com.qaitdevlabs.qualityassessor.model.Assessment;
+import com.qaitdevlabs.qualityassessor.model.AssessmentInvitation;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.User;
@@ -27,8 +28,8 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 	@Override
-	public Assessment getAssessment(User assessor, Product product, Domain domain) {
-		return assessmentDao.getAssessment(assessor,product,domain);
+	public Assessment getAssessment(User assessor, Product product, Domain domain, AssessmentInvitation invitation) {
+		return assessmentDao.getAssessment(assessor,product,domain,invitation);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.List;
 import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
 import com.qaitdevlabs.qualityassessor.dto.RadarChartInfo;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
+import com.qaitdevlabs.qualityassessor.model.AssessmentInvitation;
 import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.User;
 import com.qaitdevlabs.qualityassessor.model.Domain;
@@ -72,7 +73,7 @@ public interface DomainService {
 
 	public List<DomainDTO> getListOfRootDomains();
 
-	public TreeNodeDTO getDomainHierarchyWithAssessment(Long id, User assessor, Product product);
+	public TreeNodeDTO getDomainHierarchyWithAssessment(Long id, User assessor, AssessmentInvitation invitation, Product product);
 	
 	public TreeNodeDTO getDomainHierarchy(Long id);
 

@@ -5,12 +5,13 @@ import java.util.List;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.ProductTemplateMap;
+import com.qaitdevlabs.qualityassessor.model.User;
 
 public interface ProductTemplateMapService {
 
-	void saveOrUpdateProductTemplateMap(ProductTemplateMap productTemplateMap);
+	public void saveOrUpdateProductTemplateMap(ProductTemplateMap productTemplateMap);
 
-	List<ProductTemplateMap> getProductsToBeReviewed();
+	List<ProductTemplateMap> getProductsToBeReviewed(User user);
 
 	ProductTemplateMap getProductTemplateMapById(Long Id);
 

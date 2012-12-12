@@ -187,9 +187,23 @@ color:black;
 <script>
 function checkChooseTemplate(){
 	if($('#new_radio_button').is(':checked')){
-		newDomainId = $("#newTempId").find('tr').attr("id");
-		alert($("#newTempId").find('tr').attr("id"));
+		row = $("#newTempId").find('tr');
+		domainName = row.find(".titleClass .rootTitle").html();
+		newDomainId = row.attr("id");
+		if(domainName == '' || newDomainId ==''){
+			alert("Please select template");
+			return false;
+		}
+		//alert($("#newTempId").find('tr').attr("id"));
 		$("#domainId").val(newDomainId);
+	}
+	else{
+		var existingDomainId = $("#domainId").val();
+		var domainName = $("#domainName").val();
+		if(existingDomainId == '' || domainName == ''){
+			alert("Please select template");
+			return false;
+		}
 	}
 }
 

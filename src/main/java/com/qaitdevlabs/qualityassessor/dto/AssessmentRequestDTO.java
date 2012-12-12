@@ -2,24 +2,13 @@ package com.qaitdevlabs.qualityassessor.dto;
 
 public class AssessmentRequestDTO {
 	
+	private String productName;
 	private String domainName;
 	private String invitationDate;
 	private String userCompleteName;
-	private Long domainId;
+	private Long productTemplateMapId;
 	private Long invitationId;
 	
-	public Long getDomainId() {
-		return domainId;
-	}
-	public void setDomainId(Long domainId) {
-		this.domainId = domainId;
-	}
-	public Long getInvitationId() {
-		return invitationId;
-	}
-	public void setInvitationId(Long invitationId) {
-		this.invitationId = invitationId;
-	}
 	public Long getUserId() {
 		return userId;
 	}
@@ -45,6 +34,24 @@ public class AssessmentRequestDTO {
 	}
 	public void setUserCompleteName(String userCompleteName) {
 		this.userCompleteName = userCompleteName;
+	}
+	public Long getProductTemplateMapId() {
+		return productTemplateMapId;
+	}
+	public void setProductTemplateMapId(Long productTemplateMapId) {
+		this.productTemplateMapId = productTemplateMapId;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public Long getInvitationId() {
+		return invitationId;
+	}
+	public void setInvitationId(Long invitationId) {
+		this.invitationId = invitationId;
 	}
 	
 }

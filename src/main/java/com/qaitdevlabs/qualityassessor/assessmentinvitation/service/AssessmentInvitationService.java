@@ -13,7 +13,7 @@ public interface AssessmentInvitationService {
 
 	List<AssessmentRequestDTO> getAssessmentInvitations(User assessor,boolean isIgnore);
 	
-	AssessmentInvitation getAssessmentInvitation(String invitationId);
+	AssessmentInvitation getAssessmentInvitation(Long invitationId);
 
 	void saveOrUpdateInvitation(AssessmentInvitation assessmentInvitation);
 

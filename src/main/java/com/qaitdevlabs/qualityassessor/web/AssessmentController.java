@@ -87,7 +87,7 @@ public class AssessmentController {
 	
 
 	@RequestMapping(value = "/{productTemplateKey}", method = RequestMethod.GET)
-	public String showDomainPage(ModelMap map, @PathVariable String productTemplateKey, HttpServletRequest request) {
+	public String showDomainPage(ModelMap map, @PathVariable String productTemplateKey, @RequestParam(required = false) Long invitationId, HttpServletRequest request) {
 		System.out.println("key"+productTemplateKey);
 		Long productTemplateMapId = Long.valueOf(productTemplateKey);
 		
@@ -98,11 +98,17 @@ public class AssessmentController {
 		
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User user = userService.getUser(userId);
+		AssessmentInvitation invitation = null;
+		
+		if( invitationId != null ){
+			invitation = assessmentInvitationService.getAssessmentInvitation(invitationId);
+		}
 		
 		TreeNodeDTO dto = domainService.getDomainHierarchyWithAssessment(
-				domain.getDomainId(), user, product);
+				domain.getDomainId(), user, invitation, product);
 		System.out.println(dto.getTitle());
 		request.setAttribute("productId", product.getProductId());
+		request.setAttribute("productName", product.getProductName());
 		request.setAttribute("templateDTO",dto);
 		return "reviewPage";
 	}
@@ -115,20 +121,18 @@ public class AssessmentController {
 			@RequestParam String id,
 			@RequestParam String productId,
 			@RequestParam(value = "requestedUserId", required = false) String requestedUserId,
-			@RequestParam(value = "invitationId", required = false) String invitationId,
+			@RequestParam(value = "invitationId", required = false) String invitationKey,
 			@RequestParam String score, ModelMap map, HttpServletRequest request) {
 		System.out.println("id" + id);
 
 		Long userId = (Long) request.getSession().getAttribute("USER_ID");
 		User assessor = userService.getUser(userId);
 		AssessmentInvitation invitation = null;
-		User user = null;
-		if (!requestedUserId.equals("null")) {
-			user = userService.getUser(Long.valueOf(requestedUserId));
-			invitation = assessmentInvitationService.getAssessmentInvitation(invitationId);
-		} else {
-			user = assessor;
-		}
+//		User user = null;
+//		user = userService.getUser(Long.valueOf(requestedUserId));
+		if(!invitationKey.equals("null"))
+			invitation = assessmentInvitationService.getAssessmentInvitation(Long.valueOf(invitationKey));
+	
 		
 		Domain domain = domainService.getDomain(key);
 		Long assessmentId = Long.valueOf(id);

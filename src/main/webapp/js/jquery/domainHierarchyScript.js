@@ -149,7 +149,9 @@ $(".toggle").live('click', function() {
 		$('.' + parentId).html(getRatingStarHtml(updatedScore, false));
 		// alert(score);
 	}
-	saveRating(id, assessmentId, score, requestedUserId, "null");
+	invitationId = getURLParameter("invitationId");
+	//alert(invitationId);
+	saveRating(id, assessmentId, score, requestedUserId, invitationId);
 	
 });
 

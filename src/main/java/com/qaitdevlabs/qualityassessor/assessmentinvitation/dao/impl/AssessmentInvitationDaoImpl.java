@@ -32,7 +32,6 @@ public class AssessmentInvitationDaoImpl extends
 			session = getSessionFactory().openSession();
 			Criteria criteria = session.createCriteria(AssessmentInvitation.class);
 			criteria.add(Restrictions.eq("assessor", assessor));
-			criteria.add(Restrictions.ne("user", assessor));
 			criteria.add(Restrictions.eq("ignoreInvitation", isIgnore));
 			criteria.addOrder(Order.desc("invitationDate"));
 			assessmentInvitation = criteria.list();
@@ -41,7 +40,7 @@ public class AssessmentInvitationDaoImpl extends
 		} finally {
 			session.close();
 		}
-		if (assessmentInvitation.size() < 1) {
+		if ((assessmentInvitation == null) || (assessmentInvitation.size()) < 1) {
 			return null;
 		}
 		return assessmentInvitation;

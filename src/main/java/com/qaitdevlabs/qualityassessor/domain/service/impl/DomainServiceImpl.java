@@ -22,6 +22,7 @@ import com.qaitdevlabs.qualityassessor.dto.DomainDTO;
 import com.qaitdevlabs.qualityassessor.dto.RadarChartInfo;
 import com.qaitdevlabs.qualityassessor.dto.TreeNodeDTO;
 import com.qaitdevlabs.qualityassessor.model.Assessment;
+import com.qaitdevlabs.qualityassessor.model.AssessmentInvitation;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.DomainMapping;
 import com.qaitdevlabs.qualityassessor.model.Product;
@@ -348,12 +349,12 @@ public class DomainServiceImpl implements DomainService {
 	}
 
 	
-	public TreeNodeDTO getDomainHierarchyWithAssessment(Long id, User assessor, Product product) {
+	public TreeNodeDTO getDomainHierarchyWithAssessment(Long id, User assessor, AssessmentInvitation invitation, Product product) {
 		Domain domain = (Domain) domainDao.get(id);
 		TreeNodeDTO node = getTreeNodeDTO(domain);
 		
 			Assessment assessment = assessmentDao.getAssessment(assessor, product,
-					domain);
+					domain,invitation);
 			if (assessment != null) {
 				node.setScore(assessment.getScore());
 				node.setAssessmentId(assessment.getAssessmentId());
@@ -369,7 +370,7 @@ public class DomainServiceImpl implements DomainService {
 		while (it.hasNext()) {
 			DomainMapping domainMapping = (DomainMapping) it.next();
 			TreeNodeDTO dto = getDomainHierarchyWithAssessment(domainMapping.getSubDomain()
-					.getDomainId(), assessor, product );
+					.getDomainId(), assessor, invitation, product );
 			Integer weightage = domainMapping.getWeightage();
 			float childScore = dto.getScore();
 			score1 += childScore * weightage / 100;
@@ -544,7 +545,7 @@ public class DomainServiceImpl implements DomainService {
 			if (secondLevelDomainMappings.size() < 1) {
 				// int weightage = domainMapping.getWeightage();
 				Assessment assessment = assessmentDao.getAssessment(assessor, product,
-						domain);
+						domain,null);
 				if (assessment != null) {
 					selfScore = assessment.getScore();
 				}
@@ -559,7 +560,7 @@ public class DomainServiceImpl implements DomainService {
 					Domain thirdLeveldomain = thirdLeveldomainMapping
 							.getSubDomain();
 					Assessment assessment = assessmentDao.getAssessment(assessor,
-							product, thirdLeveldomain);
+							product, thirdLeveldomain,null);
 					if (assessment != null) {
 						int score = assessment.getScore();
 						double actualScore = (float) score * weightage / 100;

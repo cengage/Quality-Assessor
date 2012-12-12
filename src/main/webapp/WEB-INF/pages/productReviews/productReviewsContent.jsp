@@ -17,7 +17,7 @@
 					Review</a>
 			</div>
 			<div style='display: inline;margin-right:20px'>
-				<a href="assessments/#" class="button-default"
+				<a href="assessments/${item.productTemplateMapId}/invitation" class="button-default"
 					style="display: inline; padding: 3px 13px">Send Invitation</a>
 			</div>
 			<div style='display: inline;margin-right:20px'>

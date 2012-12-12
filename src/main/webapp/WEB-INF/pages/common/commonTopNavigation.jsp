@@ -22,7 +22,7 @@
 			</ul></li>
 
 		<%-- 			<c:if test="${sessionScope.group=='AdminGroup'}"> --%>
-		<li class="has-sub"><a href='/qualityassessor/domains?domainType=product'><span>Product
+		<li class="has-sub"><a href='/qualityassessor/myProducts'><span>Product
 					Management</span></a>
 
 			<ul>
@@ -31,7 +31,7 @@
 							Templates</span></a></li>
 				<li><a href="/qualityassessor/domains?domainType=environment"><span>Environment
 							Templates</span></a></li>
-				<li><a href="/#"><span>Product Reviews</span></a></li>
+				<li><a href="/qualityassessor/productReviews"><span>Product Reviews</span></a></li>
 				<li><a href="/#"><span>Environment Reviews</span></a></li>
 			</ul></li>
 		<li class="has-sub"><a href='/qualityassessor/domains?domainType=skill'><span>Colleague/Skill
@@ -40,8 +40,8 @@
 			<ul>
 				<li><a href="/qualityassessor/domains?domainType=skill">Skill Templates</a></li>
 				<li><a href="/qualityassessor/domains?domainType=practice">Practice Templates</a></li>
-				<li><a href="/qualityassessor/#">Colleague Reviews</a></li>
-				<li><a href="/qualityassessor/#">My Colleagues</a></li>
+				<li><a href="#">Colleague Reviews</a></li>
+				<li><a href="#">My Colleagues</a></li>
 			</ul></li>
 		<%-- 			</c:if> --%>
 
@@ -52,15 +52,15 @@
 			<ul>
 				<li><a href="/qualityassessor/assessmentRequests">Review Requests</a></li>
 				<li><a href="/qualityassessor/productReviews">Product Reviews</a></li>
-				<li><a href="/qualityassessor/#">Colleague Reviews</a></li>
-				<li><a href="/qualityassessor/#">Environment Reviews</a></li>
-				<li><a href="/qualityassessor/#">Practice Reviews</a></li>
+				<li><a href="#">Colleague Reviews</a></li>
+				<li><a href="#">Environment Reviews</a></li>
+				<li><a href="#">Practice Reviews</a></li>
 			</ul></li>
 
 
 	</ul>
-	<div style="padding: 3px 10px; position: absolute; right: 220px;">
-		<img style="width: 12px; height: 12px" class="newDomain"
+	<div style="padding: 3px 10px; position: absolute; right: 220px;cursor:pointer">
+		<img style="width: 12px; height: 12px" 
 			src="/qualityassessor/images/plus.png"> <label style="color: white;">Create
 			Review</label>
 	</div>

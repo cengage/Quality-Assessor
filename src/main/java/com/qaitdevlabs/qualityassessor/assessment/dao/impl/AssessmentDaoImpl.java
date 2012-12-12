@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.qaitdevlabs.qualityassessor.assessment.dao.AssessmentDao;
 import com.qaitdevlabs.qualityassessor.dao.impl.GenericDaoImpl;
 import com.qaitdevlabs.qualityassessor.model.Assessment;
+import com.qaitdevlabs.qualityassessor.model.AssessmentInvitation;
 import com.qaitdevlabs.qualityassessor.model.Domain;
 import com.qaitdevlabs.qualityassessor.model.Product;
 import com.qaitdevlabs.qualityassessor.model.User;
@@ -23,7 +24,7 @@ public class AssessmentDaoImpl extends GenericDaoImpl<Assessment, Long>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Assessment getAssessment(User assessor, Product product, Domain domain) {
+	public Assessment getAssessment(User assessor, Product product, Domain domain, AssessmentInvitation invitation) {
 		Session session = null;
 		List<Assessment> assessments = null;
 		System.out.println(product.getProductId() + " " + assessor.getUserId());
@@ -33,6 +34,13 @@ public class AssessmentDaoImpl extends GenericDaoImpl<Assessment, Long>
 			criteria.add(Restrictions.eq("assessor", assessor));
 			criteria.add(Restrictions.eq("product", product));
 			criteria.add(Restrictions.eq("domain", domain));
+			if( invitation != null ){
+				criteria.add(Restrictions.eq("invitation", invitation));
+			}
+			else{
+				criteria.add(Restrictions.isNull("invitation"));
+			}
+			
 			assessments = criteria.list();
 		} catch (HibernateException e) {
 			e.printStackTrace();

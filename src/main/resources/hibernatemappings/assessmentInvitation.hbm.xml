@@ -18,12 +18,9 @@
 			<column name="ignoreInvitation" />
 		</property>
 		
-		<many-to-one name="domain"
-			class="com.qaitdevlabs.qualityassessor.model.Domain" column="domain_id"
-			lazy="false" />
-		<many-to-one name="user"
-			class="com.qaitdevlabs.qualityassessor.model.User" column="user_id"
-			lazy="false" />
+		<many-to-one name="productTemplateMap"
+			class="com.qaitdevlabs.qualityassessor.model.ProductTemplateMap" column="product_template_Map"
+			lazy="false"></many-to-one>
 		<many-to-one name="assessor"
 			class="com.qaitdevlabs.qualityassessor.model.User" column="assessor_id"
 			lazy="false" />

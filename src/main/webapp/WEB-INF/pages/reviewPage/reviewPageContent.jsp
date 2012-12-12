@@ -1,5 +1,8 @@
 <%@include file="/WEB-INF/pages/common/common-taglibs.jsp"%>
-<div style = "margin-left:80px;margin-top:50px">
+<div style="font-size: 17px;margin-left:80px;margin-top:30px">
+		<label class="topLabel"><strong>Product Reviews for ${requestScope.productName} on ${templateDTO.title}</strong></label>
+	</div>
+<div style = "margin-left:80px;margin-top:20px">
 <input id="productId" type = "hidden" value = "${requestScope.productId}"> 
 <table id="excelId" class="imagetable"
 		style="margin-top: 15px; border-color: #999999; border-style: solid;">

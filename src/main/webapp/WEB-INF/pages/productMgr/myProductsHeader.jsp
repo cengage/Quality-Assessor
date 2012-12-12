@@ -4,7 +4,8 @@ $(function(){
 
 	$("#addNewProductDomain").click(function(){
 		var tableHeading = $("#productTableHeadId");
-		var row = "<tr><td><input class = 'productId' value='' type = 'hidden' value=''><img class = 'saveOrUpdateImage' src = 'images/save.png'></td><td><img class = 'deleteImage' src = 'images/cross.png'></td><td><input class ='productName' type='text'></td><td><input class = 'productDescription' type='text'></td></tr>";
+		var row = "<tr><td><input class = 'productId' value='' type = 'hidden' value=''><img class = 'saveOrUpdateImage' src = 'images/save.png'></td>"+
+		"<td><img class = 'deleteImage' src = 'images/cross.png'></td><td><input class ='productName' type='text'></td><td><input class = 'productDescription' type='text'></td><td><a id ='linkId'  href='' style='padding:3px 13px;display:none' class='button-default'>Get this product to be reviewed</a></td></tr>";
 		tableHeading.after(row);
 	});
 	
@@ -35,6 +36,9 @@ $(function(){
 					productNameObj.css("border","none");
 					productDescriptionObj.attr("readonly","readonly");
 					productDescriptionObj.css("border", "none");
+					var linkToReview = row.find("#linkId"); 
+					linkToReview.show();
+					linkToReview.attr("href","templateSelectionView?productId="+productId);
 					},
 			error : function(jqXHR, textStatus, errorThrown) {
 						alert(jqXHR.responseText);

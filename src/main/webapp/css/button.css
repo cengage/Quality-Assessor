@@ -1,7 +1,7 @@
 .btn.primary {
 	height: 26px;
 	color: #ffffff;
-	background:#30576E;
+	background:#595959;
 	background-repeat: repeat-x;
 
 	/*   background-image: -khtml-gradient(linear, left top, left bottom, from(#29ADC0), to(#0E7A8A)); */
@@ -21,7 +21,7 @@
 
 .btn:hover {
 	background-position: 0 -15px;
-	background: #436F93;
+	background: #333333;
 	color: white;
 	text-decoration: none;
 }

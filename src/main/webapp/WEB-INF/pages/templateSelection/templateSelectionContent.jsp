@@ -19,7 +19,7 @@
 						Review</a>
 				</div>
 				<div style='display: inline; margin-right: 20px'>
-					<a href="assessments/#" class="button-default"
+					<a href="assessments/${item.productTemplateMapId}/invitation" class="button-default"
 						style="display: inline; padding: 3px 13px">Send Invitation</a>
 				</div>
 				<div style='display: inline; margin-right: 20px'>
@@ -39,7 +39,7 @@
 
 <div style="margin: 20px">
 	<form:form method="post" action="templateSelectionView"
-		onsubmit="checkChooseTemplate()" commandName="templateSelectionForm">
+		onsubmit="return checkChooseTemplate()" commandName="templateSelectionForm">
 		<div style="margin: 10px">
 			<div style="display: inline-block; width: 160px">Product</div>
 			<div style="display: inline">
@@ -105,8 +105,8 @@
 							class="newDomain" style="display: none"></td>
 						<td class="iconWidth"><img src="images/save.png"
 							class="saveDomain"></td>
-						<td class="iconWidth"><img src="images/cross.png"
-							class="deleteDomain"></td>
+<!-- 						<td class="iconWidth"><img src="images/cross.png" -->
+<!-- 							class="deleteDomain"></td> -->
 						<td class="titleClass"><span
 							class="spanTitle rootTitle expandDomain"></span><input
 							type="text" size="30" class="autoCompleteWiki"></td>
@@ -118,7 +118,7 @@
 			</div>
 
 		</div>
-		<div>
+		<div style="margin-top:20px;margin-bottom:30px">
 			<div style="display: inline">
 				<input style="display: inline; padding: 3px 13px"
 					class='button-default' type="submit" name="selfReview"
@@ -137,3 +137,5 @@
 		</div>
 	</form:form>
 </div>
+<div style="display:none;margin-top:25px;margin-left:15px;margin-right:15px" id="existingDomainDiv">
+		</div>

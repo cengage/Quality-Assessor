@@ -37,5 +37,6 @@
 		</table>
 	</c:forEach>
 </div>
-
+<div style="display:none;margin-top:25px;margin-left:15px;margin-right:15px" id="existingDomainDiv">
+		</div>
 </div>
