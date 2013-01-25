@@ -8,9 +8,12 @@
 			href='assessmentRequests?ignoreInvitation=true'>View ignored
 			invitations</a>
 	</div>
+	<c:if test = "${empty assessmentRequestList}">
+		<div style="margin:20px">You have not got any assessment request!!!</div>
+	</c:if>
 	<div style="padding-left: 20px;width:400px">
 		<c:forEach var="assessment" items="${assessmentRequestList}">
-			<div style='border-top: 1px solid #ccc; margin-top: 0px;'>
+			<div style='border-top: 1px solid #ccc; margin-top: 0px; margin-bottom:10px'>
 				<div
 					style='margin-bottom: 12px; margin-top: 6px; font-weight: bold; font-size: 13px'>
 					<div>${assessment.invitationDate}</div>

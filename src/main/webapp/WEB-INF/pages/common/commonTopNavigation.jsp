@@ -4,7 +4,7 @@
 <div id='cssmenu'>
 	<ul>
 
-		<li><a href='/qualityassessor/home'><span>Home</span></a></li>
+		<li><a style="padding:6px 2px 7px 1px" href='/qualityassessor/home'><span>Home</span></a></li>
 		<li class="has-sub"><a href='/qualityassessor/myTemplates'><span>Template
 					Management</span></a>
 
@@ -60,9 +60,10 @@
 
 	</ul>
 	<div style="padding: 3px 10px; position: absolute; right: 220px;cursor:pointer">
+		<a style="text-decoration:none;cursor:pointer" href="#">
 		<img style="width: 12px; height: 12px" 
-			src="/qualityassessor/images/plus.png"> <label style="color: white;">Create
-			Review</label>
+			src="/qualityassessor/images/plus.png"> <label style="color: white;cursor:pointer">Create
+			Review</label></a>
 	</div>
 	<div style="position: absolute; color: white; right: 10px;" id="search">
 		<input size="30" type="text">

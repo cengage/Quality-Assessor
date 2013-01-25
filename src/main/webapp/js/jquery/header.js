@@ -1,5 +1,8 @@
 $(function(){
 
+	var subClicked = $.cookie('sub-clicked');
+	$.cookie('sub-clicked',false);
+	//alert(subClicked);
 	if($.cookie('top-nav')==null){
 		//alert('dd');
 		$("#cssmenu > ul > li:nth-child(1)").css("background","grey");
@@ -14,7 +17,12 @@ $(function(){
 		if(subNavValue == null){
 			subNavValue = 1; 
 		}
-		$("#nav-"+topNavValue+" div:nth-child("+subNavValue+")").css("background","grey");
+		if(subClicked == "true"){
+			$("#nav-"+topNavValue+" div:nth-child("+subNavValue+")").css("background","grey");
+		}
+		if(subClicked == "false"){
+			$("#nav-"+topNavValue+" div:nth-child(1)").css("background","grey");
+		}
 //		$.cookie('top-nav', null);
 //		$.cookie('sub-nav', null);
 	}
@@ -26,6 +34,7 @@ $(function(){
 	
 	$('#cssmenu > ul > li > ul > li').click(function(){
 		$.cookie('sub-nav', $(this).index()+1);
+		$.cookie('sub-clicked',true);
 //		alert($(this).index());
 //		alert("ddf");
 	});
@@ -33,6 +42,7 @@ $(function(){
 	$('.leftNavigation .divNavigation').click(function(){
 		 $.cookie('sub-nav',$(this).index()+1);
 		 $.cookie('top-nav',$(this).parent().attr("id").split("nav-")[1]);
+		 $.cookie('sub-clicked',true);
 		
 	});
 	

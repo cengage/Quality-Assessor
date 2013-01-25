@@ -20,7 +20,7 @@
 
 .leftNavigation {
 	float: left;
-	width: 15%;
+	width: 17%;
 	background: none repeat scroll 0 0 #595959;
 	height : 700px;
 	margin : 2px -1px 0 2px;
@@ -28,7 +28,7 @@
 
 .content {
 	float: left;
-	width: 84%;
+	width: 82%;
 	height: 700px;
 	background: white;
 	margin: 2px;

@@ -14,7 +14,7 @@
 <div class="divNavigation"><a class="linkNavigation" href="/qualityassessor/myProducts">My Products</a></div>
 <div class="divNavigation"><a class="linkNavigation" href="/qualityassessor/domains?domainType=product">Product Templates</a></div>
 <div class="divNavigation"><a class="linkNavigation" href="/qualityassessor/domains?domainType=environment">Environment Templates</a></div>
-<div class="divNavigation"><a class="linkNavigation" href="Add">Product Reviews</a></div>
+<div class="divNavigation"><a class="linkNavigation" href="/qualityassessor/productReviews">Product Reviews</a></div>
 <div class="divNavigation"><a class="linkNavigation" href="Add">Environment Reviews</a></div>
 </div>
 <div id="nav-4" class = "not-active">

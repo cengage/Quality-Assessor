@@ -137,4 +137,10 @@ public class ProductController {
 		return isProductCorrespondToUser(product, user);
 	}
 	
+//	@RequestMapping(value = "/getProductById", method = RequestMethod.GET)
+//	public String getProductById(@RequestParam String productKey,ModelMap map, HttpServletRequest request) {
+//		Long productId = Long.valueOf(productKey);
+//		return productService.getProductById(productId);
+//	}
+	
 }

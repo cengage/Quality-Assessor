@@ -29,5 +29,5 @@
 #cssmenu > ul li:hover > ul {
 		display: block;
 	}
-	
+#cssmenu > ul > li > a > span{margin:4px}
 

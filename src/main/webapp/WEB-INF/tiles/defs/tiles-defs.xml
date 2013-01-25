@@ -100,5 +100,10 @@
 		<put-attribute name="header" value="/WEB-INF/pages/assessmentInvitation/invitationHeader.jsp" />
 		<put-attribute name="content" value="/WEB-INF/pages/assessmentInvitation/invitationView.jsp" />
 	</definition>
+	
+	<definition name="createReview" extends="common-layout">
+		<put-attribute name="header" value="" />
+		<put-attribute name="content" value="/WEB-INF/pages/createReview/createReviewContent.jsp" />
+	</definition>
 
 </tiles-definitions>

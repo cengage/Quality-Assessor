@@ -3,11 +3,11 @@
 
 
 tr {
-    height: 32px;
+    height: 60px;
     width: 800px;
 }
 td {
-    height: 32px;
+    height: 60px;
     width: 140px;
 }
 
