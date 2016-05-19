@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.qaitdevlabs.ptpat.model.Product" table="product">
+		<id name="productId" type="java.lang.Long">
+			<column name="product_id" />
+			<generator class="native" />
+		</id>
+
+		<property name="productCode" type="string" unique="true">
+			<column name="product_code" length="40" not-null="true" unique="true" />
+		</property>
+	</class>
+</hibernate-mapping>

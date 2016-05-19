@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.qaitdevlabs.ptpat.model.SubCategoryData" table="sub_category_data">
+		<id name="id" type="java.lang.Long">
+			<column name="id" />
+			<generator class="native" />
+		</id>
+
+		<property name="subCategoryRawData" type="string">
+			<column name="sub_category_raw_data" length="40" not-null="false" />
+		</property>
+
+		<property name="subCategoryTargetData" type="string">
+			<column name="sub_category_target_data" length="40" not-null="false" />
+		</property>
+
+		<property name="subCategoryCalculatedData" type="string">
+			<column name="sub_category_calculated_data" length="40"
+				not-null="false" />
+		</property>
+
+		<property name="createdDate" type="java.util.Date">
+			<column name="created_date" />
+		</property>
+
+		<property name="lastModifiedDate" type="java.util.Date">
+			<column name="last_modified_date" />
+		</property>
+
+		<many-to-one name="productCategory"
+			class="com.qaitdevlabs.ptpat.model.ProductCategory" column="product_category_id"
+			lazy="false" />
+
+		<many-to-one name="subCategory"
+			class="com.qaitdevlabs.ptpat.model.SubCategory" column="sub_category_id"
+			lazy="false" />
+
+	</class>
+</hibernate-mapping>

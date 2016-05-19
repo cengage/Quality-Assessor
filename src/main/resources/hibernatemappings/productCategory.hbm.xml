@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.qaitdevlabs.ptpat.model.ProductCategory" table="product_category">
+		<id name="productCtegoryId" type="java.lang.Long">
+			<column name="product_category_id" />
+			<generator class="native" />
+		</id>
+
+		<property name="categoryRawData" type="string" unique="true">
+			<column name="category_raw_data" length="40" not-null="false"
+				unique="true" />
+		</property>
+
+		<property name="categoryTargetData" type="string" unique="true">
+			<column name="category_target_data" length="40" not-null="false"
+				unique="true" />
+		</property>
+
+		<property name="createdDate" type="java.util.Date">
+			<column name="created_date" />
+		</property>
+
+		<property name="lastModifiedDate" type="java.util.Date">
+			<column name="last_modified_date" />
+		</property>
+
+		<many-to-one name="product" class="com.qaitdevlabs.ptpat.model.Product"
+			column="product_id" lazy="false" />
+
+		<many-to-one name="category" class="com.qaitdevlabs.ptpat.model.Category"
+			column="category_id" lazy="false" />
+
+	</class>
+</hibernate-mapping>
